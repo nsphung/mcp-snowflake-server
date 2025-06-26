@@ -76,6 +76,13 @@ def parse_args():
         nargs="+",
         help="List of tools to exclude",
     )
+    parser.add_argument(
+        "--exclude-json-results",
+        action="store_true",
+        dest="exclude_json_results",
+        default=False,
+        help="Exclude JSON output from results",
+    )
     
     parser.add_argument(
         "--private_key_path",
@@ -123,6 +130,7 @@ def parse_args():
         "log_level": args.log_level,
         "prefetch": args.prefetch,
         "exclude_tools": args.exclude_tools,
+        "exclude_json_results": args.exclude_json_results,
         "connection_name": getattr(args, 'connection_name', None),
         "connections_file": getattr(args, 'connections_file', None),
     }
@@ -189,6 +197,7 @@ def main():
             prefetch=server_args["prefetch"],
             log_level=server_args["log_level"],
             exclude_tools=server_args["exclude_tools"],
+            exclude_json_results=server_args["exclude_json_results"],
         )
     )
 
