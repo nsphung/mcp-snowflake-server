@@ -7,13 +7,13 @@ from typing import Any, Callable
 
 import mcp.server.stdio
 import mcp.types as types
-import yaml
 from mcp.server import NotificationOptions, Server
 from mcp.server.models import InitializationOptions
 from pydantic import AnyUrl, BaseModel
 
 from .db_client import SnowflakeDB
 from .write_detector import SQLWriteDetector
+from .serialization import to_yaml, to_json
 
 logging.basicConfig(
     level=logging.INFO,
@@ -23,16 +23,6 @@ logging.basicConfig(
 logger = logging.getLogger("mcp_snowflake_server")
 
 
-def data_to_yaml(data: Any) -> str:
-    return yaml.dump(data, indent=2, sort_keys=False)
-
-# Custom serializer that checks for 'date' type
-def data_json_serializer(obj):
-    from datetime import date, datetime
-    if isinstance(obj, date) or isinstance(obj, datetime):
-        return obj.isoformat()
-    else:
-        return obj
 
 
 def handle_tool_errors(func: Callable) -> Callable:
@@ -84,8 +74,8 @@ async def handle_list_databases(arguments, db, *_, exclusion_config=None):
         "data_id": data_id,
         "data": data,
     }
-    yaml_output = data_to_yaml(output)
-    json_output = json.dumps(output)
+    yaml_output = to_yaml(output)
+    json_output = to_json(output)
     return [
         types.TextContent(type="text", text=yaml_output),
         types.EmbeddedResource(
@@ -123,8 +113,8 @@ async def handle_list_schemas(arguments, db, *_, exclusion_config=None):
         "database": database,
         "data": data,
     }
-    yaml_output = data_to_yaml(output)
-    json_output = json.dumps(output)
+    yaml_output = to_yaml(output)
+    json_output = to_json(output)
     return [
         types.TextContent(type="text", text=yaml_output),
         types.EmbeddedResource(
@@ -169,8 +159,8 @@ async def handle_list_tables(arguments, db, *_, exclusion_config=None):
         "schema": schema,
         "data": data,
     }
-    yaml_output = data_to_yaml(output)
-    json_output = json.dumps(output)
+    yaml_output = to_yaml(output)
+    json_output = to_json(output)
     return [
         types.TextContent(type="text", text=yaml_output),
         types.EmbeddedResource(
@@ -210,8 +200,8 @@ async def handle_describe_table(arguments, db, *_):
         "table": table_name,
         "data": data,
     }
-    yaml_output = data_to_yaml(output)
-    json_output = json.dumps(output)
+    yaml_output = to_yaml(output)
+    json_output = to_json(output)
     return [
         types.TextContent(type="text", text=yaml_output),
         types.EmbeddedResource(
@@ -235,8 +225,8 @@ async def handle_read_query(arguments, db, write_detector, *_):
         "data_id": data_id,
         "data": data,
     }
-    yaml_output = data_to_yaml(output)
-    json_output = json.dumps(output, default=data_json_serializer)
+    yaml_output = to_yaml(output)
+    json_output = to_json(output)
     return [
         types.TextContent(type="text", text=yaml_output),
         types.EmbeddedResource(
@@ -367,7 +357,7 @@ async def main(
     write_detector = SQLWriteDetector()
 
     tables_info = (await prefetch_tables(db, connection_args)) if prefetch else {}
-    tables_brief = data_to_yaml(tables_info) if prefetch else ""
+    tables_brief = to_yaml(tables_info) if prefetch else ""
 
     all_tools = [
         Tool(
@@ -511,7 +501,7 @@ async def main(
         elif str(uri).startswith("context://table"):
             table_name = str(uri).split("/")[-1]
             if table_name in tables_info:
-                return data_to_yaml(tables_info[table_name])
+                return to_yaml(tables_info[table_name])
             else:
                 raise ValueError(f"Unknown table: {table_name}")
         else:
