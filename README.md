@@ -112,6 +112,7 @@ npx -y @smithery/cli install mcp_snowflake_server --client claude
       "--role", "your_role",
       "--database", "your_database",
       "--schema", "your_schema"
+      // Optionally: "--private_key_path", "your_private_key_absolute_path"
       // Optionally: "--allow_write"
       // Optionally: "--log_dir", "/absolute/path/to/logs"
       // Optionally: "--log_level", "DEBUG"/"INFO"/"WARNING"/"ERROR"/"CRITICAL"
@@ -143,6 +144,8 @@ SNOWFLAKE_DATABASE="xxx"
 SNOWFLAKE_SCHEMA="xxx"
 SNOWFLAKE_WAREHOUSE="xxx"
 SNOWFLAKE_PASSWORD="xxx"
+SNOWFLAKE_PASSWORD="xxx"
+SNOWFLAKE_PRIVATE_KEY_PATH=/absolute/path/key.p8
 # Alternatively, use external browser authentication:
 # SNOWFLAKE_AUTHENTICATOR="externalbrowser"
 ```
