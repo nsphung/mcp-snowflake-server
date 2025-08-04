@@ -98,6 +98,8 @@ npx -y @smithery/cli install mcp_snowflake_server --client claude
 
 ### Installing via UVX
 
+#### Traditional Configuration (Individual Parameters)
+
 ```json
 "mcpServers": {
   "snowflake_pip": {
@@ -116,6 +118,35 @@ npx -y @smithery/cli install mcp_snowflake_server --client claude
       // Optionally: "--log_dir", "/absolute/path/to/logs"
       // Optionally: "--log_level", "DEBUG"/"INFO"/"WARNING"/"ERROR"/"CRITICAL"
       // Optionally: "--exclude_tools", "{tool_name}", ["{other_tool_name}"]
+    ]
+  }
+}
+```
+
+#### TOML Configuration (Recommended)
+
+```json
+"mcpServers": {
+  "snowflake_production": {
+    "command": "uvx",
+    "args": [
+      "--python=3.12",
+      "mcp_snowflake_server",
+      "--connections-file", "/path/to/snowflake_connections.toml",
+      "--connection-name", "production"
+      // Optionally: "--allow_write"
+      // Optionally: "--log_dir", "/absolute/path/to/logs"
+      // Optionally: "--log_level", "DEBUG"/"INFO"/"WARNING"/"ERROR"/"CRITICAL"
+      // Optionally: "--exclude_tools", "{tool_name}", ["{other_tool_name}"]
+    ]
+  },
+  "snowflake_staging": {
+    "command": "uvx",
+    "args": [
+      "--python=3.12",
+      "mcp_snowflake_server",
+      "--connections-file", "/path/to/snowflake_connections.toml",
+      "--connection-name", "staging"
     ]
   }
 }
@@ -157,6 +188,8 @@ uv --directory /absolute/path/to/mcp_snowflake_server run mcp_snowflake_server
 
 6. Add the server to your `claude_desktop_config.json`:
 
+#### Traditional Configuration (Using Environment Variables)
+
 ```json
 "mcpServers": {
   "snowflake_local": {
@@ -165,6 +198,27 @@ uv --directory /absolute/path/to/mcp_snowflake_server run mcp_snowflake_server
       "--python=3.12",  // Optional
       "--directory", "/absolute/path/to/mcp_snowflake_server",
       "run", "mcp_snowflake_server"
+      // Optionally: "--allow_write"
+      // Optionally: "--log_dir", "/absolute/path/to/logs"
+      // Optionally: "--log_level", "DEBUG"/"INFO"/"WARNING"/"ERROR"/"CRITICAL"
+      // Optionally: "--exclude_tools", "{tool_name}", ["{other_tool_name}"]
+    ]
+  }
+}
+```
+
+#### TOML Configuration (Recommended)
+
+```json
+"mcpServers": {
+  "snowflake_local": {
+    "command": "/absolute/path/to/uv",
+    "args": [
+      "--python=3.12",
+      "--directory", "/absolute/path/to/mcp_snowflake_server",
+      "run", "mcp_snowflake_server",
+      "--connections-file", "/absolute/path/to/snowflake_connections.toml",
+      "--connection-name", "development"
       // Optionally: "--allow_write"
       // Optionally: "--log_dir", "/absolute/path/to/logs"
       // Optionally: "--log_level", "DEBUG"/"INFO"/"WARNING"/"ERROR"/"CRITICAL"
