@@ -1,12 +1,8 @@
-[![MseeP.ai Security Assessment Badge](https://mseep.net/pr/isaacwasserman-mcp-snowflake-server-badge.png)](https://mseep.ai/app/isaacwasserman-mcp-snowflake-server)
-
 # Snowflake MCP Server
-
-[![smithery badge](https://smithery.ai/badge/mcp_snowflake_server)](https://smithery.ai/server/mcp_snowflake_server) [![PyPI - Version](https://img.shields.io/pypi/dm/mcp-snowflake-server?color&logo=pypi&logoColor=white&label=PyPI%20downloads)](https://pypi.org/project/mcp-snowflake-server/)
-
 ---
 
 ## Overview
+
 A Model Context Protocol (MCP) server implementation that provides database interaction with Snowflake. This server enables running SQL queries via tools and exposes data insights and schema context as resources.
 
 ---
@@ -32,21 +28,23 @@ The server exposes the following tools:
 
 - **`read_query`**  
   Execute `SELECT` queries to read data from the database.  
-  **Input:**  
+  **Input:**
+
   - `query` (string): The `SELECT` SQL query to execute  
-  **Returns:** Query results as array of objects
+    **Returns:** Query results as array of objects
 
 - **`write_query`** (enabled only with `--allow-write`)  
   Execute `INSERT`, `UPDATE`, or `DELETE` queries.  
-  **Input:**  
+  **Input:**
+
   - `query` (string): The SQL modification query  
-  **Returns:** Number of affected rows or confirmation
+    **Returns:** Number of affected rows or confirmation
 
 - **`create_table`** (enabled only with `--allow-write`)  
   Create new tables in the database.  
-  **Input:**  
+  **Input:**
   - `query` (string): `CREATE TABLE` SQL statement  
-  **Returns:** Confirmation of table creation
+    **Returns:** Confirmation of table creation
 
 #### Schema Tools
 
@@ -56,31 +54,33 @@ The server exposes the following tools:
 
 - **`list_schemas`**  
   List all schemas within a specific database.  
-  **Input:**  
+  **Input:**
+
   - `database` (string): Name of the database  
-  **Returns:** Array of schema names
+    **Returns:** Array of schema names
 
 - **`list_tables`**  
   List all tables within a specific database and schema.  
-  **Input:**  
-  - `database` (string): Name of the database  
+  **Input:**
+
+  - `database` (string): Name of the database
   - `schema` (string): Name of the schema  
-  **Returns:** Array of table metadata
+    **Returns:** Array of table metadata
 
 - **`describe_table`**  
   View column information for a specific table.  
-  **Input:**  
+  **Input:**
   - `table_name` (string): Fully qualified table name (`database.schema.table`)  
-  **Returns:** Array of column definitions with names, types, nullability, defaults, and comments
+    **Returns:** Array of column definitions with names, types, nullability, defaults, and comments
 
 #### Analysis Tools
 
 - **`append_insight`**  
   Add new data insights to the memo resource.  
-  **Input:**  
+  **Input:**
   - `insight` (string): Data insight discovered from analysis  
-  **Returns:** Confirmation of insight addition  
-  **Effect:** Triggers update of `memo://insights` resource
+    **Returns:** Confirmation of insight addition  
+    **Effect:** Triggers update of `memo://insights` resource
 
 ---
 
@@ -97,6 +97,8 @@ npx -y @smithery/cli install mcp_snowflake_server --client claude
 ---
 
 ### Installing via UVX
+
+#### Traditional Configuration (Individual Parameters)
 
 ```json
 "mcpServers": {
@@ -117,6 +119,35 @@ npx -y @smithery/cli install mcp_snowflake_server --client claude
       // Optionally: "--log_dir", "/absolute/path/to/logs"
       // Optionally: "--log_level", "DEBUG"/"INFO"/"WARNING"/"ERROR"/"CRITICAL"
       // Optionally: "--exclude_tools", "{tool_name}", ["{other_tool_name}"]
+    ]
+  }
+}
+```
+
+#### TOML Configuration (Recommended)
+
+```json
+"mcpServers": {
+  "snowflake_production": {
+    "command": "uvx",
+    "args": [
+      "--python=3.12",
+      "mcp_snowflake_server",
+      "--connections-file", "/path/to/snowflake_connections.toml",
+      "--connection-name", "production"
+      // Optionally: "--allow_write"
+      // Optionally: "--log_dir", "/absolute/path/to/logs"
+      // Optionally: "--log_level", "DEBUG"/"INFO"/"WARNING"/"ERROR"/"CRITICAL"
+      // Optionally: "--exclude_tools", "{tool_name}", ["{other_tool_name}"]
+    ]
+  },
+  "snowflake_staging": {
+    "command": "uvx",
+    "args": [
+      "--python=3.12",
+      "mcp_snowflake_server",
+      "--connections-file", "/path/to/snowflake_connections.toml",
+      "--connection-name", "staging"
     ]
   }
 }
@@ -160,6 +191,8 @@ uv --directory /absolute/path/to/mcp_snowflake_server run mcp_snowflake_server
 
 6. Add the server to your `claude_desktop_config.json`:
 
+#### Traditional Configuration (Using Environment Variables)
+
 ```json
 "mcpServers": {
   "snowflake_local": {
@@ -168,6 +201,27 @@ uv --directory /absolute/path/to/mcp_snowflake_server run mcp_snowflake_server
       "--python=3.12",  // Optional
       "--directory", "/absolute/path/to/mcp_snowflake_server",
       "run", "mcp_snowflake_server"
+      // Optionally: "--allow_write"
+      // Optionally: "--log_dir", "/absolute/path/to/logs"
+      // Optionally: "--log_level", "DEBUG"/"INFO"/"WARNING"/"ERROR"/"CRITICAL"
+      // Optionally: "--exclude_tools", "{tool_name}", ["{other_tool_name}"]
+    ]
+  }
+}
+```
+
+#### TOML Configuration (Recommended)
+
+```json
+"mcpServers": {
+  "snowflake_local": {
+    "command": "/absolute/path/to/uv",
+    "args": [
+      "--python=3.12",
+      "--directory", "/absolute/path/to/mcp_snowflake_server",
+      "run", "mcp_snowflake_server",
+      "--connections-file", "/absolute/path/to/snowflake_connections.toml",
+      "--connection-name", "development"
       // Optionally: "--allow_write"
       // Optionally: "--log_dir", "/absolute/path/to/logs"
       // Optionally: "--log_level", "DEBUG"/"INFO"/"WARNING"/"ERROR"/"CRITICAL"
