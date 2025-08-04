@@ -1,5 +1,4 @@
-# Snowflake MCP Server (DataOps.live Edition)
-
+# Snowflake MCP Server
 ---
 
 ## Overview
