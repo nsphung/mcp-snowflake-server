@@ -76,12 +76,20 @@ def parse_args():
         nargs="+",
         help="List of tools to exclude",
     )
+    
+    parser.add_argument(
+        "--private_key_path",
+        required=False,
+        help="Path to private key file for authentication",
+    )
+    
     parser.add_argument(
         "--connection-name",
         required=False,
         default=None,
         help="Name of the connection to use from the TOML file",
     )
+    
     parser.add_argument(
         "--connections-file",
         required=False,
@@ -119,6 +127,10 @@ def parse_args():
         "connections_file": getattr(args, 'connections_file', None),
     }
 
+    # Add private_key_path if provided
+    if args.private_key_path:
+        connection_args["private_key_path"] = args.private_key_path
+
     return server_args, connection_args
 
 
@@ -134,6 +146,11 @@ def main():
         for k in default_connection_args
         if os.getenv("SNOWFLAKE_" + k.upper()) is not None
     }
+
+    # Add private key path from environment if available
+    private_key_path = os.getenv("SNOWFLAKE_PRIVATE_KEY_PATH")
+    if private_key_path:
+        connection_args_from_env["private_key_path"] = private_key_path
 
     server_args, connection_args = parse_args()
 
