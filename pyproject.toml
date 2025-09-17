@@ -12,6 +12,8 @@ dependencies = [
     "sqlparse>=0.5.3",
     "snowflake-snowpark-python>=1.26.0",
     "tomli>=2.0.1",
+    "cryptography<43",
+    "pyOpenSSL>=24.0.0",
 ]
 
 [build-system]
