@@ -1,0 +1,28 @@
+Fork notice and attribution
+===========================
+
+This repository (`nsphung/mcp-snowflake-server`) is forked from:
+
+- https://github.com/isaacwasserman/mcp-snowflake-server
+
+License
+-------
+
+This project is distributed under the GNU General Public License v3.0.
+See the `LICENSE` file in the repository root for the complete license text.
+
+Attribution
+-----------
+
+Upstream authors and contributors retain copyright to their contributions.
+Fork-specific contributions are authored by `nsphung` unless otherwise noted in
+git history.
+
+Notable fork-specific modifications
+-----------------------------------
+
+- Added Snowflake key-pair authentication support.
+- Updated environment variable and CLI guidance for private key file usage.
+- Added project quality/dev workflow files for this fork branch.
+
+Last updated: 2026-04-21

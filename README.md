@@ -251,4 +251,15 @@ uv --directory /absolute/path/to/mcp_snowflake_server run mcp_snowflake_server
 
 ## License
 
-MIT
+This project is licensed under the **GNU General Public License v3.0**. See the
+[`LICENSE`](./LICENSE) file for the full text.
+
+## Fork and attribution
+
+This repository is a fork of
+[`isaacwasserman/mcp-snowflake-server`](https://github.com/isaacwasserman/mcp-snowflake-server).
+
+- Upstream project and prior contributors retain copyright for their
+  contributions.
+- Fork-specific changes are maintained by `nsphung`.
+- A summary of notable fork modifications is tracked in [`NOTICE`](./NOTICE).
