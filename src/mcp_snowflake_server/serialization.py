@@ -3,11 +3,12 @@ Simple serialization utilities for Snowflake data types.
 Handles both JSON and YAML serialization consistently.
 """
 
-from datetime import date
-import pandas as pd
-from decimal import Decimal
-import math
 import json
+import math
+from datetime import date
+from decimal import Decimal
+
+import pandas as pd
 import yaml
 
 
@@ -37,9 +38,7 @@ def _yaml_representer(dumper, data):
     if serialized is None:
         return dumper.represent_scalar("tag:yaml.org,2002:null", "")
     elif isinstance(serialized, bool):
-        return dumper.represent_scalar(
-            "tag:yaml.org,2002:bool", str(serialized).lower()
-        )
+        return dumper.represent_scalar("tag:yaml.org,2002:bool", str(serialized).lower())
     elif isinstance(serialized, int):
         return dumper.represent_scalar("tag:yaml.org,2002:int", str(serialized))
     elif isinstance(serialized, float):

@@ -8,8 +8,8 @@ install: ## Uv install dependencies and set up the development environment
 	uv sync --group dev --active
 
 ruff: ## Run Ruff on all the code and autofix when possible
-	ruff check . --fix
 	ruff format .
+	ruff check . --fix
 
 run: ## Run mcp_snowflake_server locally
 	uv --directory . run mcp_snowflake_server
