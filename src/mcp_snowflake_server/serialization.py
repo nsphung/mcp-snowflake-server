@@ -12,11 +12,13 @@ import pandas as pd
 import yaml
 
 
-def _serialize_value(obj):
+def _serialize_value(obj: object) -> object:
     """Convert Snowflake-specific types to serializable values"""
-    if isinstance(obj, date):
-        return obj.isoformat()
+    if obj is pd.NaT:
+        return None
     elif isinstance(obj, pd.Timestamp):
+        return obj.isoformat()
+    elif isinstance(obj, date):
         return obj.isoformat()
     elif isinstance(obj, Decimal):
         return float(obj)
@@ -26,12 +28,12 @@ def _serialize_value(obj):
         return obj
 
 
-def json_serializer(obj):
+def json_serializer(obj: object) -> object:
     """JSON serializer for Snowflake types"""
     return _serialize_value(obj)
 
 
-def _yaml_representer(dumper, data):
+def _yaml_representer(dumper: yaml.Dumper, data: object) -> yaml.Node:
     """YAML representer for Snowflake types"""
     serialized = _serialize_value(data)
 
@@ -53,18 +55,20 @@ class SnowflakeDumper(yaml.SafeDumper):
 
 
 # Register all Snowflake types with YAML
-SnowflakeDumper.add_representer(date, _yaml_representer)
-SnowflakeDumper.add_representer(pd.Timestamp, _yaml_representer)
-SnowflakeDumper.add_representer(Decimal, _yaml_representer)
-SnowflakeDumper.add_representer(float, _yaml_representer)
+SnowflakeDumper.add_representer(date, _yaml_representer)  # type: ignore[arg-type]
+SnowflakeDumper.add_representer(pd.Timestamp, _yaml_representer)  # type: ignore[arg-type]
+SnowflakeDumper.add_representer(type(pd.NaT), _yaml_representer)  # type: ignore[arg-type]
+SnowflakeDumper.add_representer(Decimal, _yaml_representer)  # type: ignore[arg-type]
+SnowflakeDumper.add_representer(float, _yaml_representer)  # type: ignore[arg-type]
 
 
 # Public API
-def to_yaml(data) -> str:
+def to_yaml(data: object) -> str:
     """Convert data to YAML with Snowflake type handling"""
-    return yaml.dump(data, Dumper=SnowflakeDumper, indent=2, sort_keys=False)
+    result = yaml.dump(data, Dumper=SnowflakeDumper, indent=2, sort_keys=False)
+    return result if result is not None else ""
 
 
-def to_json(data) -> str:
+def to_json(data: object) -> str:
     """Convert data to JSON with Snowflake type handling"""
     return json.dumps(data, default=json_serializer, indent=2)

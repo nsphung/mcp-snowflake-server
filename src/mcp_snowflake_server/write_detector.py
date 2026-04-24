@@ -4,7 +4,7 @@ from sqlparse.tokens import DDL, DML, Keyword
 
 
 class SQLWriteDetector:
-    def __init__(self):
+    def __init__(self) -> None:
         # Define sets of keywords that indicate write operations
         self.dml_write_keywords = {
             "INSERT",

@@ -3,17 +3,18 @@ import asyncio
 import logging
 import os
 import tomllib
+from typing import Any, cast
 
 import dotenv
 import snowflake.connector
 
-from . import server
+from . import server, write_detector
 
 
 logger = logging.getLogger("mcp_snowflake_server")
 
 
-def load_connection_from_toml(toml_file: str, connection_name: str) -> dict:
+def load_connection_from_toml(toml_file: str, connection_name: str) -> dict[str, Any]:
     """Load connection configuration from a TOML file.
 
     Args:
@@ -42,10 +43,10 @@ def load_connection_from_toml(toml_file: str, connection_name: str) -> dict:
     else:
         raise KeyError(f"Connection '{connection_name}' not found in TOML file")
 
-    return connection_config
+    return cast(dict[str, Any], connection_config)
 
 
-def parse_args():
+def parse_args() -> tuple[dict[str, Any], dict[str, Any]]:
     parser = argparse.ArgumentParser()
 
     # Add arguments
@@ -154,7 +155,7 @@ def parse_args():
     return server_args, connection_args
 
 
-def main():
+def main() -> None:
     """Main entry point for the package."""
 
     dotenv.load_dotenv()

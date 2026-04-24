@@ -9,3 +9,9 @@ connections.toml
 .vscode/
 notebooks/
 private_key*.txt
+.dmypy.json
+__pycache__/
+.mypy_cache/
+.pytest_cache/
+.coverage
+htmlcov/
