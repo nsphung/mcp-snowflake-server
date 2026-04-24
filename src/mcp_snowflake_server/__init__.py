@@ -2,17 +2,19 @@ import argparse
 import asyncio
 import logging
 import os
+import tomllib
+from typing import Any, cast
 
 import dotenv
 import snowflake.connector
-import tomllib
 
-from . import server
+from . import server, write_detector
+
 
 logger = logging.getLogger("mcp_snowflake_server")
 
 
-def load_connection_from_toml(toml_file: str, connection_name: str) -> dict:
+def load_connection_from_toml(toml_file: str, connection_name: str) -> dict[str, Any]:
     """Load connection configuration from a TOML file.
 
     Args:
@@ -41,10 +43,10 @@ def load_connection_from_toml(toml_file: str, connection_name: str) -> dict:
     else:
         raise KeyError(f"Connection '{connection_name}' not found in TOML file")
 
-    return connection_config
+    return cast(dict[str, Any], connection_config)
 
 
-def parse_args():
+def parse_args() -> tuple[dict[str, Any], dict[str, Any]]:
     parser = argparse.ArgumentParser()
 
     # Add arguments
@@ -55,12 +57,8 @@ def parse_args():
         action="store_true",
         help="Allow write operations on the database",
     )
-    parser.add_argument(
-        "--log_dir", required=False, default=None, help="Directory to log to"
-    )
-    parser.add_argument(
-        "--log_level", required=False, default="INFO", help="Logging level"
-    )
+    parser.add_argument("--log_dir", required=False, default=None, help="Directory to log to")
+    parser.add_argument("--log_level", required=False, default="INFO", help="Logging level")
     parser.add_argument(
         "--prefetch",
         action="store_true",
@@ -157,7 +155,7 @@ def parse_args():
     return server_args, connection_args
 
 
-def main():
+def main() -> None:
     """Main entry point for the package."""
 
     dotenv.load_dotenv()
@@ -188,9 +186,7 @@ def main():
         connection_name = server_args["connection_name"]
 
         try:
-            toml_connection_args = load_connection_from_toml(
-                connections_file, connection_name
-            )
+            toml_connection_args = load_connection_from_toml(connections_file, connection_name)
             # TOML config takes precedence, then command line args, then environment variables
             connection_args = {
                 **connection_args_from_env,
@@ -202,9 +198,7 @@ def main():
 
     elif server_args.get("connections_file") or server_args.get("connection_name"):
         # If only one of the TOML parameters is provided, show an error
-        raise ValueError(
-            "Both --connections-file and --connection-name must be provided together"
-        )
+        raise ValueError("Both --connections-file and --connection-name must be provided together")
 
     else:
         # Use traditional configuration method

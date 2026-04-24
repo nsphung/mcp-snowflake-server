@@ -1,11 +1,10 @@
 import sqlparse
 from sqlparse.sql import TokenList
-from sqlparse.tokens import Keyword, DML, DDL
-from typing import Dict, Set
+from sqlparse.tokens import DDL, DML, Keyword
 
 
 class SQLWriteDetector:
-    def __init__(self):
+    def __init__(self) -> None:
         # Define sets of keywords that indicate write operations
         self.dml_write_keywords = {
             "INSERT",
@@ -21,11 +20,9 @@ class SQLWriteDetector:
         self.dcl_keywords = {"GRANT", "REVOKE"}
 
         # Combine all write keywords
-        self.write_keywords = (
-            self.dml_write_keywords | self.ddl_keywords | self.dcl_keywords
-        )
+        self.write_keywords = self.dml_write_keywords | self.ddl_keywords | self.dcl_keywords
 
-    def analyze_query(self, sql_query: str) -> Dict:
+    def analyze_query(self, sql_query: str) -> dict:
         """
         Analyze a SQL query to determine if it contains write operations.
 
@@ -69,10 +66,7 @@ class SQLWriteDetector:
 
     def _has_cte(self, statement: TokenList) -> bool:
         """Check if the statement has a WITH clause."""
-        return any(
-            token.is_keyword and token.normalized == "WITH"
-            for token in statement.tokens
-        )
+        return any(token.is_keyword and token.normalized == "WITH" for token in statement.tokens)
 
     def _analyze_cte(self, statement: TokenList) -> bool:
         """
@@ -84,13 +78,11 @@ class SQLWriteDetector:
             if token.is_keyword and token.normalized == "WITH":
                 in_cte = True
             elif in_cte:
-                if any(
-                    write_kw in token.normalized for write_kw in self.write_keywords
-                ):
+                if any(write_kw in token.normalized for write_kw in self.write_keywords):
                     return True
         return False
 
-    def _find_write_operations(self, statement: TokenList) -> Set[str]:
+    def _find_write_operations(self, statement: TokenList) -> set[str]:
         """
         Find all write operations in a statement.
         Returns a set of found write operation keywords.
