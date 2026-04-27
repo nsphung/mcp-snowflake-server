@@ -1,9 +1,14 @@
 [project]
-name = "mcp_snowflake_server"
+name = "mcp-snowflake-server-nsp"
 version = "0.5.1"
-description = "A simple Snowflake MCP server"
+description = "A Snowflake MCP server — SQL queries, schema exploration, and data insights for AI assistants"
 readme = "README.md"
+license = { file = "LICENSE" }
 requires-python = ">=3.13"
+authors = [
+    { name = "nsphung", email = "nsphung@users.noreply.github.com" },
+]
+
 dependencies = [
     "mcp>=1.0.0",
     "snowflake-connector-python[pandas]==4.4.0",
@@ -12,6 +17,32 @@ dependencies = [
     "sqlparse>=0.5.3",
     "snowflake-snowpark-python==1.49.0",
 ]
+
+keywords = [
+    "mcp",
+    "snowflake",
+    "llm",
+    "ai",
+    "model-context-protocol",
+    "sql",
+]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: Developers",
+    "License :: OSI Approved :: GNU General Public License v3 (GPLv3)",
+    "Operating System :: OS Independent",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.13",
+    "Topic :: Database",
+    "Topic :: Scientific/Engineering :: Artificial Intelligence",
+    "Topic :: Software Development :: Libraries :: Python Modules",
+]
+
+[project.urls]
+Homepage = "https://github.com/nsphung/mcp-snowflake-server"
+Repository = "https://github.com/nsphung/mcp-snowflake-server"
+Issues = "https://github.com/nsphung/mcp-snowflake-server/issues"
+Changelog = "https://github.com/nsphung/mcp-snowflake-server/blob/main/CHANGELOG.md"
 
 [build-system]
 requires = ["hatchling"]

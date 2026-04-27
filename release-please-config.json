@@ -4,12 +4,12 @@
   "packages": {
     ".": {
       "release-type": "python",
-      "package-name": "mcp-snowflake-server",
+      "package-name": "mcp-snowflake-server-nsp",
       "extra-files": [
         {
           "type": "toml",
           "path": "uv.lock",
-          "jsonpath": "$.package[?(@.name.value=='mcp-snowflake-server')].version"
+          "jsonpath": "$.package[?(@.name.value=='mcp-snowflake-server-nsp')].version"
         }
       ]
     }

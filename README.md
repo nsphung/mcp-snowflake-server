@@ -1,4 +1,4 @@
-[![made-with-python](https://img.shields.io/badge/Made%20with-Python-1f425f.svg)](https://www.python.org/) [![python-3.13+](https://img.shields.io/badge/Python-%3E%3D3.13-blue)](https://www.python.org/) [![Ruff](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/astral-sh/ruff/main/assets/badge/v2.json)](https://github.com/astral-sh/ruff) [![Checked with mypy](https://img.shields.io/badge/mypy-checked-blue)](http://mypy-lang.org/) [![codecov](https://codecov.io/gh/nsphung/mcp-snowflake-server/graph/badge.svg?token=CODECOV_BADGE)](https://codecov.io/gh/nsphung/mcp-snowflake-server) [![Ask DeepWiki](https://deepwiki.com/badge.svg)](https://deepwiki.com/nsphung/mcp-snowflake-server)
+[![PyPI](https://img.shields.io/pypi/v/mcp-snowflake-server-nsp)](https://pypi.org/project/mcp-snowflake-server-nsp/) [![made-with-python](https://img.shields.io/badge/Made%20with-Python-1f425f.svg)](https://www.python.org/) [![python-3.13+](https://img.shields.io/badge/Python-%3E%3D3.13-blue)](https://www.python.org/) [![Ruff](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/astral-sh/ruff/main/assets/badge/v2.json)](https://github.com/astral-sh/ruff) [![Checked with mypy](https://img.shields.io/badge/mypy-checked-blue)](http://mypy-lang.org/) [![codecov](https://codecov.io/gh/nsphung/mcp-snowflake-server/graph/badge.svg?token=CODECOV_BADGE)](https://codecov.io/gh/nsphung/mcp-snowflake-server) [![Ask DeepWiki](https://deepwiki.com/badge.svg)](https://deepwiki.com/nsphung/mcp-snowflake-server)
 
 # Snowflake MCP Server
 
@@ -63,7 +63,7 @@ role = "MYROLE"
 EOF
 
 # 2. Run the server
-uvx --python=3.13 mcp_snowflake_server \
+uvx --python=3.13 --from mcp-snowflake-server-nsp mcp_snowflake_server \
   --connections-file ~/snowflake_connections.toml \
   --connection-name myconn
 ```
@@ -76,6 +76,7 @@ Add to your MCP client config (e.g. `claude_desktop_config.json`):
     "command": "uvx",
     "args": [
       "--python=3.13",
+      "--from", "mcp-snowflake-server-nsp",
       "mcp_snowflake_server",
       "--connections-file", "/absolute/path/to/snowflake_connections.toml",
       "--connection-name", "myconn"
@@ -203,6 +204,8 @@ Pass the file with `--connections-file` and select a profile with `--connection-
 
 ## Installation
 
+The package is published on [PyPI as `mcp-snowflake-server-nsp`](https://pypi.org/project/mcp-snowflake-server-nsp/).
+
 ---
 
 ### Via UVX
@@ -216,6 +219,7 @@ Pass the file with `--connections-file` and select a profile with `--connection-
     "command": "uvx",
     "args": [
       "--python=3.13",
+      "--from", "mcp-snowflake-server-nsp",
       "mcp_snowflake_server",
       "--connections-file", "/path/to/snowflake_connections.toml",
       "--connection-name", "production"
@@ -226,6 +230,7 @@ Pass the file with `--connections-file` and select a profile with `--connection-
     "command": "uvx",
     "args": [
       "--python=3.13",
+      "--from", "mcp-snowflake-server-nsp",
       "mcp_snowflake_server",
       "--connections-file", "/path/to/snowflake_connections.toml",
       "--connection-name", "staging"
@@ -245,6 +250,7 @@ Pass the file with `--connections-file` and select a profile with `--connection-
     "command": "uvx",
     "args": [
       "--python=3.13",
+      "--from", "mcp-snowflake-server-nsp",
       "mcp_snowflake_server",
       "--account", "your_account",
       "--warehouse", "your_warehouse",

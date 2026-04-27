@@ -40,5 +40,9 @@ Notable fork-specific modifications
 - Added GitHub Actions CI: lint checks, test runs, and codecov coverage
   reporting.
 - Added `release-please` for automated changelog and release management.
+- Renamed PyPI package to `mcp-snowflake-server-nsp` and enriched project
+  metadata (license, authors, keywords, classifiers, project URLs).
+- Added GitHub Actions workflow for automated PyPI publishing via OIDC trusted
+  publishing with Sigstore attestations.
 
 Last updated: 2026-04-27
