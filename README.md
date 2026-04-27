@@ -2,8 +2,8 @@
 [![python-3.13](https://img.shields.io/badge/Python-%203.13%20-blue)](https://www.python.org/)
 [![Ruff](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/astral-sh/ruff/main/assets/badge/v2.json)](https://github.com/astral-sh/ruff)
 [![Checked with mypy](https://img.shields.io/badge/mypy-checked-blue)](http://mypy-lang.org/)
+[![codecov](https://codecov.io/gh/nsphung/mcp-snowflake-server/graph/badge.svg?token=CODECOV_BADGE)](https://codecov.io/gh/nsphung/mcp-snowflake-server)
 [![Ask DeepWiki](https://deepwiki.com/badge.svg)](https://deepwiki.com/nsphung/mcp-snowflake-server)
-[![MseeP.ai Security Assessment Badge](https://mseep.net/pr/isaacwasserman-mcp-snowflake-server-badge.png)](https://mseep.ai/app/isaacwasserman-mcp-snowflake-server)
 
 # Snowflake MCP Server
 ---
@@ -12,9 +12,38 @@
 
 A Model Context Protocol (MCP) server implementation that provides database interaction with Snowflake. This server enables running SQL queries via tools and exposes data insights and schema context as resources.
 
+- [Snowflake MCP Server](#snowflake-mcp-server)
+  - [Overview](#overview)
+  - [Deepwiki Documentation](#deepwiki-documentation)
+  - [Sunburst Test Coverage](#sunburst-test-coverage)
+  - [Components](#components)
+    - [Resources](#resources)
+    - [Tools](#tools)
+      - [Query Tools](#query-tools)
+      - [Schema Tools](#schema-tools)
+      - [Analysis Tools](#analysis-tools)
+  - [Usage with Claude Desktop](#usage-with-claude-desktop)
+    - [Installing via Smithery](#installing-via-smithery)
+    - [Installing via UVX](#installing-via-uvx)
+      - [Traditional Configuration (Individual Parameters)](#traditional-configuration-individual-parameters)
+      - [TOML Configuration (Recommended)](#toml-configuration-recommended)
+    - [Installing Locally](#installing-locally)
+      - [Traditional Configuration (Using Environment Variables)](#traditional-configuration-using-environment-variables)
+      - [TOML Configuration (Recommended)](#toml-configuration-recommended-1)
+  - [Notes](#notes)
+  - [License](#license)
+  - [Fork and attribution](#fork-and-attribution)
+
+
 ---
 
-## Deepwiki Documentation [![Ask DeepWiki](https://deepwiki.com/badge.svg)](https://deepwiki.com/nsphung/mcp-snowflake-server)
+## Deepwiki Documentation 
+
+Checkout documentation on [![Ask DeepWiki](https://deepwiki.com/badge.svg)](https://deepwiki.com/nsphung/mcp-snowflake-server)
+
+## Sunburst Test Coverage
+
+![Sunburst Test coverage](https://codecov.io/github/nsphung/mcp-snowflake-server/graphs/sunburst.svg?token=DSOJN7JOON)
 
 ## Components
 
@@ -261,6 +290,8 @@ This project is licensed under the **GNU General Public License v3.0**. See the
 
 This repository is a fork of
 [`isaacwasserman/mcp-snowflake-server`](https://github.com/isaacwasserman/mcp-snowflake-server).
+
+[![MseeP.ai Security Assessment Badge](https://mseep.net/pr/isaacwasserman-mcp-snowflake-server-badge.png)](https://mseep.ai/app/isaacwasserman-mcp-snowflake-server)
 
 - Upstream project and prior contributors retain copyright for their
   contributions.
