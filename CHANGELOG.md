@@ -1,5 +1,22 @@
 # Changelog
 
+## [0.6.0](https://github.com/nsphung/mcp-snowflake-server/compare/v0.5.1...v0.6.0) (2026-04-27)
+
+
+### Features
+
+* Add pypi publish ([d2a92e9](https://github.com/nsphung/mcp-snowflake-server/commit/d2a92e9716a1ac40289436680c928497cde5468d))
+
+
+### Bug Fixes
+
+* fix release please component in tag ([1c6cb25](https://github.com/nsphung/mcp-snowflake-server/commit/1c6cb254a65b10644db28326c1a74b3f8200001c))
+
+
+### Documentation
+
+* fix links ([92a0e14](https://github.com/nsphung/mcp-snowflake-server/commit/92a0e14eeb5d321b1bbe46d115ab3a24d2ab8323))
+
 ## [0.5.1](https://github.com/nsphung/mcp-snowflake-server/compare/v0.5.0...v0.5.1) (2026-04-27)
 
 
