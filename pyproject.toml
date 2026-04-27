@@ -1,6 +1,6 @@
 [project]
 name = "mcp-snowflake-server-nsp"
-version = "0.6.0"
+version = "0.6.1"
 description = "A Snowflake MCP server — SQL queries, schema exploration, and data insights for AI assistants"
 readme = "README.md"
 license = { file = "LICENSE" }

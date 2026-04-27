@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.6.1](https://github.com/nsphung/mcp-snowflake-server/compare/v0.6.0...v0.6.1) (2026-04-27)
+
+
+### Bug Fixes
+
+* distribution name ([257f72a](https://github.com/nsphung/mcp-snowflake-server/commit/257f72afc409825f0edaa2c0e10e641d7af0409c))
+
 ## [0.6.0](https://github.com/nsphung/mcp-snowflake-server/compare/v0.5.1...v0.6.0) (2026-04-27)
 
 
