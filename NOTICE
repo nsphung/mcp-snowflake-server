@@ -5,6 +5,8 @@ This repository (`nsphung/mcp-snowflake-server`) is forked from:
 
 - https://github.com/isaacwasserman/mcp-snowflake-server
 
+Current fork version: 0.5.0 / 0.5.1
+
 License
 -------
 
@@ -21,8 +23,22 @@ git history.
 Notable fork-specific modifications
 -----------------------------------
 
-- Added Snowflake key-pair authentication support.
-- Updated environment variable and CLI guidance for private key file usage.
-- Added project quality/dev workflow files for this fork branch.
+- Added Snowflake key-pair authentication support (`--private_key_file`,
+  `--private_key_file_pwd` CLI flags and corresponding environment variables).
+- Added TOML multi-connection configuration support (`--connections-file`,
+  `--connection-name`) to manage multiple Snowflake environments in a single
+  file (see `example_connections.toml`).
+- Added `--exclude-json-results` CLI option to omit embedded JSON resources
+  from tool responses, reducing LLM context window usage.
+- Added `runtime_config.json` exclusion pattern support to filter databases,
+  schemas, and tables from discovery tools.
+- Added Dockerfile for containerised deployments.
+- Added Smithery integration for one-command Claude Desktop installation.
+- Added dev tooling: `ruff` (format + lint), `mypy` (static type checking),
+  `pre-commit` hooks, `pytest` + `pytest-asyncio` + `pytest-cov` (test suite
+  with branch coverage), and a `Makefile` for common workflows.
+- Added GitHub Actions CI: lint checks, test runs, and codecov coverage
+  reporting.
+- Added `release-please` for automated changelog and release management.
 
-Last updated: 2026-04-21
+Last updated: 2026-04-27
