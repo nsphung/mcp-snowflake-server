@@ -1,6 +1,6 @@
 [project]
 name = "mcp_snowflake_server"
-version = "0.5.1"
+version = "0.5.2"
 description = "A simple Snowflake MCP server"
 readme = "README.md"
 requires-python = ">=3.13"
