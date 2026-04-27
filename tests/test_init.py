@@ -1,9 +1,10 @@
 import pathlib
 import sys
+from types import SimpleNamespace
 
 import pytest
 
-from mcp_snowflake_server import load_connection_from_toml, parse_args
+from mcp_snowflake_server import load_connection_from_toml, main, parse_args
 
 
 def write_toml(path: pathlib.Path, content: str) -> None:
@@ -70,3 +71,101 @@ def test_parse_args_extra_connection_kwargs(monkeypatch: pytest.MonkeyPatch) -> 
     _, connection_args = parse_args()
     assert connection_args["account"] == "myaccount"
     assert connection_args["user"] == "bob"
+
+
+def test_parse_args_private_key_options(monkeypatch: pytest.MonkeyPatch) -> None:
+    monkeypatch.setattr(
+        sys,
+        "argv",
+        [
+            "prog",
+            "--private_key_file",
+            "/tmp/key.p8",
+            "--private_key_file_pwd",
+            "secret",
+        ],
+    )
+    _, connection_args = parse_args()
+    assert connection_args["private_key_file"] == "/tmp/key.p8"
+    assert connection_args["private_key_file_pwd"] == "secret"
+
+
+def test_parse_args_connection_file_and_name(monkeypatch: pytest.MonkeyPatch) -> None:
+    monkeypatch.setattr(
+        sys,
+        "argv",
+        ["prog", "--connections-file", "connections.toml", "--connection-name", "dev"],
+    )
+    server_args, _ = parse_args()
+    assert server_args["connections_file"] == "connections.toml"
+    assert server_args["connection_name"] == "dev"
+
+
+def test_main_requires_both_toml_args(monkeypatch: pytest.MonkeyPatch) -> None:
+    monkeypatch.setattr(sys, "argv", ["prog", "--connections-file", "connections.toml"])
+    with pytest.raises(ValueError, match="must be provided together"):
+        main()
+
+
+def test_main_asserts_missing_database(monkeypatch: pytest.MonkeyPatch) -> None:
+    monkeypatch.setattr(
+        "mcp_snowflake_server.os.getenv",
+        lambda key: "PUBLIC" if key == "SNOWFLAKE_SCHEMA" else None,
+    )
+    monkeypatch.setattr(sys, "argv", ["prog"])
+    with pytest.raises(AssertionError, match="database"):
+        main()
+
+
+def test_main_asserts_missing_schema(monkeypatch: pytest.MonkeyPatch) -> None:
+    monkeypatch.setattr(
+        "mcp_snowflake_server.os.getenv",
+        lambda key: "MYDB" if key == "SNOWFLAKE_DATABASE" else None,
+    )
+    monkeypatch.setattr(sys, "argv", ["prog"])
+    with pytest.raises(AssertionError, match="schema"):
+        main()
+
+
+def test_main_uses_toml_precedence_and_runs_server(
+    monkeypatch: pytest.MonkeyPatch, tmp_path: pathlib.Path
+) -> None:
+    toml_file = tmp_path / "connections.toml"
+    write_toml(
+        toml_file,
+        '[dev]\ndatabase = "TOML_DB"\nschema = "TOML_SCHEMA"\nuser = "toml_user"\n',
+    )
+
+    monkeypatch.setenv("SNOWFLAKE_DATABASE", "ENV_DB")
+    monkeypatch.setenv("SNOWFLAKE_SCHEMA", "ENV_SCHEMA")
+    monkeypatch.setenv("SNOWFLAKE_USER", "env_user")
+    monkeypatch.setenv("SNOWFLAKE_PRIVATE_KEY_FILE", "/env/key.p8")
+    monkeypatch.setenv("SNOWFLAKE_PRIVATE_KEY_FILE_PWD", "env-secret")
+    monkeypatch.setattr(
+        sys,
+        "argv",
+        [
+            "prog",
+            "--connections-file",
+            str(toml_file),
+            "--connection-name",
+            "dev",
+            "--user",
+            "cli_user",
+        ],
+    )
+
+    captured: dict[str, object] = {}
+
+    async def fake_server_main(**kwargs: object) -> None:
+        captured.update(kwargs)
+
+    monkeypatch.setattr("mcp_snowflake_server.server", SimpleNamespace(main=fake_server_main))
+
+    main()
+
+    connection_args = captured["connection_args"]
+    assert isinstance(connection_args, dict)
+    assert connection_args["database"] == "TOML_DB"
+    assert connection_args["schema"] == "TOML_SCHEMA"
+    assert connection_args["user"] == "toml_user"

@@ -1,4 +1,5 @@
 import pytest
+import sqlparse
 
 from mcp_snowflake_server.write_detector import SQLWriteDetector
 
@@ -59,3 +60,26 @@ def test_cte_write_detected(detector: SQLWriteDetector) -> None:
 def test_case_insensitive(detector: SQLWriteDetector) -> None:
     result = detector.analyze_query("insert into foo values (1)")
     assert result["contains_write"] is True
+
+
+def test_has_cte_detected(detector: SQLWriteDetector) -> None:
+    statement = sqlparse.parse("WITH c AS (SELECT 1) SELECT * FROM c")[0]
+    assert detector._has_cte(statement) is True
+
+
+def test_analyze_query_adds_cte_write_when_helpers_report_it(
+    detector: SQLWriteDetector, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    monkeypatch.setattr(detector, "_has_cte", lambda _stmt: True)
+    monkeypatch.setattr(detector, "_analyze_cte", lambda _stmt: True)
+    monkeypatch.setattr(detector, "_find_write_operations", lambda _stmt: set())
+
+    result = detector.analyze_query("SELECT 1")
+    assert result["has_cte_write"] is True
+    assert result["contains_write"] is True
+    assert "CTE_WRITE" in result["write_operations"]
+
+
+def test_analyze_cte_returns_false_without_write(detector: SQLWriteDetector) -> None:
+    statement = sqlparse.parse("WITH c AS (SELECT 1) SELECT * FROM c")[0]
+    assert detector._analyze_cte(statement) is False

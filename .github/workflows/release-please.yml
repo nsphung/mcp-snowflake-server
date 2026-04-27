@@ -21,6 +21,7 @@ jobs:
           # (PAT) and configured it as a GitHub action secret named
           # `MY_RELEASE_PLEASE_TOKEN` (this secret name is not important).
           token: ${{ secrets.MY_RELEASE_PLEASE_TOKEN }}
-          # this is a built-in strategy in release-please, see "Action Inputs"
-          # for more options
-          release-type: python
+          # Use manifest mode so release-please-config.json can manage extra-files
+          # (including uv.lock version updates).
+          config-file: release-please-config.json
+          manifest-file: .release-please-manifest.json

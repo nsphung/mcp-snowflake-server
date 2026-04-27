@@ -1,3 +1,4 @@
+import asyncio
 import time
 from unittest.mock import MagicMock, patch
 
@@ -130,3 +131,45 @@ def test_add_and_get_memo() -> None:
     db.add_insight("Table X has 100 rows")
     memo = db.get_memo()
     assert "Table X has 100 rows" in memo
+
+
+async def test_start_init_connection_sets_task(monkeypatch: pytest.MonkeyPatch) -> None:
+    db = SnowflakeDB({})
+
+    async def fake_init(self: SnowflakeDB) -> None:
+        self.auth_time = time.time()
+
+    monkeypatch.setattr(SnowflakeDB, "_init_database", fake_init)
+    task = db.start_init_connection()
+    await task
+    assert db.init_task is task
+
+
+async def test_execute_query_waits_for_pending_init_task(
+    patched_sql: dict, snowpark_session: object
+) -> None:
+    db = SnowflakeDB({})
+    db.session = snowpark_session
+
+    done: list[bool] = []
+
+    async def wait_then_mark() -> None:
+        await asyncio.sleep(0)
+        done.append(True)
+
+    db.init_task = asyncio.create_task(wait_then_mark())
+    patched_sql["SELECT 9"] = lambda s: s.create_dataframe([[9]], schema=["N"])
+
+    rows, _ = await db.execute_query("SELECT 9")
+    assert done
+    assert rows == [{"N": 9}]
+
+
+def test_get_memo_multiple_insights_has_summary() -> None:
+    db = SnowflakeDB({})
+    db.add_insight("A")
+    db.add_insight("B")
+    memo = db.get_memo()
+    assert "A" in memo
+    assert "B" in memo
+    assert "Summary:" in memo

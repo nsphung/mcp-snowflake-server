@@ -1,6 +1,6 @@
 import json
 import math
-from datetime import date
+from datetime import date, time
 from decimal import Decimal
 
 import pandas as pd
@@ -76,3 +76,12 @@ def test_to_yaml_decimal_as_float() -> None:
 def test_to_yaml_empty_dict() -> None:
     result = to_yaml({})
     assert isinstance(result, str)
+
+
+def test_serialize_value_binary_passthrough() -> None:
+    assert _serialize_value(b"abc") == b"abc"
+    assert _serialize_value(bytearray(b"abc")) == bytearray(b"abc")
+
+
+def test_serialize_value_time_passthrough() -> None:
+    assert _serialize_value(time(12, 34, 56)) == time(12, 34, 56)
