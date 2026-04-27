@@ -1,6 +1,6 @@
 # Changelog
 
-## [0.5.1](https://github.com/nsphung/mcp-snowflake-server/compare/mcp-snowflake-server-v0.5.0...mcp-snowflake-server-v0.5.1) (2026-04-27)
+## [0.5.1](https://github.com/nsphung/mcp-snowflake-server/compare/v0.5.0...v0.5.1) (2026-04-27)
 
 
 ### Features
