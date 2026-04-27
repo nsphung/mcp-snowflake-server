@@ -1,4 +1,6 @@
+import importlib.metadata
 import pathlib
+import tomllib
 from collections.abc import AsyncIterator, Awaitable, Callable
 from contextlib import asynccontextmanager
 from typing import Any, cast
@@ -656,4 +658,48 @@ async def test_server_main_runs_with_fake_stdio(monkeypatch: pytest.MonkeyPatch)
         exclude_tools=["write_query"],
         exclude_patterns={"tables": ["tmp"]},
         exclude_json_results=True,
+    )
+
+
+# ── package metadata lookup ────────────────────────────────────────────────────
+
+
+def test_package_metadata_name_matches_pyproject() -> None:
+    """Ensure the distribution name used in importlib.metadata.version() matches pyproject.toml.
+
+    This guards against renames of the package that would cause a
+    PackageNotFoundError at runtime.
+    """
+    pyproject_path = pathlib.Path(__file__).parent.parent / "pyproject.toml"
+    with pyproject_path.open("rb") as f:
+        pyproject = tomllib.load(f)
+
+    dist_name: str = pyproject["project"]["name"]
+
+    # Should not raise PackageNotFoundError
+    version = importlib.metadata.version(dist_name)
+    assert version, f"Expected a non-empty version for distribution '{dist_name}'"
+
+
+def test_server_uses_correct_package_name_for_metadata() -> None:
+    """Static check: the name passed to importlib.metadata.version() in server.py
+    must match the distribution name declared in pyproject.toml.
+
+    This test does not require the package to be installed and catches
+    copy-paste or rename mistakes before runtime.
+    """
+    pyproject_path = pathlib.Path(__file__).parent.parent / "pyproject.toml"
+    with pyproject_path.open("rb") as f:
+        pyproject = tomllib.load(f)
+    dist_name: str = pyproject["project"]["name"]
+
+    server_path = (
+        pathlib.Path(__file__).parent.parent / "src" / "mcp_snowflake_server" / "server.py"
+    )
+    server_source = server_path.read_text()
+
+    # The source must contain a version() call with the exact distribution name
+    assert f'importlib.metadata.version("{dist_name}")' in server_source, (
+        f'server.py does not call importlib.metadata.version("{dist_name}"). '
+        f'Ensure the distribution name matches pyproject.toml (name = "{dist_name}").'
     )
