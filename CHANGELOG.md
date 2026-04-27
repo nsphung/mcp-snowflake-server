@@ -1,5 +1,17 @@
 # Changelog
 
+## [0.5.1](https://github.com/nsphung/mcp-snowflake-server/compare/v0.5.0...v0.5.1) (2026-04-27)
+
+
+### Features
+
+* Add gh actions lint ([6f7f0c2](https://github.com/nsphung/mcp-snowflake-server/commit/6f7f0c281630a5e3b2a0ec7298fab8f413c2e62c))
+
+
+### Miscellaneous Chores
+
+* release 0.5.1 ([d3dab53](https://github.com/nsphung/mcp-snowflake-server/commit/d3dab53bd036740c4b4fff7fa3735c73a8751c41))
+
 ## 0.5.0 (2026-04-27)
 
 
