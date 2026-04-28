@@ -21,6 +21,9 @@ A [Model Context Protocol (MCP)](https://modelcontextprotocol.io/) server / MCP 
 - [Snowflake MCP Server](#snowflake-mcp-server)
   - [Table of Contents](#table-of-contents)
   - [Quick Start](#quick-start)
+    - [Claude Code](#claude-code)
+    - [Visual Studio Code (VSCode)](#visual-studio-code-vscode)
+    - [OpenCode](#opencode)
   - [Components](#components)
     - [Resources](#resources)
     - [Tools](#tools)
@@ -34,7 +37,8 @@ A [Model Context Protocol (MCP)](https://modelcontextprotocol.io/) server / MCP 
     - [TOML Connection File (Recommended)](#toml-connection-file-recommended)
   - [Installation](#installation)
     - [Via UVX](#via-uvx)
-    - [Locally from Source](#locally-from-source)
+    - [Locally from Source with VSCode](#locally-from-source-with-vscode)
+    - [Locally from Source with Claude](#locally-from-source-with-claude)
     - [Docker](#docker)
   - [Configuration Reference](#configuration-reference)
   - [Exclusion Patterns](#exclusion-patterns)
@@ -68,7 +72,8 @@ uvx --python=3.13 --from mcp-snowflake-server-nsp mcp_snowflake_server \
   --connection-name myconn
 ```
 
-Add to your MCP client config (e.g. `claude_desktop_config.json`):
+### Claude Code
+Add to your MCP client config (e.g. `claude_desktop_config.json`) using `snowflake_connections.toml`:
 
 ```jsonc
 "mcpServers": {
@@ -82,6 +87,39 @@ Add to your MCP client config (e.g. `claude_desktop_config.json`):
       "--connection-name", "myconn"
     ]
   }
+}
+```
+
+### Visual Studio Code (VSCode)
+Add to your MCP client config (e.g. `.vscode/mcp.json`) using `.env` file (see [Authentication](#authentication)):
+```jsonc
+"snowflake": {
+      // Snowflake MCP server
+      "type": "stdio",
+      "command": "uvx",
+      "args": [
+        "--from", "mcp-snowflake-server-nsp",
+        "--python=3.13",
+        "mcp_snowflake_server"
+      ],
+      "envFile": "${workspaceFolder}/.env"
+    }
+```
+
+### OpenCode
+Add to your MCP client config (e.g. `opencode.jsonc`) with `.env` file (see [Authentication](#authentication)):
+```jsonc
+"snowflake": {
+  "type": "local",
+  "command": [
+    "uvx",
+    "--from",
+    "mcp-snowflake-server-nsp",
+    "--python=3.13",
+    "mcp_snowflake_server",
+  ],
+  "enabled": true,
+  "timeout": 300000,
 }
 ```
 
@@ -271,7 +309,80 @@ The package is published on [PyPI as `mcp-snowflake-server-nsp`](https://pypi.or
 
 ---
 
-### Locally from Source
+### Locally from Source with VSCode
+
+* Install [Visual Studio Code](https://code.visualstudio.com/)
+* Install `uv`:
+
+   ```bash
+   curl -LsSf https://astral.sh/uv/install.sh | sh
+   ```
+* Create a `.env` file with your Snowflake credentials (or use a TOML connection file — see [Authentication](#authentication)):
+
+   ```bash
+   SNOWFLAKE_USER="user@example.com"
+   SNOWFLAKE_ACCOUNT="myaccount"
+   SNOWFLAKE_ROLE="MYROLE"
+   SNOWFLAKE_DATABASE="MY_DB"
+   SNOWFLAKE_SCHEMA="PUBLIC"
+   SNOWFLAKE_WAREHOUSE="COMPUTE_WH"
+   SNOWFLAKE_PASSWORD="secret"
+   # Key-pair alternative:
+   # SNOWFLAKE_PRIVATE_KEY_FILE=/absolute/path/key.p8
+   # SNOWFLAKE_PRIVATE_KEY_FILE_PWD="passphrase"
+   # Browser SSO alternative:
+   # SNOWFLAKE_AUTHENTICATOR="externalbrowser"
+   ```
+* *(Optional)* Edit [`runtime_config.json`](./runtime_config.json) to exclude specific databases, schemas, or tables (see [Exclusion Patterns](#exclusion-patterns)).
+
+* Test locally:
+
+   ```bash
+   uv --directory /absolute/path/to/mcp_snowflake_server run mcp_snowflake_server
+   ```
+
+* Add to `.vscode/mcp.json`:
+
+<details>
+<summary><strong>TOML configuration (recommended)</strong></summary>
+
+```jsonc
+"snowflake-local": {
+    "type": "stdio",
+    "command": "/absolute/path/to/uv",
+    "args": [
+      "--python=3.13",
+      "--directory", "/absolute/path/to/mcp_snowflake_server",
+      "run", "mcp_snowflake_server",
+      "--connections-file", "/absolute/path/to/snowflake_connections.toml",
+      "--connection-name", "development"
+      // Optional flags — see Configuration Reference
+    ],
+}
+```
+
+</details>
+
+<details>
+<summary><strong>Environment variables</strong></summary>
+
+```jsonc
+"snowflake-local": {
+    "type": "stdio",
+    "command": "/absolute/path/to/uv",
+    "args": [
+      "--python=3.13",
+      "--directory", "/absolute/path/to/mcp_snowflake_server",
+      "run", "mcp_snowflake_server",
+      // Optional flags — see Configuration Reference / .env.example file
+    ],
+    "envFile": "/absolute/path/to/.env"
+}
+```
+
+</details>
+
+### Locally from Source with Claude
 
 1. Install [Claude AI Desktop App](https://claude.ai/download)
 
