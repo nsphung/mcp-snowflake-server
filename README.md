@@ -206,7 +206,7 @@ Or in a TOML connection entry: `authenticator = "externalbrowser"`
 
 ### TOML Connection File (Recommended)
 
-Manage multiple environments in a single file. See [`example_connections.toml`](./example_connections.toml) for a full template.
+Manage multiple environments in a single file. See [`example_connections.toml`](https://github.com/nsphung/mcp-snowflake-server/blob/main/example_connections.toml) for a full template.
 
 ```toml
 [production]
@@ -335,7 +335,7 @@ The package is published on [PyPI as `mcp-snowflake-server-nsp`](https://pypi.or
    # Browser SSO alternative:
    # SNOWFLAKE_AUTHENTICATOR="externalbrowser"
    ```
-* *(Optional)* Edit [`runtime_config.json`](./runtime_config.json) to exclude specific databases, schemas, or tables (see [Exclusion Patterns](#exclusion-patterns)).
+* *(Optional)* Edit [`runtime_config.json`](https://github.com/nsphung/mcp-snowflake-server/blob/main/runtime_config.json) to exclude specific databases, schemas, or tables (see [Exclusion Patterns](#exclusion-patterns)).
 
 * Test locally:
 
@@ -411,7 +411,7 @@ The package is published on [PyPI as `mcp-snowflake-server-nsp`](https://pypi.or
    # SNOWFLAKE_AUTHENTICATOR="externalbrowser"
    ```
 
-4. *(Optional)* Edit [`runtime_config.json`](./runtime_config.json) to exclude specific databases, schemas, or tables (see [Exclusion Patterns](#exclusion-patterns)).
+4. *(Optional)* Edit [`runtime_config.json`](https://github.com/nsphung/mcp-snowflake-server/blob/main/runtime_config.json) to exclude specific databases, schemas, or tables (see [Exclusion Patterns](#exclusion-patterns)).
 
 5. Test locally:
 
@@ -523,7 +523,7 @@ All connection parameters can also be set as environment variables (`SNOWFLAKE_<
 
 ## Exclusion Patterns
 
-Edit [`runtime_config.json`](./runtime_config.json) to exclude databases, schemas, or tables from all discovery tools. Patterns are matched case-insensitively as substrings.
+Edit [`runtime_config.json`](https://github.com/nsphung/mcp-snowflake-server/blob/main/runtime_config.json) to exclude databases, schemas, or tables from all discovery tools. Patterns are matched case-insensitively as substrings.
 
 ```json
 {
@@ -576,7 +576,7 @@ Requires [`uv`](https://github.com/astral-sh/uv). Dev dependencies include `ruff
 
 ## License
 
-This project is licensed under the **GNU General Public License v3.0**. See the [`LICENSE`](./LICENSE) file for the full text.
+This project is licensed under the **GNU General Public License v3.0**. See the [`LICENSE`](https://github.com/nsphung/mcp-snowflake-server/blob/main/LICENSE) file for the full text.
 
 ---
 
@@ -588,4 +588,4 @@ This repository is a fork of [`isaacwasserman/mcp-snowflake-server`](https://git
 
 - Upstream authors and contributors retain copyright for their contributions.
 - Fork-specific changes are maintained by `nsphung`.
-- A summary of notable modifications is tracked in [`NOTICE`](./NOTICE).
+- A summary of notable modifications is tracked in [`NOTICE`](https://github.com/nsphung/mcp-snowflake-server/blob/main/NOTICE).

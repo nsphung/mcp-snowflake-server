@@ -5,7 +5,7 @@ This repository (`nsphung/mcp-snowflake-server`) is forked from:
 
 - https://github.com/isaacwasserman/mcp-snowflake-server
 
-Current fork version: 0.5.1
+Current fork version: 0.7.0
 
 License
 -------
@@ -44,5 +44,10 @@ Notable fork-specific modifications
   metadata (license, authors, keywords, classifiers, project URLs).
 - Added GitHub Actions workflow for automated PyPI publishing via OIDC trusted
   publishing with Sigstore attestations.
+- Published server to the MCP registry (`server.json`).
+- Added VSCode and OpenCode quick-start configuration examples in README.
+- Added PyPI download and MCP-compatible badges.
+- Fixed README relative links to use absolute GitHub URLs for correct rendering
+  on PyPI.
 
-Last updated: 2026-04-27
+Last updated: 2026-04-28
