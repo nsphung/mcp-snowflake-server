@@ -1,5 +1,18 @@
 # Changelog
 
+## [0.7.0](https://github.com/nsphung/mcp-snowflake-server/compare/v0.6.1...v0.7.0) (2026-04-28)
+
+
+### Features
+
+* Add PyPI shields ([6f58434](https://github.com/nsphung/mcp-snowflake-server/commit/6f58434e85b690b143d400db4ce24a1e1e361cd0))
+* Publish in MCP registry ([20864c6](https://github.com/nsphung/mcp-snowflake-server/commit/20864c6454c5479dc2e1651dd344e710b871a692))
+
+
+### Documentation
+
+* Add VScode / OpenCode setup ([f7c1602](https://github.com/nsphung/mcp-snowflake-server/commit/f7c160279d3d26334e0652819be259f7b810f0ca))
+
 ## [0.6.1](https://github.com/nsphung/mcp-snowflake-server/compare/v0.6.0...v0.6.1) (2026-04-27)
 
 
