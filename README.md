@@ -4,6 +4,8 @@
 
 A [Model Context Protocol (MCP)](https://modelcontextprotocol.io/) server / MCP server that connects AI assistants to Snowflake — enabling SQL queries, schema exploration, and data insights directly from your LLM client.
 
+<!-- mcp-name: io.github.nsphung/mcp-snowflake-server -->
+
 **Highlights:**
 - Multiple authentication methods: password, key-pair, external browser, TOML connection files
 - TOML multi-connection config — manage `production`, `staging`, and `development` environments in one file
