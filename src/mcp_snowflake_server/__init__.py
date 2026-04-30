@@ -1,5 +1,6 @@
 import argparse
 import asyncio
+import importlib.metadata
 import logging
 import os
 import tomllib
@@ -155,28 +156,119 @@ def parse_args() -> tuple[dict[str, Any], dict[str, Any]]:
     return server_args, connection_args
 
 
-def main() -> None:
-    """Main entry point for the package."""
-
-    dotenv.load_dotenv()
-
+def _connection_args_from_env() -> dict[str, Any]:
+    """Build a connection-args dict from SNOWFLAKE_* environment variables."""
     default_connection_args = snowflake.connector.connection.DEFAULT_CONFIGURATION
-
-    connection_args_from_env = {
+    args: dict[str, Any] = {
         k: os.getenv("SNOWFLAKE_" + k.upper())
         for k in default_connection_args
         if os.getenv("SNOWFLAKE_" + k.upper()) is not None
     }
 
-    # Add private key path from environment if available
-    private_key_file = os.getenv("SNOWFLAKE_PRIVATE_KEY_FILE")
-    if private_key_file:
-        connection_args_from_env["private_key_file"] = private_key_file
+    # Keys not in DEFAULT_CONFIGURATION that require explicit handling
+    _optional_extras = {
+        "private_key_file": "SNOWFLAKE_PRIVATE_KEY_FILE",
+        "private_key_file_pwd": "SNOWFLAKE_PRIVATE_KEY_FILE_PWD",
+        "oauth_client_id": "SNOWFLAKE_OAUTH_CLIENT_ID",
+        "oauth_client_secret": "SNOWFLAKE_OAUTH_CLIENT_SECRET",
+        "oauth_token_request_url": "SNOWFLAKE_OAUTH_TOKEN_REQUEST_URL",
+        "oauth_scope": "SNOWFLAKE_OAUTH_SCOPE",
+    }
+    for key, env_var in _optional_extras.items():
+        value = os.getenv(env_var)
+        if value:
+            args[key] = value
 
-    # Add private key passphrase from environment if available
-    private_key_file_pwd = os.getenv("SNOWFLAKE_PRIVATE_KEY_FILE_PWD")
-    if private_key_file_pwd:
-        connection_args_from_env["private_key_file_pwd"] = private_key_file_pwd
+    return args
+
+
+# Authenticator type → list of mandatory connection keys.
+# "snowflake" (password-based) is the default when no authenticator is specified.
+_AUTHENTICATOR_REQUIRED_PARAMS: dict[str, list[str]] = {
+    "snowflake": ["account", "user", "password"],
+    "externalbrowser": ["account", "user"],
+    "snowflake_jwt": ["account", "user"],  # + private_key_file or private_key
+    "oauth": ["account", "token"],
+    "oauth_client_credentials": [
+        "account",
+        "oauth_client_id",
+        "oauth_client_secret",
+        "oauth_token_request_url",
+    ],
+}
+
+
+def _validate_connection_args(connection_args: dict[str, Any]) -> None:
+    """Validate that all mandatory parameters are present for the chosen authenticator.
+
+    Raises ``ValueError`` with an actionable message (logged to stderr) so
+    that MCP clients receive a clear startup-failure signal instead of a
+    silent crash or an opaque ``AssertionError``.
+    """
+
+    def _missing(key: str, hint: str) -> None:
+        msg = f"Missing required connection parameter '{key}'. {hint}"
+        logger.error(msg)
+        raise ValueError(msg)
+
+    # -- common mandatory params regardless of authenticator -----------------
+    if "database" not in connection_args:
+        _missing(
+            "database",
+            'Provide via "--database" argument, "SNOWFLAKE_DATABASE" env var, or TOML file.',
+        )
+    if "schema" not in connection_args:
+        _missing(
+            "schema",
+            'Provide via "--schema" argument, "SNOWFLAKE_SCHEMA" env var, or TOML file.',
+        )
+
+    # -- authenticator is optional; default to 'snowflake' for backward compat --
+    if "authenticator" not in connection_args:
+        valid = ", ".join(_AUTHENTICATOR_REQUIRED_PARAMS)
+        logger.warning(
+            "'authenticator' was not specified; defaulting to 'snowflake'. "
+            'Please provide it explicitly via "--authenticator" argument, '
+            '"SNOWFLAKE_AUTHENTICATOR" env var, or TOML file. '
+            f"Valid values: {valid}."
+        )
+        connection_args["authenticator"] = "snowflake"
+    authenticator = connection_args["authenticator"].lower()
+
+    # -- authenticator-specific mandatory params -----------------------------
+    required_keys = _AUTHENTICATOR_REQUIRED_PARAMS.get(authenticator)
+    if required_keys is None:
+        # Unknown authenticator – let Snowflake connector handle it, but warn.
+        logger.warning("Unknown authenticator '%s'; skipping parameter validation.", authenticator)
+        return
+
+    for key in required_keys:
+        if key not in connection_args:
+            env_hint = f'"SNOWFLAKE_{key.upper()}" env var'
+            _missing(
+                key,
+                f"Required for authenticator '{authenticator}'. Set via "
+                f'"--{key}" argument, {env_hint}, or TOML file.',
+            )
+
+    # snowflake_jwt needs at least one of private_key_file / private_key
+    if authenticator == "snowflake_jwt":
+        if "private_key_file" not in connection_args and "private_key" not in connection_args:
+            msg = (
+                "Key-pair authentication (snowflake_jwt) requires 'private_key_file' or "
+                "'private_key'. Provide via \"--private_key_file\" argument, "
+                '"SNOWFLAKE_PRIVATE_KEY_FILE" env var, or TOML file.'
+            )
+            logger.error(msg)
+            raise ValueError(msg)
+
+
+def main() -> None:
+    """Main entry point for the package."""
+
+    dotenv.load_dotenv()
+
+    connection_args_from_env = _connection_args_from_env()
 
     server_args, connection_args = parse_args()
 
@@ -204,16 +296,12 @@ def main() -> None:
         # Use traditional configuration method
         connection_args = {**connection_args_from_env, **connection_args}
 
-    assert "database" in connection_args, (
-        'You must provide the database as "--database" argument, "SNOWFLAKE_DATABASE" environment variable, or in the TOML file.'
-    )
-    assert "schema" in connection_args, (
-        'You must provide the schema as "--schema" argument, "SNOWFLAKE_SCHEMA" environment variable, or in the TOML file.'
-    )
+    _validate_connection_args(connection_args)
 
     logger.info(
-        "Starting MCP Snowflake Server with AUTHENTICATOR='%s'",
+        "Starting MCP Snowflake Server with AUTHENTICATOR='%s' with Version='%s'",
         connection_args.get("authenticator", "?"),
+        importlib.metadata.version("mcp-snowflake-server-nsp"),
     )
 
     asyncio.run(

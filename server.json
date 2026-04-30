@@ -69,7 +69,7 @@
           "name": "SNOWFLAKE_ROLE"
         },
         {
-          "description": "Authentication type (e.g. snowflake, externalbrowser)",
+          "description": "Authentication method. Defaults to 'snowflake' if not set. Valid values: snowflake, externalbrowser, snowflake_jwt, oauth, oauth_client_credentials",
           "isRequired": false,
           "format": "string",
           "isSecret": false,
@@ -88,6 +88,41 @@
           "format": "string",
           "isSecret": true,
           "name": "SNOWFLAKE_PRIVATE_KEY_FILE_PWD"
+        },
+        {
+          "description": "OAuth 2.0 client ID (required for oauth_client_credentials authenticator)",
+          "isRequired": false,
+          "format": "string",
+          "isSecret": false,
+          "name": "SNOWFLAKE_OAUTH_CLIENT_ID"
+        },
+        {
+          "description": "OAuth 2.0 client secret (required for oauth_client_credentials authenticator)",
+          "isRequired": false,
+          "format": "string",
+          "isSecret": true,
+          "name": "SNOWFLAKE_OAUTH_CLIENT_SECRET"
+        },
+        {
+          "description": "OAuth 2.0 token endpoint URL (required for oauth_client_credentials authenticator)",
+          "isRequired": false,
+          "format": "string",
+          "isSecret": false,
+          "name": "SNOWFLAKE_OAUTH_TOKEN_REQUEST_URL"
+        },
+        {
+          "description": "OAuth 2.0 scope (optional, e.g. session:role:MY_ROLE)",
+          "isRequired": false,
+          "format": "string",
+          "isSecret": false,
+          "name": "SNOWFLAKE_OAUTH_SCOPE"
+        },
+        {
+          "description": "Pre-fetched OAuth bearer token (required for oauth authenticator)",
+          "isRequired": false,
+          "format": "string",
+          "isSecret": true,
+          "name": "SNOWFLAKE_TOKEN"
         }
       ],
       "packageArguments": [
@@ -136,8 +171,7 @@
         {
           "type": "named",
           "name": "--authenticator",
-          "description": "Authentication type (e.g. snowflake, externalbrowser)",
-          "default": "snowflake",
+          "description": "Authentication method. Defaults to 'snowflake' if not set. Valid values: snowflake, externalbrowser, snowflake_jwt, oauth, oauth_client_credentials",
           "isRequired": false
         },
         {

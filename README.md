@@ -7,7 +7,7 @@ A [Model Context Protocol (MCP)](https://modelcontextprotocol.io/) server / MCP 
 <!-- mcp-name: io.github.nsphung/mcp-snowflake-server -->
 
 **Highlights:**
-- Multiple authentication methods: password, key-pair, external browser, TOML connection files
+- Multiple authentication methods: password, key-pair, external browser, OAuth 2.0 (client credentials & bearer token), TOML connection files
 - TOML multi-connection config — manage `production`, `staging`, and `development` environments in one file
 - Write-safety guard — write operations are disabled by default and must be explicitly enabled
 - Exclusion patterns — filter out databases, schemas, or tables from discovery
@@ -36,6 +36,8 @@ A [Model Context Protocol (MCP)](https://modelcontextprotocol.io/) server / MCP 
     - [Password](#password)
     - [Key-Pair](#key-pair)
     - [External Browser](#external-browser)
+    - [OAuth 2.0 Client Credentials](#oauth-20-client-credentials)
+    - [OAuth Bearer Token](#oauth-bearer-token)
     - [TOML Connection File (Recommended)](#toml-connection-file-recommended)
   - [Installation](#installation)
     - [Via UVX](#via-uvx)
@@ -174,6 +176,7 @@ Set credentials via environment variables or CLI flags (see [Configuration Refer
 ```bash
 SNOWFLAKE_USER="user@example.com"
 SNOWFLAKE_ACCOUNT="myaccount"
+SNOWFLAKE_AUTHENTICATOR="snowflake"
 SNOWFLAKE_PASSWORD="secret"
 SNOWFLAKE_WAREHOUSE="COMPUTE_WH"
 SNOWFLAKE_DATABASE="MY_DB"
@@ -186,6 +189,7 @@ SNOWFLAKE_ROLE="MYROLE"
 ```bash
 SNOWFLAKE_USER="user@example.com"
 SNOWFLAKE_ACCOUNT="myaccount"
+SNOWFLAKE_AUTHENTICATOR="snowflake_jwt"
 SNOWFLAKE_PRIVATE_KEY_FILE="/absolute/path/to/key.p8"
 SNOWFLAKE_PRIVATE_KEY_FILE_PWD="passphrase"  # Optional — only if key is encrypted
 SNOWFLAKE_WAREHOUSE="COMPUTE_WH"
@@ -204,6 +208,37 @@ SNOWFLAKE_AUTHENTICATOR="externalbrowser"
 
 Or in a TOML connection entry: `authenticator = "externalbrowser"`
 
+### OAuth 2.0 Client Credentials
+
+Use the [OAuth 2.0 client credentials flow](https://docs.snowflake.com/en/developer-guide/python-connector/python-connector-connect#using-oauth) to authenticate with a client ID and secret (no user interaction required):
+
+```bash
+SNOWFLAKE_AUTHENTICATOR="oauth_client_credentials"
+SNOWFLAKE_ACCOUNT="myaccount"
+SNOWFLAKE_OAUTH_CLIENT_ID="your_client_id"
+SNOWFLAKE_OAUTH_CLIENT_SECRET="your_client_secret"
+SNOWFLAKE_OAUTH_TOKEN_REQUEST_URL="https://your-idp.example.com/oauth/token"
+SNOWFLAKE_OAUTH_SCOPE="session:role:MY_ROLE"  # Optional
+SNOWFLAKE_WAREHOUSE="COMPUTE_WH"
+SNOWFLAKE_DATABASE="MY_DB"
+SNOWFLAKE_SCHEMA="PUBLIC"
+SNOWFLAKE_ROLE="MYROLE"
+```
+
+### OAuth Bearer Token
+
+Use a pre-fetched OAuth bearer token:
+
+```bash
+SNOWFLAKE_AUTHENTICATOR="oauth"
+SNOWFLAKE_ACCOUNT="myaccount"
+SNOWFLAKE_TOKEN="eyJhbGciOiJSUzI1NiJ9..."
+SNOWFLAKE_WAREHOUSE="COMPUTE_WH"
+SNOWFLAKE_DATABASE="MY_DB"
+SNOWFLAKE_SCHEMA="PUBLIC"
+SNOWFLAKE_ROLE="MYROLE"
+```
+
 ### TOML Connection File (Recommended)
 
 Manage multiple environments in a single file. See [`example_connections.toml`](https://github.com/nsphung/mcp-snowflake-server/blob/main/example_connections.toml) for a full template.
@@ -213,6 +248,7 @@ Manage multiple environments in a single file. See [`example_connections.toml`](
 account = "your_account"
 user = "your_user"
 password = "your_password"
+authenticator = "snowflake"
 warehouse = "COMPUTE_WH"
 database = "PROD_DB"
 schema = "PUBLIC"
@@ -230,12 +266,25 @@ role = "DEVELOPER"
 [reporting]
 account = "your_account"
 user = "reporting_user"
+authenticator = "snowflake_jwt"
 private_key_file = "/path/to/private_key.pem"
 private_key_file_pwd = "passphrase"  # Optional
 warehouse = "REPORTING_WH"
 database = "REPORTING_DB"
 schema = "REPORTS"
 role = "REPORTING_ROLE"
+
+[analytics_oauth]
+account = "your_account"
+authenticator = "oauth_client_credentials"
+oauth_client_id = "your_client_id"
+oauth_client_secret = "your_client_secret"
+oauth_token_request_url = "https://your-idp.example.com/oauth/token"
+oauth_scope = "session:role:ANALYTICS_ROLE"  # Optional
+warehouse = "ANALYTICS_WH"
+database = "ANALYTICS_DB"
+schema = "PUBLIC"
+role = "ANALYTICS_ROLE"
 ```
 
 Pass the file with `--connections-file` and select a profile with `--connection-name`. Both flags are required together.
@@ -328,8 +377,10 @@ The package is published on [PyPI as `mcp-snowflake-server-nsp`](https://pypi.or
    SNOWFLAKE_DATABASE="MY_DB"
    SNOWFLAKE_SCHEMA="PUBLIC"
    SNOWFLAKE_WAREHOUSE="COMPUTE_WH"
+   SNOWFLAKE_AUTHENTICATOR="snowflake"
    SNOWFLAKE_PASSWORD="secret"
    # Key-pair alternative:
+   # SNOWFLAKE_AUTHENTICATOR="snowflake_jwt"
    # SNOWFLAKE_PRIVATE_KEY_FILE=/absolute/path/key.p8
    # SNOWFLAKE_PRIVATE_KEY_FILE_PWD="passphrase"
    # Browser SSO alternative:
@@ -403,8 +454,10 @@ The package is published on [PyPI as `mcp-snowflake-server-nsp`](https://pypi.or
    SNOWFLAKE_DATABASE="MY_DB"
    SNOWFLAKE_SCHEMA="PUBLIC"
    SNOWFLAKE_WAREHOUSE="COMPUTE_WH"
+   SNOWFLAKE_AUTHENTICATOR="snowflake"
    SNOWFLAKE_PASSWORD="secret"
    # Key-pair alternative:
+   # SNOWFLAKE_AUTHENTICATOR="snowflake_jwt"
    # SNOWFLAKE_PRIVATE_KEY_FILE=/absolute/path/key.p8
    # SNOWFLAKE_PRIVATE_KEY_FILE_PWD="passphrase"
    # Browser SSO alternative:
@@ -475,6 +528,7 @@ docker build -t mcp-snowflake-server .
 docker run --rm \
   -e SNOWFLAKE_USER="user@example.com" \
   -e SNOWFLAKE_ACCOUNT="myaccount" \
+  -e SNOWFLAKE_AUTHENTICATOR="snowflake" \
   -e SNOWFLAKE_PASSWORD="secret" \
   -e SNOWFLAKE_WAREHOUSE="COMPUTE_WH" \
   -e SNOWFLAKE_DATABASE="MY_DB" \
@@ -486,6 +540,7 @@ docker run --rm \
 docker run --rm mcp-snowflake-server \
   --account your_account \
   --user your_user \
+  --authenticator snowflake \
   --password your_password \
   --warehouse COMPUTE_WH \
   --database MY_DB \

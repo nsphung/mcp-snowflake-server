@@ -15,7 +15,7 @@ dependencies = [
     "pandas>=2.2.3",
     "python-dotenv>=1.0.1",
     "sqlparse>=0.5.3",
-    "snowflake-snowpark-python==1.49.0",
+    "snowflake-snowpark-python==1.50.0",
 ]
 
 keywords = [
@@ -57,7 +57,7 @@ dev = [
     "pytest>=8.3",
     "pytest-asyncio>=0.26",
     "pytest-cov>=6.0",
-    "snowflake-snowpark-python[localtest]==1.49.0",
+    "snowflake-snowpark-python[localtest]==1.50.0",
 ]
 
 [project.scripts]

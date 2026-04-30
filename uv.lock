@@ -547,7 +547,7 @@ requires-dist = [
     { name = "pandas", specifier = ">=2.2.3" },
     { name = "python-dotenv", specifier = ">=1.0.1" },
     { name = "snowflake-connector-python", extras = ["pandas"], specifier = "==4.4.0" },
-    { name = "snowflake-snowpark-python", specifier = "==1.49.0" },
+    { name = "snowflake-snowpark-python", specifier = "==1.50.0" },
     { name = "sqlparse", specifier = ">=0.5.3" },
 ]
 
@@ -559,7 +559,7 @@ dev = [
     { name = "pytest-asyncio", specifier = ">=0.26" },
     { name = "pytest-cov", specifier = ">=6.0" },
     { name = "ruff", specifier = "==0.15.11" },
-    { name = "snowflake-snowpark-python", extras = ["localtest"], specifier = "==1.49.0" },
+    { name = "snowflake-snowpark-python", extras = ["localtest"], specifier = "==1.50.0" },
     { name = "types-pyyaml", specifier = ">=6.0.12.20260408" },
 ]
 
@@ -1205,7 +1205,7 @@ pandas = [
 
 [[package]]
 name = "snowflake-snowpark-python"
-version = "1.49.0"
+version = "1.50.0"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
     { name = "cloudpickle" },
@@ -1218,9 +1218,9 @@ dependencies = [
     { name = "tzlocal" },
     { name = "wheel" },
 ]
-sdist = { url = "https://files.pythonhosted.org/packages/d9/ca/22ab490c99d846ad7e908e01345b46a34a4577c4212b41072acfab04ba9e/snowflake_snowpark_python-1.49.0.tar.gz", hash = "sha256:8491dd60ea29a38156ff7773f251a8292d065f736d35405ba7779ff45518f2d1", size = 1748928, upload-time = "2026-04-13T20:15:01.449Z" }
+sdist = { url = "https://files.pythonhosted.org/packages/b9/f9/c7e4d0f4dceb6cf1b88ed984948af5471ecc19514a7e519da7276226429f/snowflake_snowpark_python-1.50.0.tar.gz", hash = "sha256:8af823326c2681333bf59ad3d6152b07098b7926165667a7fdcebd5adb53642f", size = 1760444, upload-time = "2026-04-23T20:33:56.522Z" }
 wheels = [
-    { url = "https://files.pythonhosted.org/packages/25/b8/e54099d465e0efbd7b2569d48cf35b1f3bf7d815bb057a97bc31579cbd60/snowflake_snowpark_python-1.49.0-py3-none-any.whl", hash = "sha256:f0cbd74f23350fea8cea6a9a28decf31a6fdd7e8c8eb728b281d46682d4e1298", size = 1839901, upload-time = "2026-04-13T20:14:59.203Z" },
+    { url = "https://files.pythonhosted.org/packages/b3/11/0fbeb214832e5f9a6c8123e8de3e94610cab9c9a94eb1f011580f717f682/snowflake_snowpark_python-1.50.0-py3-none-any.whl", hash = "sha256:1a0140dba9a4d44910a052110494069fc9142577ef5db67d58abe6996f420a11", size = 1851309, upload-time = "2026-04-23T20:33:54.654Z" },
 ]
 
 [package.optional-dependencies]
