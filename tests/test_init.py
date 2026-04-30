@@ -1,3 +1,4 @@
+import logging
 import pathlib
 import sys
 from types import SimpleNamespace
@@ -113,7 +114,7 @@ def test_main_asserts_missing_database(monkeypatch: pytest.MonkeyPatch) -> None:
         lambda key: "PUBLIC" if key == "SNOWFLAKE_SCHEMA" else None,
     )
     monkeypatch.setattr(sys, "argv", ["prog"])
-    with pytest.raises(AssertionError, match="database"):
+    with pytest.raises(ValueError, match="database"):
         main()
 
 
@@ -123,7 +124,7 @@ def test_main_asserts_missing_schema(monkeypatch: pytest.MonkeyPatch) -> None:
         lambda key: "MYDB" if key == "SNOWFLAKE_DATABASE" else None,
     )
     monkeypatch.setattr(sys, "argv", ["prog"])
-    with pytest.raises(AssertionError, match="schema"):
+    with pytest.raises(ValueError, match="schema"):
         main()
 
 
@@ -133,7 +134,7 @@ def test_main_uses_toml_precedence_and_runs_server(
     toml_file = tmp_path / "connections.toml"
     write_toml(
         toml_file,
-        '[dev]\ndatabase = "TOML_DB"\nschema = "TOML_SCHEMA"\nuser = "toml_user"\n',
+        '[dev]\ndatabase = "TOML_DB"\nschema = "TOML_SCHEMA"\nuser = "toml_user"\naccount = "toml_account"\nauthenticator = "externalbrowser"\n',
     )
 
     monkeypatch.setenv("SNOWFLAKE_DATABASE", "ENV_DB")
@@ -169,3 +170,282 @@ def test_main_uses_toml_precedence_and_runs_server(
     assert connection_args["database"] == "TOML_DB"
     assert connection_args["schema"] == "TOML_SCHEMA"
     assert connection_args["user"] == "toml_user"
+
+
+def test_main_missing_authenticator_defaults_to_snowflake(
+    monkeypatch: pytest.MonkeyPatch, caplog: pytest.LogCaptureFixture
+) -> None:
+    """authenticator is optional — omitting it must log a warning and default to 'snowflake'."""
+    env = {
+        "SNOWFLAKE_DATABASE": "DB",
+        "SNOWFLAKE_SCHEMA": "SCH",
+        "SNOWFLAKE_ACCOUNT": "myorg-myaccount",
+        "SNOWFLAKE_USER": "alice",
+        "SNOWFLAKE_PASSWORD": "secret",
+    }
+    monkeypatch.setattr(
+        "mcp_snowflake_server.os.getenv",
+        lambda key, default=None: env.get(key, default),
+    )
+    monkeypatch.setattr(sys, "argv", ["prog"])
+
+    captured: dict[str, object] = {}
+
+    async def fake_server_main(**kwargs: object) -> None:
+        captured.update(kwargs)
+
+    monkeypatch.setattr("mcp_snowflake_server.server", SimpleNamespace(main=fake_server_main))
+
+    with caplog.at_level(logging.WARNING, logger="mcp_snowflake_server"):
+        main()
+
+    connection_args = captured.get("connection_args")
+    assert isinstance(connection_args, dict)
+    assert connection_args.get("authenticator") == "snowflake"
+    assert any("authenticator" in record.message.lower() for record in caplog.records)
+
+
+# ── OAuth Client Credentials ──────────────────────────────────────────────────
+
+_OAUTH_ENV: dict[str, str] = {
+    "SNOWFLAKE_AUTHENTICATOR": "oauth_client_credentials",
+    "SNOWFLAKE_ACCOUNT": "myorg-myaccount",
+    "SNOWFLAKE_OAUTH_CLIENT_ID": "my-client-id",
+    "SNOWFLAKE_OAUTH_CLIENT_SECRET": "my-secret",
+    "SNOWFLAKE_OAUTH_TOKEN_REQUEST_URL": "https://example.com/token",
+    "SNOWFLAKE_OAUTH_SCOPE": "session:role:MY_ROLE",
+    "SNOWFLAKE_DATABASE": "DB",
+    "SNOWFLAKE_SCHEMA": "SCH",
+}
+
+
+def test_main_reads_oauth_env_vars(monkeypatch: pytest.MonkeyPatch) -> None:
+    monkeypatch.setattr(
+        "mcp_snowflake_server.os.getenv",
+        lambda key, default=None: _OAUTH_ENV.get(key, default),
+    )
+    monkeypatch.setattr(sys, "argv", ["prog"])
+
+    captured: dict[str, object] = {}
+
+    async def fake_server_main(**kwargs: object) -> None:
+        captured.update(kwargs)
+
+    monkeypatch.setattr("mcp_snowflake_server.server", SimpleNamespace(main=fake_server_main))
+
+    main()
+
+    connection_args = captured["connection_args"]
+    assert isinstance(connection_args, dict)
+    assert connection_args["oauth_client_id"] == "my-client-id"
+    assert connection_args["oauth_client_secret"] == "my-secret"
+    assert connection_args["oauth_token_request_url"] == "https://example.com/token"
+    assert connection_args["oauth_scope"] == "session:role:MY_ROLE"
+
+
+def test_main_oauth_without_scope(monkeypatch: pytest.MonkeyPatch) -> None:
+    """oauth_scope is optional — should not raise when absent."""
+    env = {k: v for k, v in _OAUTH_ENV.items() if k != "SNOWFLAKE_OAUTH_SCOPE"}
+    monkeypatch.setattr(
+        "mcp_snowflake_server.os.getenv",
+        lambda key, default=None: env.get(key, default),
+    )
+    monkeypatch.setattr(sys, "argv", ["prog"])
+
+    captured: dict[str, object] = {}
+
+    async def fake_server_main(**kwargs: object) -> None:
+        captured.update(kwargs)
+
+    monkeypatch.setattr("mcp_snowflake_server.server", SimpleNamespace(main=fake_server_main))
+
+    main()
+
+    connection_args = captured["connection_args"]
+    assert isinstance(connection_args, dict)
+    assert "oauth_scope" not in connection_args
+
+
+def test_main_oauth_missing_client_id_raises(monkeypatch: pytest.MonkeyPatch) -> None:
+    env = {k: v for k, v in _OAUTH_ENV.items() if k != "SNOWFLAKE_OAUTH_CLIENT_ID"}
+    monkeypatch.setattr(
+        "mcp_snowflake_server.os.getenv",
+        lambda key, default=None: env.get(key, default),
+    )
+    monkeypatch.setattr(sys, "argv", ["prog"])
+    with pytest.raises(ValueError, match="oauth_client_id"):
+        main()
+
+
+def test_main_oauth_missing_client_secret_raises(monkeypatch: pytest.MonkeyPatch) -> None:
+    env = {k: v for k, v in _OAUTH_ENV.items() if k != "SNOWFLAKE_OAUTH_CLIENT_SECRET"}
+    monkeypatch.setattr(
+        "mcp_snowflake_server.os.getenv",
+        lambda key, default=None: env.get(key, default),
+    )
+    monkeypatch.setattr(sys, "argv", ["prog"])
+    with pytest.raises(ValueError, match="oauth_client_secret"):
+        main()
+
+
+def test_main_oauth_missing_token_url_raises(monkeypatch: pytest.MonkeyPatch) -> None:
+    env = {k: v for k, v in _OAUTH_ENV.items() if k != "SNOWFLAKE_OAUTH_TOKEN_REQUEST_URL"}
+    monkeypatch.setattr(
+        "mcp_snowflake_server.os.getenv",
+        lambda key, default=None: env.get(key, default),
+    )
+    monkeypatch.setattr(sys, "argv", ["prog"])
+    with pytest.raises(ValueError, match="oauth_token_request_url"):
+        main()
+
+
+# ── Other authenticator types ─────────────────────────────────────────────────
+
+_BASE_ENV: dict[str, str] = {
+    "SNOWFLAKE_DATABASE": "DB",
+    "SNOWFLAKE_SCHEMA": "SCH",
+    "SNOWFLAKE_ACCOUNT": "myorg-myaccount",
+    "SNOWFLAKE_AUTHENTICATOR": "snowflake",
+}
+
+
+def test_main_snowflake_default_missing_password(monkeypatch: pytest.MonkeyPatch) -> None:
+    """Default (snowflake) authenticator requires account, user, password."""
+    env = {**_BASE_ENV, "SNOWFLAKE_USER": "alice"}
+    monkeypatch.setattr(
+        "mcp_snowflake_server.os.getenv",
+        lambda key, default=None: env.get(key, default),
+    )
+    monkeypatch.setattr(sys, "argv", ["prog"])
+    with pytest.raises(ValueError, match="password"):
+        main()
+
+
+def test_main_snowflake_default_ok(monkeypatch: pytest.MonkeyPatch) -> None:
+    env = {**_BASE_ENV, "SNOWFLAKE_USER": "alice", "SNOWFLAKE_PASSWORD": "secret"}
+    monkeypatch.setattr(
+        "mcp_snowflake_server.os.getenv",
+        lambda key, default=None: env.get(key, default),
+    )
+    monkeypatch.setattr(sys, "argv", ["prog"])
+    captured: dict[str, object] = {}
+
+    async def fake_server_main(**kwargs: object) -> None:
+        captured.update(kwargs)
+
+    monkeypatch.setattr("mcp_snowflake_server.server", SimpleNamespace(main=fake_server_main))
+    main()
+    connection_args = captured["connection_args"]
+    assert isinstance(connection_args, dict)
+    assert connection_args["password"] == "secret"
+
+
+def test_main_externalbrowser_missing_user(monkeypatch: pytest.MonkeyPatch) -> None:
+    env = {**_BASE_ENV, "SNOWFLAKE_AUTHENTICATOR": "externalbrowser"}
+    monkeypatch.setattr(
+        "mcp_snowflake_server.os.getenv",
+        lambda key, default=None: env.get(key, default),
+    )
+    monkeypatch.setattr(sys, "argv", ["prog"])
+    with pytest.raises(ValueError, match="user"):
+        main()
+
+
+def test_main_externalbrowser_ok(monkeypatch: pytest.MonkeyPatch) -> None:
+    env = {**_BASE_ENV, "SNOWFLAKE_AUTHENTICATOR": "externalbrowser", "SNOWFLAKE_USER": "alice"}
+    monkeypatch.setattr(
+        "mcp_snowflake_server.os.getenv",
+        lambda key, default=None: env.get(key, default),
+    )
+    monkeypatch.setattr(sys, "argv", ["prog"])
+    captured: dict[str, object] = {}
+
+    async def fake_server_main(**kwargs: object) -> None:
+        captured.update(kwargs)
+
+    monkeypatch.setattr("mcp_snowflake_server.server", SimpleNamespace(main=fake_server_main))
+    main()
+
+
+def test_main_snowflake_jwt_missing_key(monkeypatch: pytest.MonkeyPatch) -> None:
+    env = {**_BASE_ENV, "SNOWFLAKE_AUTHENTICATOR": "snowflake_jwt", "SNOWFLAKE_USER": "alice"}
+    monkeypatch.setattr(
+        "mcp_snowflake_server.os.getenv",
+        lambda key, default=None: env.get(key, default),
+    )
+    monkeypatch.setattr(sys, "argv", ["prog"])
+    with pytest.raises(ValueError, match="private_key_file.*private_key"):
+        main()
+
+
+def test_main_snowflake_jwt_ok_with_key_file(monkeypatch: pytest.MonkeyPatch) -> None:
+    env = {
+        **_BASE_ENV,
+        "SNOWFLAKE_AUTHENTICATOR": "snowflake_jwt",
+        "SNOWFLAKE_USER": "alice",
+        "SNOWFLAKE_PRIVATE_KEY_FILE": "/path/to/key.p8",
+    }
+    monkeypatch.setattr(
+        "mcp_snowflake_server.os.getenv",
+        lambda key, default=None: env.get(key, default),
+    )
+    monkeypatch.setattr(sys, "argv", ["prog"])
+    captured: dict[str, object] = {}
+
+    async def fake_server_main(**kwargs: object) -> None:
+        captured.update(kwargs)
+
+    monkeypatch.setattr("mcp_snowflake_server.server", SimpleNamespace(main=fake_server_main))
+    main()
+
+
+def test_main_oauth_bearer_missing_token(monkeypatch: pytest.MonkeyPatch) -> None:
+    env = {**_BASE_ENV, "SNOWFLAKE_AUTHENTICATOR": "oauth"}
+    monkeypatch.setattr(
+        "mcp_snowflake_server.os.getenv",
+        lambda key, default=None: env.get(key, default),
+    )
+    monkeypatch.setattr(sys, "argv", ["prog"])
+    with pytest.raises(ValueError, match="token"):
+        main()
+
+
+def test_main_oauth_bearer_ok(monkeypatch: pytest.MonkeyPatch) -> None:
+    env = {
+        **_BASE_ENV,
+        "SNOWFLAKE_AUTHENTICATOR": "oauth",
+        "SNOWFLAKE_TOKEN": "eyJhbGciOiJSUzI1NiJ9...",
+    }
+    monkeypatch.setattr(
+        "mcp_snowflake_server.os.getenv",
+        lambda key, default=None: env.get(key, default),
+    )
+    monkeypatch.setattr(sys, "argv", ["prog"])
+    captured: dict[str, object] = {}
+
+    async def fake_server_main(**kwargs: object) -> None:
+        captured.update(kwargs)
+
+    monkeypatch.setattr("mcp_snowflake_server.server", SimpleNamespace(main=fake_server_main))
+    main()
+
+
+def test_main_unknown_authenticator_warns(monkeypatch: pytest.MonkeyPatch) -> None:
+    """Unknown authenticator should warn but not raise during validation."""
+    env = {
+        **_BASE_ENV,
+        "SNOWFLAKE_AUTHENTICATOR": "some_future_auth",
+        "SNOWFLAKE_USER": "alice",
+    }
+    monkeypatch.setattr(
+        "mcp_snowflake_server.os.getenv",
+        lambda key, default=None: env.get(key, default),
+    )
+    monkeypatch.setattr(sys, "argv", ["prog"])
+    captured: dict[str, object] = {}
+
+    async def fake_server_main(**kwargs: object) -> None:
+        captured.update(kwargs)
+
+    monkeypatch.setattr("mcp_snowflake_server.server", SimpleNamespace(main=fake_server_main))
+    main()  # should not raise

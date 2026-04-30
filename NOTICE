@@ -7,6 +7,8 @@ This repository (`nsphung/mcp-snowflake-server`) is forked from:
 
 Current fork version: 0.7.0
 
+> Note: version is managed by `release-please`; see `pyproject.toml` for the canonical value.
+
 License
 -------
 
@@ -49,5 +51,13 @@ Notable fork-specific modifications
 - Added PyPI download and MCP-compatible badges.
 - Fixed README relative links to use absolute GitHub URLs for correct rendering
   on PyPI.
+- Added OAuth 2.0 authentication support: client credentials flow
+  (`oauth_client_credentials` authenticator) and bearer-token flow (`oauth`
+  authenticator), with corresponding `SNOWFLAKE_OAUTH_*` environment variables.
+- Added startup validation of required connection parameters per authenticator
+  type; validation errors are now raised as `ValueError` with actionable
+  messages instead of silent crashes or bare `AssertionError`.
+- Upgraded `snowflake-snowpark-python` dependency to 1.50.0.
+- Logged server version at startup via `importlib.metadata`.
 
-Last updated: 2026-04-28
+Last updated: 2026-04-30

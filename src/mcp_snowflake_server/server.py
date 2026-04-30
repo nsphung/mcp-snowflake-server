@@ -555,7 +555,7 @@ def _register_handlers(
     @server.list_tools()
     async def handle_list_tools() -> list[types.Tool]:
         logger.info("Listing tools")
-        logger.error(f"Allowed tools: {allowed_tools}")
+        logger.warning(f"Allowed tools: {allowed_tools}")
         tools = [
             types.Tool(
                 name=tool.name,
