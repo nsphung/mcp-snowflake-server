@@ -1,5 +1,17 @@
 # Changelog
 
+## [0.8.0](https://github.com/nsphung/mcp-snowflake-server/compare/v0.7.0...v0.8.0) (2026-04-30)
+
+
+### Features
+
+* Add OAuth 2.0 Client Credentials flow Snowflake ([#11](https://github.com/nsphung/mcp-snowflake-server/issues/11)) ([3831899](https://github.com/nsphung/mcp-snowflake-server/commit/38318998274e17c1f37645c1777bbcc4c6d5f71a))
+
+
+### Documentation
+
+* Update NOTICE / README links ([9153e92](https://github.com/nsphung/mcp-snowflake-server/commit/9153e92e2f68a85e83ec45cc6fb703f87892927e))
+
 ## [0.7.0](https://github.com/nsphung/mcp-snowflake-server/compare/v0.6.1...v0.7.0) (2026-04-28)
 
 
