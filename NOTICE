@@ -43,6 +43,13 @@ Notable fork-specific modifications
 - Added dev tooling: `ruff` (format + lint), `mypy` (static type checking),
   `prek` hooks, `pytest` + `pytest-asyncio` + `pytest-cov` (test suite
   with branch coverage), and a `Makefile` for common workflows.
+- Added `bun`-managed [`oxfmt`](https://github.com/oxc-project/oxc)
+  (multi-language formatter) as a development dependency (`package.json`,
+  `bun.lock`). Formatter configuration lives in `.oxfmtrc.json`. The `oxfmt`
+  hook is wired into `prek.toml` with `always_run = true`, ensuring it runs on
+  every commit regardless of which file types are staged. `make install` now
+  calls `bun install` automatically; `make fmt` and `make fmt-check` expose
+  oxfmt via the Makefile for a single-tool developer workflow.
 - Added GitHub Actions CI: lint checks, test runs, and codecov coverage
   reporting.
 - Added `release-please` for automated changelog and release management.
@@ -66,4 +73,4 @@ Notable fork-specific modifications
 - Upgraded `snowflake-snowpark-python` dependency to 1.50.0.
 - Logged server version at startup via `importlib.metadata`.
 
-Last updated: 2026-04-30
+Last updated: 2026-05-04

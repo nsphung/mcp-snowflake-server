@@ -29,6 +29,14 @@ types_or = ["python", "pyi"]
 repo = "local"
 
 [[repos.hooks]]
+id = "oxfmt"
+name = "oxfmt"
+entry = "bunx oxfmt --no-error-on-unmatched-pattern"
+language = "system"
+pass_filenames = true
+always_run = true
+
+[[repos.hooks]]
 id = "mypy"
 name = "mypy"
 entry = "uv run mypy ."
