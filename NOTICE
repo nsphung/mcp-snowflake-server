@@ -41,7 +41,7 @@ Notable fork-specific modifications
 - Added Dockerfile for containerised deployments.
 - Added Smithery integration for one-command Claude Desktop installation.
 - Added dev tooling: `ruff` (format + lint), `mypy` (static type checking),
-  `pre-commit` hooks, `pytest` + `pytest-asyncio` + `pytest-cov` (test suite
+  `prek` hooks, `pytest` + `pytest-asyncio` + `pytest-cov` (test suite
   with branch coverage), and a `Makefile` for common workflows.
 - Added GitHub Actions CI: lint checks, test runs, and codecov coverage
   reporting.

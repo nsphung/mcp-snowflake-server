@@ -2,15 +2,16 @@
 
 <a href="https://github.com/nsphung/mcp-snowflake-server"><img width="80%" height="80%" alt="mcp-snowflake-server-nsp-banner" src="https://github.com/user-attachments/assets/73ccb230-907e-4b4c-ae51-cbda9cdc8c2c" /></a>
 
-[![PyPI](https://img.shields.io/pypi/v/mcp-snowflake-server-nsp)](https://pypi.org/project/mcp-snowflake-server-nsp/) • [![codecov](https://codecov.io/gh/nsphung/mcp-snowflake-server/graph/badge.svg?token=CODECOV_BADGE)](https://codecov.io/gh/nsphung/mcp-snowflake-server) • [![PyPI Downloads](https://img.shields.io/pypi/dm/mcp-snowflake-server-nsp.svg?label=PyPI%20downloads)](https://pypi.org/project/mcp-snowflake-server-nsp/)
+[![PyPI](https://img.shields.io/pypi/v/mcp-snowflake-server-nsp)](https://pypi.org/project/mcp-snowflake-server-nsp/) • [![codecov](https://codecov.io/gh/nsphung/mcp-snowflake-server/graph/badge.svg?token=CODECOV_BADGE)](https://codecov.io/gh/nsphung/mcp-snowflake-server) • [![PyPI Downloads](https://img.shields.io/pypi/dm/mcp-snowflake-server-nsp.svg?label=PyPI%20downloads)](https://pypi.org/project/mcp-snowflake-server-nsp/) • [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](https://opensource.org/licenses/MIT)
 
 [![lint](https://github.com/nsphung/mcp-snowflake-server/actions/workflows/lint.yml/badge.svg)](https://github.com/nsphung/mcp-snowflake-server/actions/workflows/lint.yml)
 [![test](https://github.com/nsphung/mcp-snowflake-server/actions/workflows/test.yml/badge.svg)](https://github.com/nsphung/mcp-snowflake-server/actions/workflows/test.yml)
-[![MCP Compatible](https://img.shields.io/badge/MCP-compatible-green.svg?style=flat-square)](https://modelcontextprotocol.io/) 
-[![made-with-python](https://img.shields.io/badge/Made%20with-Python-1f425f.svg)](https://www.python.org/) 
+[![MCP Compatible](https://img.shields.io/badge/MCP-compatible-green.svg?style=flat-square)](https://modelcontextprotocol.io/)
+[![made-with-python](https://img.shields.io/badge/Made%20with-Python-1f425f.svg)](https://www.python.org/)
 [![python-3.13+](https://img.shields.io/badge/Python-%3E%3D3.13-blue)](https://www.python.org/)
-[![Ruff](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/astral-sh/ruff/main/assets/badge/v2.json)](https://github.com/astral-sh/ruff) 
-[![Checked with mypy](https://img.shields.io/badge/mypy-checked-blue)](http://mypy-lang.org/) 
+[![Ruff](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/astral-sh/ruff/main/assets/badge/v2.json)](https://github.com/astral-sh/ruff)
+[![Checked with mypy](https://img.shields.io/badge/mypy-checked-blue)](http://mypy-lang.org/)
+[![prek](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/j178/prek/master/docs/assets/badge-v0.json)](https://github.com/j178/prek)
 [![Ask DeepWiki](https://deepwiki.com/badge.svg)](https://deepwiki.com/nsphung/mcp-snowflake-server)
 
 </div>
@@ -37,7 +38,7 @@ A [Model Context Protocol (MCP)](https://modelcontextprotocol.io/) server / MCP 
 
 ## Table of Contents
 
-- [Snowflake MCP Server](#snowflake-mcp-server)
+- [Snowflake MCP Server NSP](#snowflake-mcp-server-nsp)
   - [Table of Contents](#table-of-contents)
   - [Quick Start](#quick-start)
     - [Claude Code](#claude-code)
@@ -618,8 +619,14 @@ The server loads this file automatically at startup from the working directory.
 ## Development
 
 ```bash
-# Install dependencies (including dev tools)
+# Install dependencies (including dev tools) and Git hooks
 make install
+
+# Reinstall Git hooks if needed
+make hooks
+
+# Run prek hooks across the repo
+make hooks-run
 
 # Lint & auto-fix with Ruff
 make ruff
@@ -637,7 +644,7 @@ make coverage-html
 make run
 ```
 
-Requires [`uv`](https://github.com/astral-sh/uv). Dev dependencies include `ruff`, `mypy`, `pytest`, `pytest-asyncio`, `pytest-cov`, and `pre-commit`.
+Requires [`uv`](https://github.com/astral-sh/uv). Dev dependencies include `ruff`, `mypy`, `pytest`, `pytest-asyncio`, `pytest-cov`, and `prek`. Hook configuration lives in `prek.toml`.
 
 ---
 

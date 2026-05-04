@@ -49,4 +49,4 @@ private_key_file_pwd = "your_private_key_file_pwd" # Optional, if your key is en
 warehouse = "REPORTING_WH"
 database = "REPORTING_DB"
 schema = "REPORTS"
-role = "REPORTING_ROLE" 
+role = "REPORTING_ROLE"

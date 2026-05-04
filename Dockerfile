@@ -41,4 +41,4 @@ CMD ["--account", "your_account", \
     "--password", "your_password", \
     "--role", "your_role", \
     "--database", "your_database", \
-    "--schema", "your_schema"] 
+    "--schema", "your_schema"]
