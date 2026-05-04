@@ -648,7 +648,7 @@ Requires [`uv`](https://github.com/astral-sh/uv). Dev dependencies include `ruff
 
 ## License
 
-This project is licensed under the **GNU General Public License v3.0**. See the [`LICENSE`](https://github.com/nsphung/mcp-snowflake-server/blob/main/LICENSE) file for the full text.
+This project is licensed under the **MIT License**. See the [`LICENSE`](https://github.com/nsphung/mcp-snowflake-server/blob/main/LICENSE) file for the full text.
 
 ---
 

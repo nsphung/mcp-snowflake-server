@@ -12,8 +12,12 @@ Current fork version: 0.7.0
 License
 -------
 
-This project is distributed under the GNU General Public License v3.0.
+This project is distributed under the MIT License.
 See the `LICENSE` file in the repository root for the complete license text.
+
+The upstream project (`isaacwasserman/mcp-snowflake-server`) changed its
+license to MIT at commit 76c3e4a1866cf95e1b6256434f9907681c6c49cc (v0.4.0).
+This fork follows the same license change.
 
 Attribution
 -----------
@@ -44,6 +48,8 @@ Notable fork-specific modifications
 - Added `release-please` for automated changelog and release management.
 - Renamed PyPI package to `mcp-snowflake-server-nsp` and enriched project
   metadata (license, authors, keywords, classifiers, project URLs).
+- Migrated license from GPL-3.0 to MIT, following upstream license change
+  at commit 76c3e4a1866cf95e1b6256434f9907681c6c49cc.
 - Added GitHub Actions workflow for automated PyPI publishing via OIDC trusted
   publishing with Sigstore attestations.
 - Published server to the MCP registry (`server.json`).
