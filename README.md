@@ -2,7 +2,7 @@
 
 <a href="https://github.com/nsphung/mcp-snowflake-server"><img width="80%" height="80%" alt="mcp-snowflake-server-nsp-banner" src="https://github.com/user-attachments/assets/73ccb230-907e-4b4c-ae51-cbda9cdc8c2c" /></a>
 
-[![PyPI](https://img.shields.io/pypi/v/mcp-snowflake-server-nsp)](https://pypi.org/project/mcp-snowflake-server-nsp/) • [![codecov](https://codecov.io/gh/nsphung/mcp-snowflake-server/graph/badge.svg?token=CODECOV_BADGE)](https://codecov.io/gh/nsphung/mcp-snowflake-server) • [![PyPI Downloads](https://img.shields.io/pypi/dm/mcp-snowflake-server-nsp.svg?label=PyPI%20downloads)](https://pypi.org/project/mcp-snowflake-server-nsp/)
+[![PyPI](https://img.shields.io/pypi/v/mcp-snowflake-server-nsp)](https://pypi.org/project/mcp-snowflake-server-nsp/) • [![codecov](https://codecov.io/gh/nsphung/mcp-snowflake-server/graph/badge.svg?token=CODECOV_BADGE)](https://codecov.io/gh/nsphung/mcp-snowflake-server) • [![PyPI Downloads](https://img.shields.io/pypi/dm/mcp-snowflake-server-nsp.svg?label=PyPI%20downloads)](https://pypi.org/project/mcp-snowflake-server-nsp/) • [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](https://opensource.org/licenses/MIT)
 
 [![lint](https://github.com/nsphung/mcp-snowflake-server/actions/workflows/lint.yml/badge.svg)](https://github.com/nsphung/mcp-snowflake-server/actions/workflows/lint.yml)
 [![test](https://github.com/nsphung/mcp-snowflake-server/actions/workflows/test.yml/badge.svg)](https://github.com/nsphung/mcp-snowflake-server/actions/workflows/test.yml)
