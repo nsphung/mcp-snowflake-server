@@ -112,7 +112,11 @@ Add to your MCP client config (e.g. `claude_desktop_config.json`) using `snowfla
 ```
 
 ### Visual Studio Code (VSCode)
-Add to your MCP client config (e.g. `.vscode/mcp.json`) using `.env` file (see [Authentication](#authentication)):
+
+[![Install in VS Code](https://img.shields.io/badge/VS%20Code-Install%20Server-0078d4?style=flat-square&logo=visualstudiocode)](https://insiders.vscode.dev/redirect?url=vscode%3Amcp%2Finstall%3F%257B%2522name%2522%253A%2522snowflake%2522%252C%2522command%2522%253A%2522uvx%2522%252C%2522args%2522%253A%255B%2522--python%253D3.13%2522%252C%2522--from%2522%252C%2522mcp-snowflake-server-nsp%2522%252C%2522mcp_snowflake_server%2522%255D%257D)
+[![Install in VS Code Insiders](https://img.shields.io/badge/VS%20Code%20Insiders-Install%20Server-24bfa5?style=flat-square&logo=visualstudiocode)](https://insiders.vscode.dev/redirect?url=vscode-insiders%3Amcp%2Finstall%3F%257B%2522name%2522%253A%2522snowflake%2522%252C%2522command%2522%253A%2522uvx%2522%252C%2522args%2522%253A%255B%2522--python%253D3.13%2522%252C%2522--from%2522%252C%2522mcp-snowflake-server-nsp%2522%252C%2522mcp_snowflake_server%2522%255D%257D)
+
+Or add manually to your MCP client config (e.g. `.vscode/mcp.json`) using `.env` file (see [Authentication](#authentication)):
 ```jsonc
 "snowflake": {
       // Snowflake MCP server
