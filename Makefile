@@ -1,15 +1,24 @@
 .DEFAULT_GOAL := help
-.PHONY: help install ruff run test coverage coverage-html
+.PHONY: help install hooks hooks-run ruff run test coverage coverage-html
 
 help:
 	@grep -E '^[a-zA-Z_-]+:.*?## .*$$' $(MAKEFILE_LIST) | sort | awk 'BEGIN {FS = ":.*?## "}; {printf "\033[36m%-30s\033[0m %s\n", $$1, $$2}'
 
 install: ## Uv install dependencies and set up the development environment
 	uv sync --group dev --active
+	uv run prek install -f
+
+hooks: ## Install prek Git hooks
+	uv run prek install -f
+
+hooks-run: ## Run prek hooks on all files
+	uv run prek run --all-files
 
 ruff: ## Run Ruff on all the code and autofix when possible
 	ruff format .
 	ruff check . --fix
+
+format: hooks-run ## Format code using hooks (ruff, mypy, prek)
 
 test: ## Run pytest
 	uv run pytest
@@ -22,4 +31,3 @@ coverage-html: ## Run pytest and open HTML coverage report
 
 run: ## Run mcp_snowflake_server locally
 	uv --directory . run mcp_snowflake_server
-
