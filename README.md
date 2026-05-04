@@ -12,6 +12,7 @@
 [![Ruff](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/astral-sh/ruff/main/assets/badge/v2.json)](https://github.com/astral-sh/ruff)
 [![Checked with mypy](https://img.shields.io/badge/mypy-checked-blue)](http://mypy-lang.org/)
 [![prek](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/j178/prek/master/docs/assets/badge-v0.json)](https://github.com/j178/prek)
+[![oxfmt](https://img.shields.io/badge/oxfmt-formatted-orange)](https://oxc.rs/docs/guide/usage/formatter)
 [![Ask DeepWiki](https://deepwiki.com/badge.svg)](https://deepwiki.com/nsphung/mcp-snowflake-server)
 
 </div>
@@ -25,6 +26,7 @@ A [Model Context Protocol (MCP)](https://modelcontextprotocol.io/) server / MCP 
 <!-- mcp-name: io.github.nsphung/mcp-snowflake-server -->
 
 **Highlights:**
+
 - Multiple authentication methods: password, key-pair, external browser, OAuth 2.0 (client credentials & bearer token), TOML connection files
 - TOML multi-connection config — manage `production`, `staging`, and `development` environments in one file
 - Write-safety guard — write operations are disabled by default and must be explicitly enabled
@@ -95,6 +97,7 @@ uvx --python=3.13 --from mcp-snowflake-server-nsp mcp_snowflake_server \
 ```
 
 ### Claude Code
+
 Add to your MCP client config (e.g. `claude_desktop_config.json`) using `snowflake_connections.toml`:
 
 ```jsonc
@@ -118,6 +121,7 @@ Add to your MCP client config (e.g. `claude_desktop_config.json`) using `snowfla
 [![Install in VS Code Insiders](https://img.shields.io/badge/VS%20Code%20Insiders-Install%20Server-24bfa5?style=flat-square&logo=visualstudiocode)](https://insiders.vscode.dev/redirect?url=vscode-insiders%3Amcp%2Finstall%3F%257B%2522name%2522%253A%2522snowflake%2522%252C%2522command%2522%253A%2522uvx%2522%252C%2522args%2522%253A%255B%2522--python%253D3.13%2522%252C%2522--from%2522%252C%2522mcp-snowflake-server-nsp%2522%252C%2522mcp_snowflake_server%2522%255D%257D)
 
 Or add manually to your MCP client config (e.g. `.vscode/mcp.json`) using `.env` file (see [Authentication](#authentication)):
+
 ```jsonc
 "snowflake": {
       // Snowflake MCP server
@@ -133,7 +137,9 @@ Or add manually to your MCP client config (e.g. `.vscode/mcp.json`) using `.env`
 ```
 
 ### OpenCode
+
 Add to your MCP client config (e.g. `opencode.jsonc`) with `.env` file (see [Authentication](#authentication)):
+
 ```jsonc
 "snowflake": {
   "type": "local",
@@ -155,10 +161,10 @@ Add to your MCP client config (e.g. `opencode.jsonc`) with `.env` file (see [Aut
 
 ### Resources
 
-| URI | Description |
-|-----|-------------|
-| `memo://insights` | A continuously updated memo aggregating data insights appended via `append_insight`. |
-| `context://table/{table_name}` | *(Prefetch mode only)* Per-table schema summaries including columns and comments. |
+| URI                            | Description                                                                          |
+| ------------------------------ | ------------------------------------------------------------------------------------ |
+| `memo://insights`              | A continuously updated memo aggregating data insights appended via `append_insight`. |
+| `context://table/{table_name}` | _(Prefetch mode only)_ Per-table schema summaries including columns and comments.    |
 
 ---
 
@@ -166,25 +172,25 @@ Add to your MCP client config (e.g. `opencode.jsonc`) with `.env` file (see [Aut
 
 #### Query Tools
 
-| Tool | Description | Requires |
-|------|-------------|----------|
-| `read_query` | Execute `SELECT` queries. **Input:** `query` (string). | — |
-| `write_query` | Execute `INSERT`, `UPDATE`, or `DELETE` queries. **Input:** `query` (string). | `--allow_write` |
-| `create_table` | Execute `CREATE TABLE` statements. **Input:** `query` (string). | `--allow_write` |
+| Tool           | Description                                                                   | Requires        |
+| -------------- | ----------------------------------------------------------------------------- | --------------- |
+| `read_query`   | Execute `SELECT` queries. **Input:** `query` (string).                        | —               |
+| `write_query`  | Execute `INSERT`, `UPDATE`, or `DELETE` queries. **Input:** `query` (string). | `--allow_write` |
+| `create_table` | Execute `CREATE TABLE` statements. **Input:** `query` (string).               | `--allow_write` |
 
 #### Schema Tools
 
-| Tool | Description | Input |
-|------|-------------|-------|
-| `list_databases` | List all databases in the Snowflake instance. | — |
-| `list_schemas` | List all schemas within a database. | `database` (string) |
-| `list_tables` | List all tables within a database and schema. | `database`, `schema` (strings) |
+| Tool             | Description                                                              | Input                                   |
+| ---------------- | ------------------------------------------------------------------------ | --------------------------------------- |
+| `list_databases` | List all databases in the Snowflake instance.                            | —                                       |
+| `list_schemas`   | List all schemas within a database.                                      | `database` (string)                     |
+| `list_tables`    | List all tables within a database and schema.                            | `database`, `schema` (strings)          |
 | `describe_table` | Describe columns of a table (name, type, nullability, default, comment). | `table_name` as `database.schema.table` |
 
 #### Analysis Tools
 
-| Tool | Description | Input |
-|------|-------------|-------|
+| Tool             | Description                                           | Input              |
+| ---------------- | ----------------------------------------------------- | ------------------ |
 | `append_insight` | Add a data insight to the `memo://insights` resource. | `insight` (string) |
 
 ---
@@ -384,39 +390,41 @@ The package is published on [PyPI as `mcp-snowflake-server-nsp`](https://pypi.or
 
 ### Locally from Source with VSCode
 
-* Install [Visual Studio Code](https://code.visualstudio.com/)
-* Install `uv`:
+- Install [Visual Studio Code](https://code.visualstudio.com/)
+- Install `uv`:
 
-   ```bash
-   curl -LsSf https://astral.sh/uv/install.sh | sh
-   ```
-* Create a `.env` file with your Snowflake credentials (or use a TOML connection file — see [Authentication](#authentication)):
+  ```bash
+  curl -LsSf https://astral.sh/uv/install.sh | sh
+  ```
 
-   ```bash
-   SNOWFLAKE_USER="user@example.com"
-   SNOWFLAKE_ACCOUNT="myaccount"
-   SNOWFLAKE_ROLE="MYROLE"
-   SNOWFLAKE_DATABASE="MY_DB"
-   SNOWFLAKE_SCHEMA="PUBLIC"
-   SNOWFLAKE_WAREHOUSE="COMPUTE_WH"
-   SNOWFLAKE_AUTHENTICATOR="snowflake"
-   SNOWFLAKE_PASSWORD="secret"
-   # Key-pair alternative:
-   # SNOWFLAKE_AUTHENTICATOR="snowflake_jwt"
-   # SNOWFLAKE_PRIVATE_KEY_FILE=/absolute/path/key.p8
-   # SNOWFLAKE_PRIVATE_KEY_FILE_PWD="passphrase"
-   # Browser SSO alternative:
-   # SNOWFLAKE_AUTHENTICATOR="externalbrowser"
-   ```
-* *(Optional)* Edit [`runtime_config.json`](https://github.com/nsphung/mcp-snowflake-server/blob/main/runtime_config.json) to exclude specific databases, schemas, or tables (see [Exclusion Patterns](#exclusion-patterns)).
+- Create a `.env` file with your Snowflake credentials (or use a TOML connection file — see [Authentication](#authentication)):
 
-* Test locally:
+  ```bash
+  SNOWFLAKE_USER="user@example.com"
+  SNOWFLAKE_ACCOUNT="myaccount"
+  SNOWFLAKE_ROLE="MYROLE"
+  SNOWFLAKE_DATABASE="MY_DB"
+  SNOWFLAKE_SCHEMA="PUBLIC"
+  SNOWFLAKE_WAREHOUSE="COMPUTE_WH"
+  SNOWFLAKE_AUTHENTICATOR="snowflake"
+  SNOWFLAKE_PASSWORD="secret"
+  # Key-pair alternative:
+  # SNOWFLAKE_AUTHENTICATOR="snowflake_jwt"
+  # SNOWFLAKE_PRIVATE_KEY_FILE=/absolute/path/key.p8
+  # SNOWFLAKE_PRIVATE_KEY_FILE_PWD="passphrase"
+  # Browser SSO alternative:
+  # SNOWFLAKE_AUTHENTICATOR="externalbrowser"
+  ```
 
-   ```bash
-   uv --directory /absolute/path/to/mcp_snowflake_server run mcp_snowflake_server
-   ```
+- _(Optional)_ Edit [`runtime_config.json`](https://github.com/nsphung/mcp-snowflake-server/blob/main/runtime_config.json) to exclude specific databases, schemas, or tables (see [Exclusion Patterns](#exclusion-patterns)).
 
-* Add to `.vscode/mcp.json`:
+- Test locally:
+
+  ```bash
+  uv --directory /absolute/path/to/mcp_snowflake_server run mcp_snowflake_server
+  ```
+
+- Add to `.vscode/mcp.json`:
 
 <details>
 <summary><strong>TOML configuration (recommended)</strong></summary>
@@ -486,7 +494,7 @@ The package is published on [PyPI as `mcp-snowflake-server-nsp`](https://pypi.or
    # SNOWFLAKE_AUTHENTICATOR="externalbrowser"
    ```
 
-4. *(Optional)* Edit [`runtime_config.json`](https://github.com/nsphung/mcp-snowflake-server/blob/main/runtime_config.json) to exclude specific databases, schemas, or tables (see [Exclusion Patterns](#exclusion-patterns)).
+4. _(Optional)_ Edit [`runtime_config.json`](https://github.com/nsphung/mcp-snowflake-server/blob/main/runtime_config.json) to exclude specific databases, schemas, or tables (see [Exclusion Patterns](#exclusion-patterns)).
 
 5. Test locally:
 
@@ -576,25 +584,25 @@ docker run --rm mcp-snowflake-server \
 
 All connection parameters can also be set as environment variables (`SNOWFLAKE_<PARAM_UPPER>`).
 
-| Flag | Env var | Default | Description |
-|------|---------|---------|-------------|
-| `--account` | `SNOWFLAKE_ACCOUNT` | — | Snowflake account identifier |
-| `--user` | `SNOWFLAKE_USER` | — | Snowflake username |
-| `--password` | `SNOWFLAKE_PASSWORD` | — | Password (not required for key-pair / SSO) |
-| `--warehouse` | `SNOWFLAKE_WAREHOUSE` | — | Virtual warehouse to use |
-| `--database` | `SNOWFLAKE_DATABASE` | *(required)* | Default database |
-| `--schema` | `SNOWFLAKE_SCHEMA` | *(required)* | Default schema |
-| `--role` | `SNOWFLAKE_ROLE` | — | Role to assume |
-| `--private_key_file` | `SNOWFLAKE_PRIVATE_KEY_FILE` | — | Absolute path to `.p8` private key file |
-| `--private_key_file_pwd` | `SNOWFLAKE_PRIVATE_KEY_FILE_PWD` | — | Passphrase for encrypted private key |
-| `--connections-file` | — | — | Path to TOML connections file |
-| `--connection-name` | — | — | Connection profile name in TOML file (required with `--connections-file`) |
-| `--allow_write` | — | `false` | Enable `write_query` and `create_table` tools |
-| `--prefetch` / `--no-prefetch` | — | `false` | Pre-load table schema as `context://table/*` resources (disables `list_tables` / `describe_table`) |
-| `--exclude_tools` | — | `[]` | Space-separated list of tool names to disable |
-| `--exclude-json-results` | — | `false` | Omit embedded JSON resources from responses (reduces context window usage) |
-| `--log_dir` | — | — | Directory for log file output |
-| `--log_level` | — | `INFO` | Log verbosity: `DEBUG`, `INFO`, `WARNING`, `ERROR`, `CRITICAL` |
+| Flag                           | Env var                          | Default      | Description                                                                                        |
+| ------------------------------ | -------------------------------- | ------------ | -------------------------------------------------------------------------------------------------- |
+| `--account`                    | `SNOWFLAKE_ACCOUNT`              | —            | Snowflake account identifier                                                                       |
+| `--user`                       | `SNOWFLAKE_USER`                 | —            | Snowflake username                                                                                 |
+| `--password`                   | `SNOWFLAKE_PASSWORD`             | —            | Password (not required for key-pair / SSO)                                                         |
+| `--warehouse`                  | `SNOWFLAKE_WAREHOUSE`            | —            | Virtual warehouse to use                                                                           |
+| `--database`                   | `SNOWFLAKE_DATABASE`             | _(required)_ | Default database                                                                                   |
+| `--schema`                     | `SNOWFLAKE_SCHEMA`               | _(required)_ | Default schema                                                                                     |
+| `--role`                       | `SNOWFLAKE_ROLE`                 | —            | Role to assume                                                                                     |
+| `--private_key_file`           | `SNOWFLAKE_PRIVATE_KEY_FILE`     | —            | Absolute path to `.p8` private key file                                                            |
+| `--private_key_file_pwd`       | `SNOWFLAKE_PRIVATE_KEY_FILE_PWD` | —            | Passphrase for encrypted private key                                                               |
+| `--connections-file`           | —                                | —            | Path to TOML connections file                                                                      |
+| `--connection-name`            | —                                | —            | Connection profile name in TOML file (required with `--connections-file`)                          |
+| `--allow_write`                | —                                | `false`      | Enable `write_query` and `create_table` tools                                                      |
+| `--prefetch` / `--no-prefetch` | —                                | `false`      | Pre-load table schema as `context://table/*` resources (disables `list_tables` / `describe_table`) |
+| `--exclude_tools`              | —                                | `[]`         | Space-separated list of tool names to disable                                                      |
+| `--exclude-json-results`       | —                                | `false`      | Omit embedded JSON resources from responses (reduces context window usage)                         |
+| `--log_dir`                    | —                                | —            | Directory for log file output                                                                      |
+| `--log_level`                  | —                                | `INFO`       | Log verbosity: `DEBUG`, `INFO`, `WARNING`, `ERROR`, `CRITICAL`                                     |
 
 ---
 
@@ -619,14 +627,20 @@ The server loads this file automatically at startup from the working directory.
 ## Development
 
 ```bash
-# Install dependencies (including dev tools) and Git hooks
+# Install all dependencies (uv + bun) and set up Git hooks
 make install
 
 # Reinstall Git hooks if needed
 make hooks
 
-# Run prek hooks across the repo
+# Run all prek hooks across the repo (includes oxfmt, ruff, mypy)
 make hooks-run
+
+# Check formatting with oxfmt (non-destructive)
+make fmt-check
+
+# Auto-format all files with oxfmt
+make fmt
 
 # Lint & auto-fix with Ruff
 make ruff
@@ -644,7 +658,7 @@ make coverage-html
 make run
 ```
 
-Requires [`uv`](https://github.com/astral-sh/uv). Dev dependencies include `ruff`, `mypy`, `pytest`, `pytest-asyncio`, `pytest-cov`, and `prek`. Hook configuration lives in `prek.toml`.
+Requires [`uv`](https://github.com/astral-sh/uv) and [`bun`](https://bun.sh). Python dev dependencies include `ruff`, `mypy`, `pytest`, `pytest-asyncio`, `pytest-cov`, and `prek`. The multi-language formatter [`oxfmt`](https://github.com/oxc-project/oxc) is managed via `bun` (`package.json` / `bun.lock`). Hook configuration lives in `prek.toml`; formatter configuration in `.oxfmtrc.json`.
 
 ---
 
