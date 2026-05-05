@@ -237,6 +237,245 @@
           "isRequired": false
         }
       ]
+    },
+    {
+      "registryType": "oci",
+      "registryBaseUrl": "https://docker.io",
+      "identifier": "nsphung/mcp-snowflake-server-nsp",
+      "version": "${VERSION}",
+      "runtimeHint": "docker",
+      "runtimeArguments": [
+        {
+          "type": "positional",
+          "value": "--rm"
+        },
+        {
+          "type": "positional",
+          "value": "-i"
+        }
+      ],
+      "transport": {
+        "type": "stdio"
+      },
+      "environmentVariables": [
+        {
+          "description": "Snowflake account identifier",
+          "isRequired": false,
+          "format": "string",
+          "isSecret": false,
+          "name": "SNOWFLAKE_ACCOUNT"
+        },
+        {
+          "description": "Snowflake username",
+          "isRequired": false,
+          "format": "string",
+          "isSecret": false,
+          "name": "SNOWFLAKE_USER"
+        },
+        {
+          "description": "Password (not required for key-pair / SSO)",
+          "isRequired": false,
+          "format": "string",
+          "isSecret": true,
+          "name": "SNOWFLAKE_PASSWORD"
+        },
+        {
+          "description": "Virtual warehouse to use",
+          "isRequired": false,
+          "format": "string",
+          "isSecret": false,
+          "name": "SNOWFLAKE_WAREHOUSE"
+        },
+        {
+          "description": "Default database",
+          "isRequired": false,
+          "format": "string",
+          "isSecret": false,
+          "name": "SNOWFLAKE_DATABASE"
+        },
+        {
+          "description": "Default schema",
+          "isRequired": false,
+          "format": "string",
+          "isSecret": false,
+          "name": "SNOWFLAKE_SCHEMA"
+        },
+        {
+          "description": "Role to assume",
+          "isRequired": false,
+          "format": "string",
+          "isSecret": false,
+          "name": "SNOWFLAKE_ROLE"
+        },
+        {
+          "description": "Authentication method. Defaults to 'snowflake' if not set. Valid values: snowflake, externalbrowser, snowflake_jwt, oauth, oauth_client_credentials",
+          "isRequired": false,
+          "format": "string",
+          "isSecret": false,
+          "name": "SNOWFLAKE_AUTHENTICATOR"
+        },
+        {
+          "description": "Absolute path to .p8 private key file",
+          "isRequired": false,
+          "format": "string",
+          "isSecret": false,
+          "name": "SNOWFLAKE_PRIVATE_KEY_FILE"
+        },
+        {
+          "description": "Passphrase for encrypted private key",
+          "isRequired": false,
+          "format": "string",
+          "isSecret": true,
+          "name": "SNOWFLAKE_PRIVATE_KEY_FILE_PWD"
+        },
+        {
+          "description": "OAuth 2.0 client ID (required for oauth_client_credentials authenticator)",
+          "isRequired": false,
+          "format": "string",
+          "isSecret": false,
+          "name": "SNOWFLAKE_OAUTH_CLIENT_ID"
+        },
+        {
+          "description": "OAuth 2.0 client secret (required for oauth_client_credentials authenticator)",
+          "isRequired": false,
+          "format": "string",
+          "isSecret": true,
+          "name": "SNOWFLAKE_OAUTH_CLIENT_SECRET"
+        },
+        {
+          "description": "OAuth 2.0 token endpoint URL (required for oauth_client_credentials authenticator)",
+          "isRequired": false,
+          "format": "string",
+          "isSecret": false,
+          "name": "SNOWFLAKE_OAUTH_TOKEN_REQUEST_URL"
+        },
+        {
+          "description": "OAuth 2.0 scope (optional, e.g. session:role:MY_ROLE)",
+          "isRequired": false,
+          "format": "string",
+          "isSecret": false,
+          "name": "SNOWFLAKE_OAUTH_SCOPE"
+        },
+        {
+          "description": "Pre-fetched OAuth bearer token (required for oauth authenticator)",
+          "isRequired": false,
+          "format": "string",
+          "isSecret": true,
+          "name": "SNOWFLAKE_TOKEN"
+        }
+      ],
+      "packageArguments": [
+        {
+          "type": "named",
+          "name": "--account",
+          "description": "Snowflake account identifier",
+          "isRequired": false
+        },
+        {
+          "type": "named",
+          "name": "--user",
+          "description": "Snowflake username",
+          "isRequired": false
+        },
+        {
+          "type": "named",
+          "name": "--password",
+          "description": "Password (not required for key-pair / SSO)",
+          "isRequired": false
+        },
+        {
+          "type": "named",
+          "name": "--warehouse",
+          "description": "Virtual warehouse to use",
+          "isRequired": false
+        },
+        {
+          "type": "named",
+          "name": "--database",
+          "description": "Default database",
+          "isRequired": false
+        },
+        {
+          "type": "named",
+          "name": "--schema",
+          "description": "Default schema",
+          "isRequired": false
+        },
+        {
+          "type": "named",
+          "name": "--role",
+          "description": "Role to assume",
+          "isRequired": false
+        },
+        {
+          "type": "named",
+          "name": "--authenticator",
+          "description": "Authentication method. Defaults to 'snowflake' if not set. Valid values: snowflake, externalbrowser, snowflake_jwt, oauth, oauth_client_credentials",
+          "isRequired": false
+        },
+        {
+          "type": "named",
+          "name": "--private_key_file",
+          "description": "Absolute path to .p8 private key file",
+          "isRequired": false
+        },
+        {
+          "type": "named",
+          "name": "--private_key_file_pwd",
+          "description": "Passphrase for encrypted private key",
+          "isRequired": false
+        },
+        {
+          "type": "named",
+          "name": "--connections-file",
+          "description": "Path to TOML connections file",
+          "isRequired": false
+        },
+        {
+          "type": "named",
+          "name": "--connection-name",
+          "description": "Connection profile name in TOML file (required with --connections-file)",
+          "isRequired": false
+        },
+        {
+          "type": "named",
+          "name": "--allow_write",
+          "description": "Enable write_query and create_table tools",
+          "isRequired": false
+        },
+        {
+          "type": "named",
+          "name": "--prefetch",
+          "description": "Pre-load table schema as context://table/* resources (disables list_tables / describe_table)",
+          "isRequired": false
+        },
+        {
+          "type": "named",
+          "name": "--exclude_tools",
+          "description": "Space-separated list of tool names to disable",
+          "isRequired": false
+        },
+        {
+          "type": "named",
+          "name": "--exclude-json-results",
+          "description": "Omit embedded JSON resources from responses (reduces context window usage)",
+          "isRequired": false
+        },
+        {
+          "type": "named",
+          "name": "--log_dir",
+          "description": "Directory for log file output",
+          "isRequired": false
+        },
+        {
+          "type": "named",
+          "name": "--log_level",
+          "description": "Log verbosity: DEBUG, INFO, WARNING, ERROR, CRITICAL",
+          "default": "INFO",
+          "choices": ["DEBUG", "INFO", "WARNING", "ERROR", "CRITICAL"],
+          "isRequired": false
+        }
+      ]
     }
   ]
 }
