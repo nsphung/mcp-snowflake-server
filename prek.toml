@@ -1,5 +1,7 @@
 minimum_prek_version = "0.3.11"
 
+exclude = "^CHANGELOG\\.md$"
+
 [[repos]]
 repo = "builtin"
 
