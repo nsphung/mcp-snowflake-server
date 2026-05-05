@@ -2,7 +2,7 @@
 
 <a href="https://github.com/nsphung/mcp-snowflake-server"><img width="80%" height="80%" alt="mcp-snowflake-server-nsp-banner" src="https://github.com/user-attachments/assets/73ccb230-907e-4b4c-ae51-cbda9cdc8c2c" /></a>
 
-[![PyPI](https://img.shields.io/pypi/v/mcp-snowflake-server-nsp)](https://pypi.org/project/mcp-snowflake-server-nsp/) • [![codecov](https://codecov.io/gh/nsphung/mcp-snowflake-server/graph/badge.svg?token=CODECOV_BADGE)](https://codecov.io/gh/nsphung/mcp-snowflake-server) • [![PyPI Downloads](https://img.shields.io/pypi/dm/mcp-snowflake-server-nsp.svg?label=PyPI%20downloads)](https://pypi.org/project/mcp-snowflake-server-nsp/) • [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](https://opensource.org/licenses/MIT)
+[![PyPI](https://img.shields.io/pypi/v/mcp-snowflake-server-nsp)](https://pypi.org/project/mcp-snowflake-server-nsp/) • [![codecov](https://codecov.io/gh/nsphung/mcp-snowflake-server/graph/badge.svg?token=CODECOV_BADGE)](https://codecov.io/gh/nsphung/mcp-snowflake-server) • [![PyPI Downloads](https://img.shields.io/pypi/dm/mcp-snowflake-server-nsp.svg?label=PyPI%20downloads)](https://pypi.org/project/mcp-snowflake-server-nsp/) • [![Docker Pulls](https://img.shields.io/docker/pulls/nsphung/mcp-snowflake-server-nsp)](https://hub.docker.com/r/nsphung/mcp-snowflake-server-nsp) • [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](https://opensource.org/licenses/MIT)
 
 [![lint](https://github.com/nsphung/mcp-snowflake-server/actions/workflows/lint.yml/badge.svg)](https://github.com/nsphung/mcp-snowflake-server/actions/workflows/lint.yml)
 [![test](https://github.com/nsphung/mcp-snowflake-server/actions/workflows/test.yml/badge.svg)](https://github.com/nsphung/mcp-snowflake-server/actions/workflows/test.yml)
@@ -34,7 +34,7 @@ A [Model Context Protocol (MCP)](https://modelcontextprotocol.io/) server / MCP 
 - `--exclude-json-results` flag — reduces LLM context window usage
 - Selective tool exclusion via `--exclude_tools`
 - Prefetch mode — pre-load table schema as MCP resources
-- Docker support
+- Docker support with hardened image ([DHI](https://docs.docker.com/dhi/), nonroot user, no shell in runtime)
 
 ---
 
@@ -63,7 +63,8 @@ A [Model Context Protocol (MCP)](https://modelcontextprotocol.io/) server / MCP 
     - [Via UVX](#via-uvx)
     - [Locally from Source with VSCode](#locally-from-source-with-vscode)
     - [Locally from Source with Claude](#locally-from-source-with-claude)
-    - [Docker](#docker)
+    - [Via Docker Hub](#via-docker-hub)
+    - [Docker (Build from Source)](#docker-build-from-source)
   - [Configuration Reference](#configuration-reference)
   - [Exclusion Patterns](#exclusion-patterns)
   - [Development](#development)
@@ -117,8 +118,9 @@ Add to your MCP client config (e.g. `claude_desktop_config.json`) using `snowfla
 
 ### Visual Studio Code (VSCode)
 
-[![Install in VS Code](https://img.shields.io/badge/VS%20Code-Install%20Server-0078d4?style=flat-square&logo=visualstudiocode)](https://insiders.vscode.dev/redirect?url=vscode%3Amcp%2Finstall%3F%257B%2522name%2522%253A%2522snowflake%2522%252C%2522command%2522%253A%2522uvx%2522%252C%2522args%2522%253A%255B%2522--python%253D3.13%2522%252C%2522--from%2522%252C%2522mcp-snowflake-server-nsp%2522%252C%2522mcp_snowflake_server%2522%255D%257D)
-[![Install in VS Code Insiders](https://img.shields.io/badge/VS%20Code%20Insiders-Install%20Server-24bfa5?style=flat-square&logo=visualstudiocode)](https://insiders.vscode.dev/redirect?url=vscode-insiders%3Amcp%2Finstall%3F%257B%2522name%2522%253A%2522snowflake%2522%252C%2522command%2522%253A%2522uvx%2522%252C%2522args%2522%253A%255B%2522--python%253D3.13%2522%252C%2522--from%2522%252C%2522mcp-snowflake-server-nsp%2522%252C%2522mcp_snowflake_server%2522%255D%257D)
+**uvx** — [![Install in VS Code](https://img.shields.io/badge/VS%20Code-Install%20Server-0078d4?style=flat-square&logo=visualstudiocode)](https://insiders.vscode.dev/redirect?url=vscode%3Amcp%2Finstall%3F%257B%2522name%2522%253A%2522snowflake%2522%252C%2522command%2522%253A%2522uvx%2522%252C%2522args%2522%253A%255B%2522--python%253D3.13%2522%252C%2522--from%2522%252C%2522mcp-snowflake-server-nsp%2522%252C%2522mcp_snowflake_server%2522%255D%257D) [![Install in VS Code Insiders](https://img.shields.io/badge/VS%20Code%20Insiders-Install%20Server-24bfa5?style=flat-square&logo=visualstudiocode)](https://insiders.vscode.dev/redirect?url=vscode-insiders%3Amcp%2Finstall%3F%257B%2522name%2522%253A%2522snowflake%2522%252C%2522command%2522%253A%2522uvx%2522%252C%2522args%2522%253A%255B%2522--python%253D3.13%2522%252C%2522--from%2522%252C%2522mcp-snowflake-server-nsp%2522%252C%2522mcp_snowflake_server%2522%255D%257D)
+
+**Docker** — [![Install in VS Code (Docker)](https://img.shields.io/badge/VS%20Code-Install%20Docker%20Server-0078d4?style=flat-square&logo=visualstudiocode)](https://insiders.vscode.dev/redirect?url=vscode%3Amcp%2Finstall%3F%257B%2522name%2522%253A%2522snowflake%2522%252C%2522command%2522%253A%2522docker%2522%252C%2522args%2522%253A%255B%2522run%2522%252C%2522--rm%2522%252C%2522-i%2522%252C%2522nsphung%252Fmcp-snowflake-server-nsp%2522%255D%257D) [![Install in VS Code Insiders (Docker)](https://img.shields.io/badge/VS%20Code%20Insiders-Install%20Docker%20Server-24bfa5?style=flat-square&logo=visualstudiocode)](https://insiders.vscode.dev/redirect?url=vscode-insiders%3Amcp%2Finstall%3F%257B%2522name%2522%253A%2522snowflake%2522%252C%2522command%2522%253A%2522docker%2522%252C%2522args%2522%253A%255B%2522run%2522%252C%2522--rm%2522%252C%2522-i%2522%252C%2522nsphung%252Fmcp-snowflake-server-nsp%2522%255D%257D)
 
 Or add manually to your MCP client config (e.g. `.vscode/mcp.json`) using `.env` file (see [Authentication](#authentication)):
 
@@ -399,21 +401,23 @@ The package is published on [PyPI as `mcp-snowflake-server-nsp`](https://pypi.or
 
 - Create a `.env` file with your Snowflake credentials (or use a TOML connection file — see [Authentication](#authentication)):
 
+  > **Note:** Do not quote values and do not use inline comments — both break `docker run --env-file`. Use `VAR=value`, not `VAR="value"` or `VAR=value # comment`.
+
   ```bash
-  SNOWFLAKE_USER="user@example.com"
-  SNOWFLAKE_ACCOUNT="myaccount"
-  SNOWFLAKE_ROLE="MYROLE"
-  SNOWFLAKE_DATABASE="MY_DB"
-  SNOWFLAKE_SCHEMA="PUBLIC"
-  SNOWFLAKE_WAREHOUSE="COMPUTE_WH"
-  SNOWFLAKE_AUTHENTICATOR="snowflake"
-  SNOWFLAKE_PASSWORD="secret"
+  SNOWFLAKE_USER=user@example.com
+  SNOWFLAKE_ACCOUNT=myaccount
+  SNOWFLAKE_ROLE=MYROLE
+  SNOWFLAKE_DATABASE=MY_DB
+  SNOWFLAKE_SCHEMA=PUBLIC
+  SNOWFLAKE_WAREHOUSE=COMPUTE_WH
+  SNOWFLAKE_AUTHENTICATOR=snowflake
+  SNOWFLAKE_PASSWORD=secret
   # Key-pair alternative:
-  # SNOWFLAKE_AUTHENTICATOR="snowflake_jwt"
+  # SNOWFLAKE_AUTHENTICATOR=snowflake_jwt
   # SNOWFLAKE_PRIVATE_KEY_FILE=/absolute/path/key.p8
-  # SNOWFLAKE_PRIVATE_KEY_FILE_PWD="passphrase"
+  # SNOWFLAKE_PRIVATE_KEY_FILE_PWD=passphrase
   # Browser SSO alternative:
-  # SNOWFLAKE_AUTHENTICATOR="externalbrowser"
+  # SNOWFLAKE_AUTHENTICATOR=externalbrowser
   ```
 
 - _(Optional)_ Edit [`runtime_config.json`](https://github.com/nsphung/mcp-snowflake-server/blob/main/runtime_config.json) to exclude specific databases, schemas, or tables (see [Exclusion Patterns](#exclusion-patterns)).
@@ -477,21 +481,23 @@ The package is published on [PyPI as `mcp-snowflake-server-nsp`](https://pypi.or
 
 3. Create a `.env` file with your Snowflake credentials (or use a TOML connection file — see [Authentication](#authentication)):
 
+   > **Note:** Do not quote values and do not use inline comments — both break `docker run --env-file`. Use `VAR=value`, not `VAR="value"` or `VAR=value # comment`.
+
    ```bash
-   SNOWFLAKE_USER="user@example.com"
-   SNOWFLAKE_ACCOUNT="myaccount"
-   SNOWFLAKE_ROLE="MYROLE"
-   SNOWFLAKE_DATABASE="MY_DB"
-   SNOWFLAKE_SCHEMA="PUBLIC"
-   SNOWFLAKE_WAREHOUSE="COMPUTE_WH"
-   SNOWFLAKE_AUTHENTICATOR="snowflake"
-   SNOWFLAKE_PASSWORD="secret"
+   SNOWFLAKE_USER=user@example.com
+   SNOWFLAKE_ACCOUNT=myaccount
+   SNOWFLAKE_ROLE=MYROLE
+   SNOWFLAKE_DATABASE=MY_DB
+   SNOWFLAKE_SCHEMA=PUBLIC
+   SNOWFLAKE_WAREHOUSE=COMPUTE_WH
+   SNOWFLAKE_AUTHENTICATOR=snowflake
+   SNOWFLAKE_PASSWORD=secret
    # Key-pair alternative:
-   # SNOWFLAKE_AUTHENTICATOR="snowflake_jwt"
+   # SNOWFLAKE_AUTHENTICATOR=snowflake_jwt
    # SNOWFLAKE_PRIVATE_KEY_FILE=/absolute/path/key.p8
-   # SNOWFLAKE_PRIVATE_KEY_FILE_PWD="passphrase"
+   # SNOWFLAKE_PRIVATE_KEY_FILE_PWD=passphrase
    # Browser SSO alternative:
-   # SNOWFLAKE_AUTHENTICATOR="externalbrowser"
+   # SNOWFLAKE_AUTHENTICATOR=externalbrowser
    ```
 
 4. _(Optional)_ Edit [`runtime_config.json`](https://github.com/nsphung/mcp-snowflake-server/blob/main/runtime_config.json) to exclude specific databases, schemas, or tables (see [Exclusion Patterns](#exclusion-patterns)).
@@ -546,28 +552,136 @@ The package is published on [PyPI as `mcp-snowflake-server-nsp`](https://pypi.or
 
 ---
 
-### Docker
+### Via Docker Hub
 
-A `Dockerfile` is included for containerised deployments:
+The image is published on [Docker Hub](https://hub.docker.com/r/nsphung/mcp-snowflake-server-nsp) — no build step required:
+
+```bash
+docker pull nsphung/mcp-snowflake-server-nsp
+```
+
+> **Note:** `-i` (`--interactive`) is required to keep stdin open for the MCP stdio transport. Do **not** use `-d` (detach).
+
+<details>
+<summary><strong>Claude Desktop — <code>claude_desktop_config.json</code></strong></summary>
+
+With `.env` file (see [Authentication](#authentication)):
+
+```jsonc
+"mcpServers": {
+  "snowflake": {
+    "command": "docker",
+    "args": [
+      "run", "--rm", "-i",
+      "--env-file", "/absolute/path/to/.env",
+      "nsphung/mcp-snowflake-server-nsp"
+    ]
+  }
+}
+```
+
+With TOML connections file:
+
+```jsonc
+"mcpServers": {
+  "snowflake": {
+    "command": "docker",
+    "args": [
+      "run", "--rm", "-i",
+      "-v", "/path/to/snowflake_connections.toml:/app/snowflake_connections.toml:ro",
+      "nsphung/mcp-snowflake-server-nsp",
+      "--connections-file", "/app/snowflake_connections.toml",
+      "--connection-name", "production"
+    ]
+  }
+}
+```
+
+</details>
+
+<details>
+<summary><strong>VS Code — <code>.vscode/mcp.json</code></strong></summary>
+
+With `.env` file:
+
+```jsonc
+"snowflake": {
+  "type": "stdio",
+  "command": "docker",
+  "args": [
+    "run", "--rm", "-i",
+    "nsphung/mcp-snowflake-server-nsp"
+  ],
+  "envFile": "${workspaceFolder}/.env"
+}
+```
+
+With TOML connections file:
+
+```jsonc
+"snowflake": {
+  "type": "stdio",
+  "command": "docker",
+  "args": [
+    "run", "--rm", "-i",
+    "-v", "/path/to/snowflake_connections.toml:/app/snowflake_connections.toml:ro",
+    "nsphung/mcp-snowflake-server-nsp",
+    "--connections-file", "/app/snowflake_connections.toml",
+    "--connection-name", "production"
+  ]
+}
+```
+
+</details>
+
+<details>
+<summary><strong>OpenCode — <code>opencode.jsonc</code></strong></summary>
+
+```jsonc
+"snowflake": {
+  "type": "local",
+  "command": [
+    "docker", "run", "--rm", "-i",
+    "--env-file", "/absolute/path/to/.env",
+    "nsphung/mcp-snowflake-server-nsp"
+  ],
+  "enabled": true,
+  "timeout": 300000
+}
+```
+
+</details>
+
+---
+
+### Docker (Build from Source)
+
+A `Dockerfile` is included for containerised deployments.
+
+> **Prerequisites:** The `Dockerfile` uses [Docker Hardened Images (DHI)](https://docs.docker.com/dhi/) as base images. You need registry access — run `docker login dhi.io` first (see the [DHI get-started guide](https://docs.docker.com/dhi/get-started/)). If you don't have access, replace the `dhi.io/python` and `dhi.io/uv` base images with standard equivalents (e.g. `python:3.13-slim` and `ghcr.io/astral-sh/uv:latest`), noting that DHI security hardening won't apply.
 
 ```bash
 # Build
 docker build -t mcp-snowflake-server .
 
-# Run (pass credentials as environment variables)
-docker run --rm \
-  -e SNOWFLAKE_USER="user@example.com" \
-  -e SNOWFLAKE_ACCOUNT="myaccount" \
-  -e SNOWFLAKE_AUTHENTICATOR="snowflake" \
-  -e SNOWFLAKE_PASSWORD="secret" \
-  -e SNOWFLAKE_WAREHOUSE="COMPUTE_WH" \
-  -e SNOWFLAKE_DATABASE="MY_DB" \
-  -e SNOWFLAKE_SCHEMA="PUBLIC" \
-  -e SNOWFLAKE_ROLE="MYROLE" \
+# Run with a .env file (values must be unquoted, no inline comments — see .env.example)
+# -i (--interactive) is required to keep stdin open for the MCP stdio transport
+docker run --rm -i --env-file .env mcp-snowflake-server
+
+# Or pass credentials individually as environment variables
+docker run --rm -i \
+  -e SNOWFLAKE_USER=user@example.com \
+  -e SNOWFLAKE_ACCOUNT=myaccount \
+  -e SNOWFLAKE_AUTHENTICATOR=snowflake \
+  -e SNOWFLAKE_PASSWORD=secret \
+  -e SNOWFLAKE_WAREHOUSE=COMPUTE_WH \
+  -e SNOWFLAKE_DATABASE=MY_DB \
+  -e SNOWFLAKE_SCHEMA=PUBLIC \
+  -e SNOWFLAKE_ROLE=MYROLE \
   mcp-snowflake-server
 
-# Or override the entrypoint arguments directly
-docker run --rm mcp-snowflake-server \
+# Or pass arguments directly
+docker run --rm -i mcp-snowflake-server \
   --account your_account \
   --user your_user \
   --authenticator snowflake \
@@ -576,6 +690,14 @@ docker run --rm mcp-snowflake-server \
   --database MY_DB \
   --schema PUBLIC \
   --role MYROLE
+
+# Or use a TOML connections file (recommended for multiple environments)
+# Mount the file read-only; --connections-file path must match the mount target
+docker run --rm -i \
+  -v /path/to/snowflake_connections.toml:/app/snowflake_connections.toml:ro \
+  mcp-snowflake-server \
+  --connections-file /app/snowflake_connections.toml \
+  --connection-name production
 ```
 
 ---
@@ -664,8 +786,8 @@ Requires [`uv`](https://github.com/astral-sh/uv) and [`bun`](https://bun.sh). Py
 
 ## Documentation & Coverage
 
-- Full AI-generated documentation: [![Ask DeepWiki](https://deepwiki.com/badge.svg)](https://deepwiki.com/nsphung/mcp-snowflake-server)
-- Test coverage sunburst:
+- Full AI-generated documentation [![Ask DeepWiki](https://deepwiki.com/badge.svg)](https://deepwiki.com/nsphung/mcp-snowflake-server)
+- Test Coverage Sunburst
 
   ![Sunburst Test Coverage](https://codecov.io/github/nsphung/mcp-snowflake-server/graphs/sunburst.svg?token=DSOJN7JOON)
 
