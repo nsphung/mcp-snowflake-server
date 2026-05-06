@@ -8,11 +8,11 @@ requires-python = ">=3.13"
 authors = [{ name = "nsphung", email = "nsphung@users.noreply.github.com" }]
 
 dependencies = [
-  "mcp>=1.0.0",
+  "mcp==1.27.0",
   "snowflake-connector-python[pandas]==4.4.0",
   "pandas>=2.2.3",
-  "python-dotenv>=1.0.1",
-  "sqlparse>=0.5.3",
+  "python-dotenv==1.2.2",
+  "sqlparse==0.5.5",
   "snowflake-snowpark-python==1.50.0",
 ]
 
@@ -39,10 +39,22 @@ Changelog = "https://github.com/nsphung/mcp-snowflake-server/blob/main/CHANGELOG
 requires = ["hatchling"]
 build-backend = "hatchling.build"
 
+# Security overrides: force minimum safe versions of transitive dependencies
+# flagged by Dependabot without polluting the package's direct dependency list.
+[tool.uv]
+constraint-dependencies = [
+  "python-multipart>=0.0.22",
+  "urllib3>=2.6.3",
+  "protobuf>=5.29.6",
+  "starlette>=0.49.1",
+  "PyJWT>=2.12.0",
+  "requests>=2.33.0",
+]
+
 [dependency-groups]
 dev = [
   "mypy==1.20.2",
-  "ruff==0.15.11",
+  "ruff==0.15.12",
   "types-pyyaml>=6.0.12.20260408",
   "pytest>=8.3",
   "pytest-asyncio>=0.26",
