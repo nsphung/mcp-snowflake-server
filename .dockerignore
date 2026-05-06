@@ -1,0 +1,5 @@
+.git
+htmlcov
+tests
+notebooks
+*.pyc
