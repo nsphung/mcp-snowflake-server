@@ -6,6 +6,16 @@ resolution-markers = [
     "python_full_version < '3.15'",
 ]
 
+[manifest]
+constraints = [
+    { name = "protobuf", specifier = ">=5.29.6" },
+    { name = "pyjwt", specifier = ">=2.12.0" },
+    { name = "python-multipart", specifier = ">=0.0.22" },
+    { name = "requests", specifier = ">=2.33.0" },
+    { name = "starlette", specifier = ">=0.49.1" },
+    { name = "urllib3", specifier = ">=2.6.3" },
+]
+
 [[package]]
 name = "annotated-types"
 version = "0.7.0"
@@ -499,17 +509,10 @@ source = { editable = "." }
 dependencies = [
     { name = "mcp" },
     { name = "pandas" },
-    { name = "protobuf" },
-    { name = "pyjwt" },
     { name = "python-dotenv" },
-    { name = "python-multipart" },
-    { name = "requests" },
     { name = "snowflake-connector-python", extra = ["pandas"] },
     { name = "snowflake-snowpark-python" },
     { name = "sqlparse" },
-    { name = "starlette" },
-    { name = "urllib3" },
-    { name = "wheel" },
 ]
 
 [package.dev-dependencies]
@@ -528,17 +531,10 @@ dev = [
 requires-dist = [
     { name = "mcp", specifier = "==1.27.0" },
     { name = "pandas", specifier = ">=2.2.3" },
-    { name = "protobuf", specifier = "==5.29.6" },
-    { name = "pyjwt", specifier = "==2.12.0" },
     { name = "python-dotenv", specifier = "==1.2.2" },
-    { name = "python-multipart", specifier = "==0.0.22" },
-    { name = "requests", specifier = "==2.33.0" },
     { name = "snowflake-connector-python", extras = ["pandas"], specifier = "==4.4.0" },
     { name = "snowflake-snowpark-python", specifier = "==1.50.0" },
     { name = "sqlparse", specifier = "==0.5.5" },
-    { name = "starlette", specifier = "==0.49.1" },
-    { name = "urllib3", specifier = "==2.6.3" },
-    { name = "wheel", specifier = "==0.46.2" },
 ]
 
 [package.metadata.requires-dev]

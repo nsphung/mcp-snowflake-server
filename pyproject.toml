@@ -14,14 +14,6 @@ dependencies = [
   "python-dotenv==1.2.2",
   "sqlparse==0.5.5",
   "snowflake-snowpark-python==1.50.0",
-  # dependabot alert fix
-  "python-multipart==0.0.22",
-  "urllib3==2.6.3",
-  "protobuf==5.29.6",
-  "starlette==0.49.1",
-  "PyJWT==2.12.0",
-  "wheel==0.46.2",
-  "requests==2.33.0",
 ]
 
 keywords = ["mcp", "snowflake", "llm", "ai", "model-context-protocol", "sql"]
@@ -46,6 +38,18 @@ Changelog = "https://github.com/nsphung/mcp-snowflake-server/blob/main/CHANGELOG
 [build-system]
 requires = ["hatchling"]
 build-backend = "hatchling.build"
+
+# Security overrides: force minimum safe versions of transitive dependencies
+# flagged by Dependabot without polluting the package's direct dependency list.
+[tool.uv]
+constraint-dependencies = [
+  "python-multipart>=0.0.22",
+  "urllib3>=2.6.3",
+  "protobuf>=5.29.6",
+  "starlette>=0.49.1",
+  "PyJWT>=2.12.0",
+  "requests>=2.33.0",
+]
 
 [dependency-groups]
 dev = [
