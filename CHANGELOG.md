@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.9.3](https://github.com/nsphung/mcp-snowflake-server/compare/v0.9.2...v0.9.3) (2026-05-06)
+
+
+### Bug Fixes
+
+* registryBaseUrl server.json manifest ([74887a0](https://github.com/nsphung/mcp-snowflake-server/commit/74887a0b0f21b70b8ee2ac96f1332fe093336e6b))
+
 ## [0.9.2](https://github.com/nsphung/mcp-snowflake-server/compare/v0.9.1...v0.9.2) (2026-05-06)
 
 
