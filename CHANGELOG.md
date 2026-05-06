@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.9.4](https://github.com/nsphung/mcp-snowflake-server/compare/v0.9.3...v0.9.4) (2026-05-06)
+
+
+### Bug Fixes
+
+* server.json manifest version ([90a99fd](https://github.com/nsphung/mcp-snowflake-server/commit/90a99fd8e6bde94880a0785b9b92893b6c0a2dcd))
+
 ## [0.9.3](https://github.com/nsphung/mcp-snowflake-server/compare/v0.9.2...v0.9.3) (2026-05-06)
 
 
