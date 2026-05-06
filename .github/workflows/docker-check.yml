@@ -70,8 +70,10 @@ jobs:
           context: .
           load: true
           tags: mcp-snowflake-server:test
-          cache-from: type=gha
-          cache-to: type=gha,mode=max
+          cache-from: |
+            type=gha,scope=docker-check
+            type=gha,scope=docker-check-main
+          cache-to: type=gha,scope=docker-check${{ github.ref == 'refs/heads/main' && '-main' || '' }},mode=max
 
       - name: Smoke test - container starts
         run: |
