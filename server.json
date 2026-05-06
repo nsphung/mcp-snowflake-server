@@ -240,8 +240,7 @@
     },
     {
       "registryType": "oci",
-      "registryBaseUrl": "https://docker.io",
-      "identifier": "nsphung/mcp-snowflake-server-nsp",
+      "identifier": "docker.io/nsphung/mcp-snowflake-server-nsp",
       "version": "${VERSION}",
       "runtimeHint": "docker",
       "runtimeArguments": [
