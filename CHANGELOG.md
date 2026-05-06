@@ -1,5 +1,23 @@
 # Changelog
 
+## [0.10.1](https://github.com/nsphung/mcp-snowflake-server/compare/v0.10.0...v0.10.1) (2026-05-06)
+
+
+### Features
+
+* Add docker gate via gh env / wait pypi before mcp publish ([7888c63](https://github.com/nsphung/mcp-snowflake-server/commit/7888c63d4b63bc42a17a3a731c75b680f06f5382))
+* Warm docker cache for PR ([7bc2b3a](https://github.com/nsphung/mcp-snowflake-server/commit/7bc2b3a111fd3497e9502be94719d1052edbbb24))
+
+
+### Documentation
+
+* Add url docker ([ce68bfb](https://github.com/nsphung/mcp-snowflake-server/commit/ce68bfb6e1c4a2f5869e91fd675b18db16381ac2))
+
+
+### Miscellaneous Chores
+
+* release 0.10.1 ([fa5a3e5](https://github.com/nsphung/mcp-snowflake-server/commit/fa5a3e536b6d2a34a3a8810ff12cdbce1ef9783c))
+
 ## [0.10.0](https://github.com/nsphung/mcp-snowflake-server/compare/v0.9.5...v0.10.0) (2026-05-06)
 
 
