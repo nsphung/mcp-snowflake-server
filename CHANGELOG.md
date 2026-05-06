@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.9.1](https://github.com/nsphung/mcp-snowflake-server/compare/v0.9.0...v0.9.1) (2026-05-06)
+
+
+### Bug Fixes
+
+* Ignore changelog in oxfmt for release-please ([1852f36](https://github.com/nsphung/mcp-snowflake-server/commit/1852f3648afa50b1313c39a76f28c80415f7b617))
+
 ## [0.9.0](https://github.com/nsphung/mcp-snowflake-server/compare/v0.8.0...v0.9.0) (2026-05-06)
 
 
