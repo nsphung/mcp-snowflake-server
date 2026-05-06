@@ -91,9 +91,9 @@ jobs:
       - prepare
     if: ${{ needs.prepare.outputs.skip_pypi != 'true' }}
 
-    # Strongly recommended: a dedicated environment with branch/tag protection
-    # rules prevents accidental or unauthorised publishes.
-    # Create it at: Settings → Environments → New environment → "pypi"
+    # Gate: this job pauses for Required Reviewers approval before running.
+    # Enable it at: Settings → Environments → pypi → Required reviewers → add repo owner(s).
+    # Branch/tag protection rules can also be set there to restrict which refs may publish.
     environment:
       name: pypi
       url: https://pypi.org/p/mcp-snowflake-server-nsp
@@ -154,9 +154,27 @@ jobs:
             echo "Docker tag ${VERSION} not found; image publish job will run."
           fi
 
+  # Reusable workflows cannot declare an `environment:` themselves, so this
+  # lightweight gate job owns the environment and pauses for reviewer approval.
+  # Enable it at: Settings → Environments → docker → Required reviewers → add repo owner(s).
+  approve-docker:
+    runs-on: ubuntu-latest
+    needs:
+      - release-build
+      - prepare
+      - docker-image-check
+    if: ${{ needs.prepare.outputs.skip_docker != 'true' && needs.docker-image-check.outputs.exists != 'true' }}
+    environment:
+      name: docker
+    permissions: {}
+    steps:
+      - name: Docker publish approved
+        run: echo "Docker publish approved by maintainer"
+
   publish-docker-image:
     uses: docker/github-builder/.github/workflows/build.yml@7d2a02426d4b989616ba5aaee4e879afd4134b0d # v1.6.0
     needs:
+      - approve-docker
       - release-build
       - prepare
       - docker-image-check
@@ -202,13 +220,14 @@ jobs:
   mcp-publish:
     runs-on: ubuntu-latest
     needs:
+      - pypi-publish
       - publish-docker-image
       - docker-image-check
       - prepare
     permissions:
       id-token: write
       contents: read
-    if: ${{ always() && !cancelled() && needs.prepare.outputs.skip_mcp != 'true' && (needs.prepare.outputs.skip_docker == 'true' || needs.publish-docker-image.result == 'success' || needs.docker-image-check.outputs.exists == 'true') }}
+    if: ${{ always() && !cancelled() && needs.prepare.outputs.skip_mcp != 'true' && (needs.prepare.outputs.skip_pypi == 'true' || needs.pypi-publish.result == 'success') && (needs.prepare.outputs.skip_docker == 'true' || needs.publish-docker-image.result == 'success' || needs.docker-image-check.outputs.exists == 'true') }}
 
     steps:
       - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
