@@ -166,6 +166,7 @@ jobs:
     if: ${{ needs.prepare.outputs.skip_docker != 'true' && needs.docker-image-check.outputs.exists != 'true' }}
     environment:
       name: docker
+      url: https://hub.docker.com/r/nsphung/mcp-snowflake-server-nsp
     permissions: {}
     steps:
       - name: Docker publish approved
