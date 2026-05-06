@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.11.2](https://github.com/nsphung/mcp-snowflake-server/compare/v0.11.1...v0.11.2) (2026-05-06)
+
+
+### Bug Fixes
+
+* Remove provenance setting in publish.yml ([#34](https://github.com/nsphung/mcp-snowflake-server/issues/34)) ([62f911a](https://github.com/nsphung/mcp-snowflake-server/commit/62f911ae39954e755ec1f94f97c0d2d9e6bbab98))
+
 ## [0.11.1](https://github.com/nsphung/mcp-snowflake-server/compare/v0.11.0...v0.11.1) (2026-05-06)
 
 
