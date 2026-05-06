@@ -6,6 +6,7 @@
 
 [![lint](https://github.com/nsphung/mcp-snowflake-server/actions/workflows/lint.yml/badge.svg)](https://github.com/nsphung/mcp-snowflake-server/actions/workflows/lint.yml)
 [![test](https://github.com/nsphung/mcp-snowflake-server/actions/workflows/test.yml/badge.svg)](https://github.com/nsphung/mcp-snowflake-server/actions/workflows/test.yml)
+[![Code of Conduct](https://img.shields.io/badge/Code%20of%20Conduct-Contributor%20Covenant%202.1-4baaaa.svg)](./CODE_OF_CONDUCT.md)
 [![MCP Compatible](https://img.shields.io/badge/MCP-compatible-green.svg?style=flat-square)](https://modelcontextprotocol.io/)
 [![made-with-python](https://img.shields.io/badge/Made%20with-Python-1f425f.svg)](https://www.python.org/)
 [![python-3.13+](https://img.shields.io/badge/Python-%3E%3D3.13-blue)](https://www.python.org/)
@@ -61,14 +62,9 @@ A [Model Context Protocol (MCP)](https://modelcontextprotocol.io/) server / MCP 
     - [TOML Connection File (Recommended)](#toml-connection-file-recommended)
   - [Installation](#installation)
     - [Via UVX](#via-uvx)
-    - [Locally from Source with VSCode](#locally-from-source-with-vscode)
-    - [Locally from Source with Claude](#locally-from-source-with-claude)
     - [Via Docker Hub](#via-docker-hub)
-    - [Docker (Build from Source)](#docker-build-from-source)
   - [Configuration Reference](#configuration-reference)
   - [Exclusion Patterns](#exclusion-patterns)
-  - [Development](#development)
-  - [Documentation \& Coverage](#documentation--coverage)
   - [License](#license)
   - [Fork and Attribution](#fork-and-attribution)
 
@@ -325,6 +321,8 @@ Pass the file with `--connections-file` and select a profile with `--connection-
 
 The package is published on [PyPI as `mcp-snowflake-server-nsp`](https://pypi.org/project/mcp-snowflake-server-nsp/).
 
+> **Contributing or running from source?** See [`CONTRIBUTING.md`](./CONTRIBUTING.md) for local development setup, test commands, formatting, and building the Docker image from source.
+
 ---
 
 ### Via UVX
@@ -380,168 +378,6 @@ The package is published on [PyPI as `mcp-snowflake-server-nsp`](https://pypi.or
       "--schema", "your_schema"
       // Optional: "--private_key_file", "/absolute/path/key.p8"
       // Optional: "--private_key_file_pwd", "passphrase"
-      // Optional flags — see Configuration Reference
-    ]
-  }
-}
-```
-
-</details>
-
----
-
-### Locally from Source with VSCode
-
-- Install [Visual Studio Code](https://code.visualstudio.com/)
-- Install `uv`:
-
-  ```bash
-  curl -LsSf https://astral.sh/uv/install.sh | sh
-  ```
-
-- Create a `.env` file with your Snowflake credentials (or use a TOML connection file — see [Authentication](#authentication)):
-
-  > **Note:** Do not quote values and do not use inline comments — both break `docker run --env-file`. Use `VAR=value`, not `VAR="value"` or `VAR=value # comment`.
-
-  ```bash
-  SNOWFLAKE_USER=user@example.com
-  SNOWFLAKE_ACCOUNT=myaccount
-  SNOWFLAKE_ROLE=MYROLE
-  SNOWFLAKE_DATABASE=MY_DB
-  SNOWFLAKE_SCHEMA=PUBLIC
-  SNOWFLAKE_WAREHOUSE=COMPUTE_WH
-  SNOWFLAKE_AUTHENTICATOR=snowflake
-  SNOWFLAKE_PASSWORD=secret
-  # Key-pair alternative:
-  # SNOWFLAKE_AUTHENTICATOR=snowflake_jwt
-  # SNOWFLAKE_PRIVATE_KEY_FILE=/absolute/path/key.p8
-  # SNOWFLAKE_PRIVATE_KEY_FILE_PWD=passphrase
-  # Browser SSO alternative:
-  # SNOWFLAKE_AUTHENTICATOR=externalbrowser
-  ```
-
-- _(Optional)_ Edit [`runtime_config.json`](https://github.com/nsphung/mcp-snowflake-server/blob/main/runtime_config.json) to exclude specific databases, schemas, or tables (see [Exclusion Patterns](#exclusion-patterns)).
-
-- Test locally:
-
-  ```bash
-  uv --directory /absolute/path/to/mcp_snowflake_server run mcp_snowflake_server
-  ```
-
-- Add to `.vscode/mcp.json`:
-
-<details>
-<summary><strong>TOML configuration (recommended)</strong></summary>
-
-```jsonc
-"snowflake-local": {
-    "type": "stdio",
-    "command": "/absolute/path/to/uv",
-    "args": [
-      "--python=3.13",
-      "--directory", "/absolute/path/to/mcp_snowflake_server",
-      "run", "mcp_snowflake_server",
-      "--connections-file", "/absolute/path/to/snowflake_connections.toml",
-      "--connection-name", "development"
-      // Optional flags — see Configuration Reference
-    ],
-}
-```
-
-</details>
-
-<details>
-<summary><strong>Environment variables</strong></summary>
-
-```jsonc
-"snowflake-local": {
-    "type": "stdio",
-    "command": "/absolute/path/to/uv",
-    "args": [
-      "--python=3.13",
-      "--directory", "/absolute/path/to/mcp_snowflake_server",
-      "run", "mcp_snowflake_server",
-      // Optional flags — see Configuration Reference / .env.example file
-    ],
-    "envFile": "/absolute/path/to/.env"
-}
-```
-
-</details>
-
-### Locally from Source with Claude
-
-1. Install [Claude AI Desktop App](https://claude.ai/download)
-
-2. Install `uv`:
-
-   ```bash
-   curl -LsSf https://astral.sh/uv/install.sh | sh
-   ```
-
-3. Create a `.env` file with your Snowflake credentials (or use a TOML connection file — see [Authentication](#authentication)):
-
-   > **Note:** Do not quote values and do not use inline comments — both break `docker run --env-file`. Use `VAR=value`, not `VAR="value"` or `VAR=value # comment`.
-
-   ```bash
-   SNOWFLAKE_USER=user@example.com
-   SNOWFLAKE_ACCOUNT=myaccount
-   SNOWFLAKE_ROLE=MYROLE
-   SNOWFLAKE_DATABASE=MY_DB
-   SNOWFLAKE_SCHEMA=PUBLIC
-   SNOWFLAKE_WAREHOUSE=COMPUTE_WH
-   SNOWFLAKE_AUTHENTICATOR=snowflake
-   SNOWFLAKE_PASSWORD=secret
-   # Key-pair alternative:
-   # SNOWFLAKE_AUTHENTICATOR=snowflake_jwt
-   # SNOWFLAKE_PRIVATE_KEY_FILE=/absolute/path/key.p8
-   # SNOWFLAKE_PRIVATE_KEY_FILE_PWD=passphrase
-   # Browser SSO alternative:
-   # SNOWFLAKE_AUTHENTICATOR=externalbrowser
-   ```
-
-4. _(Optional)_ Edit [`runtime_config.json`](https://github.com/nsphung/mcp-snowflake-server/blob/main/runtime_config.json) to exclude specific databases, schemas, or tables (see [Exclusion Patterns](#exclusion-patterns)).
-
-5. Test locally:
-
-   ```bash
-   uv --directory /absolute/path/to/mcp_snowflake_server run mcp_snowflake_server
-   ```
-
-6. Add to `claude_desktop_config.json`:
-
-<details>
-<summary><strong>TOML configuration (recommended)</strong></summary>
-
-```jsonc
-"mcpServers": {
-  "snowflake_local": {
-    "command": "/absolute/path/to/uv",
-    "args": [
-      "--python=3.13",
-      "--directory", "/absolute/path/to/mcp_snowflake_server",
-      "run", "mcp_snowflake_server",
-      "--connections-file", "/absolute/path/to/snowflake_connections.toml",
-      "--connection-name", "development"
-      // Optional flags — see Configuration Reference
-    ]
-  }
-}
-```
-
-</details>
-
-<details>
-<summary><strong>Environment variables</strong></summary>
-
-```jsonc
-"mcpServers": {
-  "snowflake_local": {
-    "command": "/absolute/path/to/uv",
-    "args": [
-      "--python=3.13",
-      "--directory", "/absolute/path/to/mcp_snowflake_server",
-      "run", "mcp_snowflake_server"
       // Optional flags — see Configuration Reference
     ]
   }
@@ -654,54 +490,6 @@ With TOML connections file:
 
 ---
 
-### Docker (Build from Source)
-
-A `Dockerfile` is included for containerised deployments.
-
-> **Prerequisites:** The `Dockerfile` uses [Docker Hardened Images (DHI)](https://docs.docker.com/dhi/) as base images. You need registry access — run `docker login dhi.io` first (see the [DHI get-started guide](https://docs.docker.com/dhi/get-started/)). If you don't have access, replace the `dhi.io/python` and `dhi.io/uv` base images with standard equivalents (e.g. `python:3.13-slim` and `ghcr.io/astral-sh/uv:latest`), noting that DHI security hardening won't apply.
-
-```bash
-# Build
-docker build -t mcp-snowflake-server .
-
-# Run with a .env file (values must be unquoted, no inline comments — see .env.example)
-# -i (--interactive) is required to keep stdin open for the MCP stdio transport
-docker run --rm -i --env-file .env mcp-snowflake-server
-
-# Or pass credentials individually as environment variables
-docker run --rm -i \
-  -e SNOWFLAKE_USER=user@example.com \
-  -e SNOWFLAKE_ACCOUNT=myaccount \
-  -e SNOWFLAKE_AUTHENTICATOR=snowflake \
-  -e SNOWFLAKE_PASSWORD=secret \
-  -e SNOWFLAKE_WAREHOUSE=COMPUTE_WH \
-  -e SNOWFLAKE_DATABASE=MY_DB \
-  -e SNOWFLAKE_SCHEMA=PUBLIC \
-  -e SNOWFLAKE_ROLE=MYROLE \
-  mcp-snowflake-server
-
-# Or pass arguments directly
-docker run --rm -i mcp-snowflake-server \
-  --account your_account \
-  --user your_user \
-  --authenticator snowflake \
-  --password your_password \
-  --warehouse COMPUTE_WH \
-  --database MY_DB \
-  --schema PUBLIC \
-  --role MYROLE
-
-# Or use a TOML connections file (recommended for multiple environments)
-# Mount the file read-only; --connections-file path must match the mount target
-docker run --rm -i \
-  -v /path/to/snowflake_connections.toml:/app/snowflake_connections.toml:ro \
-  mcp-snowflake-server \
-  --connections-file /app/snowflake_connections.toml \
-  --connection-name production
-```
-
----
-
 ## Configuration Reference
 
 All connection parameters can also be set as environment variables (`SNOWFLAKE_<PARAM_UPPER>`).
@@ -743,53 +531,6 @@ Edit [`runtime_config.json`](https://github.com/nsphung/mcp-snowflake-server/blo
 ```
 
 The server loads this file automatically at startup from the working directory.
-
----
-
-## Development
-
-```bash
-# Install all dependencies (uv + bun) and set up Git hooks
-make install
-
-# Reinstall Git hooks if needed
-make hooks
-
-# Run all prek hooks across the repo (includes oxfmt, ruff, mypy)
-make hooks-run
-
-# Check formatting with oxfmt (non-destructive)
-make fmt-check
-
-# Auto-format all files with oxfmt
-make fmt
-
-# Lint & auto-fix with Ruff
-make ruff
-
-# Run tests
-make test
-
-# Run tests with terminal coverage report
-make coverage
-
-# Run tests and open HTML coverage report
-make coverage-html
-
-# Run the server locally
-make run
-```
-
-Requires [`uv`](https://github.com/astral-sh/uv) and [`bun`](https://bun.sh). Python dev dependencies include `ruff`, `mypy`, `pytest`, `pytest-asyncio`, `pytest-cov`, and `prek`. The multi-language formatter [`oxfmt`](https://github.com/oxc-project/oxc) is managed via `bun` (`package.json` / `bun.lock`). Hook configuration lives in `prek.toml`; formatter configuration in `.oxfmtrc.json`.
-
----
-
-## Documentation & Coverage
-
-- Full AI-generated documentation [![Ask DeepWiki](https://deepwiki.com/badge.svg)](https://deepwiki.com/nsphung/mcp-snowflake-server)
-- Test Coverage Sunburst
-
-  ![Sunburst Test Coverage](https://codecov.io/github/nsphung/mcp-snowflake-server/graphs/sunburst.svg?token=DSOJN7JOON)
 
 ---
 
