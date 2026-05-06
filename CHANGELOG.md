@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.10.0](https://github.com/nsphung/mcp-snowflake-server/compare/v0.9.5...v0.10.0) (2026-05-06)
+
+
+### Features
+
+* Guard release + manual retries steps ([4a6caa4](https://github.com/nsphung/mcp-snowflake-server/commit/4a6caa450ed1dfc05aa326ab4c611d6e171c4e81))
+
 ## [0.9.5](https://github.com/nsphung/mcp-snowflake-server/compare/v0.9.4...v0.9.5) (2026-05-06)
 
 
