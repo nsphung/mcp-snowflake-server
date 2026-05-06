@@ -1,5 +1,17 @@
 # Changelog
 
+## [0.11.1](https://github.com/nsphung/mcp-snowflake-server/compare/v0.11.0...v0.11.1) (2026-05-06)
+
+
+### Features
+
+* Enable caching and additional metadata in publish.yml ([#32](https://github.com/nsphung/mcp-snowflake-server/issues/32)) ([5f65ee2](https://github.com/nsphung/mcp-snowflake-server/commit/5f65ee225a4a22bc2db58ec992e3e509aa95a943))
+
+
+### Miscellaneous Chores
+
+* release 0.11.1 ([3620a9f](https://github.com/nsphung/mcp-snowflake-server/commit/3620a9f841371f632232d34323d8be4cbf10d158))
+
 ## [0.11.0](https://github.com/nsphung/mcp-snowflake-server/compare/v0.10.1...v0.11.0) (2026-05-06)
 
 
