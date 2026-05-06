@@ -38,3 +38,11 @@ coverage-html: ## Run pytest and open HTML coverage report
 
 run: ## Run mcp_snowflake_server locally
 	uv --directory . run mcp_snowflake_server
+
+validate-server: ## Validate server.json against the MCP registry API (no auth required)
+	@payload=$$(jq '.version = "0.0.0" | .packages[0].version = "0.0.0" | .packages[1].identifier |= gsub("\\$${VERSION}"; "0.0.0")' server.json); \
+	result=$$(echo "$$payload" | curl -sf -X POST https://registry.modelcontextprotocol.io/v0.1/validate \
+		-H 'Content-Type: application/json' \
+		-d @-); \
+	echo "$$result" | jq .; \
+	echo "$$result" | jq -e '.valid == true' > /dev/null && echo "server.json is valid" || (echo "server.json is INVALID" && exit 1)

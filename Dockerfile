@@ -48,6 +48,8 @@ ENV PATH="/app/.venv/bin:$PATH"
 COPY --from=builder --chown=nonroot:nonroot /app/.venv /app/.venv
 COPY --chown=nonroot:nonroot runtime_config.json ./
 
+LABEL io.modelcontextprotocol.server.name="io.github.nsphung/mcp-snowflake-server"
+
 USER nonroot
 
 ENTRYPOINT ["mcp_snowflake_server"]
