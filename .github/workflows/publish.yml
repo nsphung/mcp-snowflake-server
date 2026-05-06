@@ -185,7 +185,11 @@ jobs:
       id-token: write
     with:
       output: image
+      cache: true
       push: true
+      sbom: true
+      set-meta-annotations: true
+      set-meta-labels: true
       platforms: linux/amd64,linux/arm64
       meta-images: nsphung/mcp-snowflake-server-nsp
       meta-tags: |
