@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.9.2](https://github.com/nsphung/mcp-snowflake-server/compare/v0.9.1...v0.9.2) (2026-05-06)
+
+
+### Miscellaneous Chores
+
+* release 0.9.2 ([aaaf430](https://github.com/nsphung/mcp-snowflake-server/commit/aaaf43002bab54eb1f3aa9dd35bbcbb7343d149a))
+
 ## [0.9.1](https://github.com/nsphung/mcp-snowflake-server/compare/v0.9.0...v0.9.1) (2026-05-06)
 
 
