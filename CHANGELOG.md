@@ -1,5 +1,17 @@
 # Changelog
 
+## [0.11.0](https://github.com/nsphung/mcp-snowflake-server/compare/v0.10.1...v0.11.0) (2026-05-06)
+
+
+### Features
+
+* Manage update with dependabot ([#26](https://github.com/nsphung/mcp-snowflake-server/issues/26)) ([778d14f](https://github.com/nsphung/mcp-snowflake-server/commit/778d14fa4ad657f93c0e43b97fcd091156264d0f))
+
+
+### Bug Fixes
+
+* chore(deps): update package + sec update ([#31](https://github.com/nsphung/mcp-snowflake-server/issues/31)) ([7bd1aa3](https://github.com/nsphung/mcp-snowflake-server/commit/7bd1aa30df064561bc75f87866caa5daaec5f6fe))
+
 ## [0.10.1](https://github.com/nsphung/mcp-snowflake-server/compare/v0.10.0...v0.10.1) (2026-05-06)
 
 
