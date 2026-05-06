@@ -1,5 +1,27 @@
 # Changelog
 
+## [0.9.0](https://github.com/nsphung/mcp-snowflake-server/compare/v0.8.0...v0.9.0) (2026-05-06)
+
+
+### Features
+
+* Add context7.json with server URL and public key ([#12](https://github.com/nsphung/mcp-snowflake-server/issues/12)) ([1549d8d](https://github.com/nsphung/mcp-snowflake-server/commit/1549d8d2acab8f0384903f780cbbac0e4de6abdb))
+* Add oxfmt for json, toml, md & yml ([#17](https://github.com/nsphung/mcp-snowflake-server/issues/17)) ([fb12ec7](https://github.com/nsphung/mcp-snowflake-server/commit/fb12ec7c81b2eedfe3c333462f6dcb20658adbf9))
+* Add prek as pre-commit drop-in ([#16](https://github.com/nsphung/mcp-snowflake-server/issues/16)) ([9b43e0c](https://github.com/nsphung/mcp-snowflake-server/commit/9b43e0cc8e9b6c003163b8ead556a29b6419718a))
+* Docker fix / harden / publish ([#18](https://github.com/nsphung/mcp-snowflake-server/issues/18)) ([ae08b0f](https://github.com/nsphung/mcp-snowflake-server/commit/ae08b0f19f228dbf54a89bbbc9567e54366592b2))
+
+
+### Bug Fixes
+
+* prek for release-please ([55f8b8f](https://github.com/nsphung/mcp-snowflake-server/commit/55f8b8f43581f3b32868f664c1dd42d5e7d35c67))
+
+
+### Documentation
+
+* Add vscode install badge ([f0006fc](https://github.com/nsphung/mcp-snowflake-server/commit/f0006fc73fec352b5592ab83a744d9aea28973bc))
+* Change to MIT License ([4234914](https://github.com/nsphung/mcp-snowflake-server/commit/42349145df1d8004ed6ef5cf088d921205c937ba))
+* Revise README badges and section formatting ([#15](https://github.com/nsphung/mcp-snowflake-server/issues/15)) ([ed2e724](https://github.com/nsphung/mcp-snowflake-server/commit/ed2e72404722ec99beebeb9ad3f81b906dd56237))
+
 ## [0.8.0](https://github.com/nsphung/mcp-snowflake-server/compare/v0.7.0...v0.8.0) (2026-04-30)
 
 ### Features
