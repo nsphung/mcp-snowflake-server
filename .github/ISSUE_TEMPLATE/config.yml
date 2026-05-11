@@ -1,0 +1,8 @@
+blank_issues_enabled: false
+contact_links:
+  - name: Usage and setup help
+    url: https://github.com/nsphung/mcp-snowflake-server/blob/main/README.md
+    about: Check installation, authentication, and configuration docs.
+  - name: Contributing guide
+    url: https://github.com/nsphung/mcp-snowflake-server/blob/main/CONTRIBUTING.md
+    about: Contributor workflow, local setup, and testing guidance.
