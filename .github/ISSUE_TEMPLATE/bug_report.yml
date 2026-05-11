@@ -1,0 +1,113 @@
+name: Bug report
+description: Report a reproducible problem to help us improve.
+title: "[Bug]: "
+labels: ["bug", "triage"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for taking the time to report a bug.
+        Please search existing issues before submitting a new report.
+
+  - type: checkboxes
+    id: checks
+    attributes:
+      label: Preconditions
+      options:
+        - label: I searched existing issues and did not find a duplicate.
+          required: true
+        - label: I tested with the latest release (or latest `main`).
+          required: true
+
+  - type: input
+    id: version
+    attributes:
+      label: Version
+      description: Which version are you using?
+      placeholder: e.g. mcp-snowflake-server-nsp 0.x.x or main
+    validations:
+      required: true
+
+  - type: dropdown
+    id: launch_mode
+    attributes:
+      label: How are you running the server?
+      options:
+        - uvx
+        - uv run (from source)
+        - Docker
+        - VS Code MCP
+        - Claude Desktop
+        - Other
+    validations:
+      required: true
+
+  - type: dropdown
+    id: auth_mode
+    attributes:
+      label: Authentication mode
+      options:
+        - externalbrowser
+        - password
+        - snowflake_jwt (key-pair)
+        - oauth_client_credentials
+        - oauth bearer token
+        - connections file / mixed
+        - not applicable
+    validations:
+      required: true
+
+  - type: textarea
+    id: current_behavior
+    attributes:
+      label: Current behavior
+      description: What happened?
+      placeholder: Clear description of the bug.
+    validations:
+      required: true
+
+  - type: textarea
+    id: expected_behavior
+    attributes:
+      label: Expected behavior
+      description: What did you expect to happen?
+    validations:
+      required: true
+
+  - type: textarea
+    id: steps
+    attributes:
+      label: Steps to reproduce
+      description: Please provide minimal, deterministic steps.
+      placeholder: |
+        1. ...
+        2. ...
+        3. ...
+    validations:
+      required: true
+
+  - type: input
+    id: os_python
+    attributes:
+      label: Environment
+      description: OS and Python version
+      placeholder: e.g. Ubuntu 24.04, Python 3.13.2
+    validations:
+      required: true
+
+  - type: textarea
+    id: logs
+    attributes:
+      label: Relevant logs/output
+      description: Paste relevant logs or traceback. Redact secrets/tokens/passwords.
+      render: shell
+    validations:
+      required: false
+
+  - type: textarea
+    id: additional_context
+    attributes:
+      label: Additional context
+      description: Any extra details, links, or screenshots.
+    validations:
+      required: false
