@@ -1,5 +1,13 @@
 # Changelog
 
+## [0.11.3](https://github.com/nsphung/mcp-snowflake-server/compare/v0.11.2...v0.11.3) (2026-05-11)
+
+
+### Documentation
+
+* add CodeRabbit PR review badge to README ([#39](https://github.com/nsphung/mcp-snowflake-server/issues/39)) ([d98ff14](https://github.com/nsphung/mcp-snowflake-server/commit/d98ff14209050ae817f4a0664ab32c99468732a7))
+* Add docs template issue, pr & sec ([#36](https://github.com/nsphung/mcp-snowflake-server/issues/36)) ([86648b6](https://github.com/nsphung/mcp-snowflake-server/commit/86648b6f8fdb93ec3514446d2ceb5b488d13cb22))
+
 ## [0.11.2](https://github.com/nsphung/mcp-snowflake-server/compare/v0.11.1...v0.11.2) (2026-05-06)
 
 
