@@ -45,7 +45,7 @@ build-backend = "hatchling.build"
 [tool.uv]
 constraint-dependencies = [
   "python-multipart>=0.0.27",
-  "urllib3>=2.6.3",
+  "urllib3>=2.7.0",
   "protobuf>=5.29.6",
   "starlette>=0.49.1",
   "PyJWT>=2.12.0",
