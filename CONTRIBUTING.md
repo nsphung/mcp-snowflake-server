@@ -262,6 +262,7 @@ When opening a pull request:
 
 - Keep changes focused and scoped
 - Run formatting, linting, and tests locally before pushing
+- Use a PR title that follows the [Conventional Commits](https://www.conventionalcommits.org/en/v1.0.0/) format (for example: `feat: add OAuth token refresh`). PR titles are automatically validated by the `Lint PR` GitHub Actions workflow (`.github/workflows/lint_pr.yml`).
 - Include context in the PR description, especially for config or behavior changes
 - Link related issues when applicable
 - Include screenshots or terminal output when changing user-facing docs or behavior
