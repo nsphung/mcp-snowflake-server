@@ -1,5 +1,27 @@
 # Changelog
 
+## [0.12.0](https://github.com/nsphung/mcp-snowflake-server/compare/v0.11.3...v0.12.0) (2026-05-13)
+
+
+### ✨ Features
+
+* Enforce conventional PR titles and harden publisher install integrity ([#44](https://github.com/nsphung/mcp-snowflake-server/issues/44)) ([fa02362](https://github.com/nsphung/mcp-snowflake-server/commit/fa0236249a8cfa069291b1e667977c0dc8ea6c6f))
+
+
+### 🧹 Miscellaneous
+
+* **deps-dev:** bump prek from 0.3.11 to 0.3.13 in the patch-updates group ([#40](https://github.com/nsphung/mcp-snowflake-server/issues/40)) ([f700f04](https://github.com/nsphung/mcp-snowflake-server/commit/f700f04512090b045440e02242f63120232a07f8))
+* **deps-dev:** bump types-pyyaml from 6.0.12.20260408 to 6.0.12.20260508 ([#43](https://github.com/nsphung/mcp-snowflake-server/issues/43)) ([e17602a](https://github.com/nsphung/mcp-snowflake-server/commit/e17602a9e9abf16f03e392416ad1c8363577d18d))
+* **deps:** bump mcp from 1.27.0 to 1.27.1 in the patch-updates group ([#42](https://github.com/nsphung/mcp-snowflake-server/issues/42)) ([57e387d](https://github.com/nsphung/mcp-snowflake-server/commit/57e387d5c4a4570a0c0eb2d9e2fe2465809d6de9))
+* **deps:** bump urllib3 from 2.6.3 to 2.7.0 ([#41](https://github.com/nsphung/mcp-snowflake-server/issues/41)) ([ffb3e93](https://github.com/nsphung/mcp-snowflake-server/commit/ffb3e939c1f7fc912481a29beb0401b7eeeacdab))
+
+
+### 📚 Documentation
+
+* Add CodeQL badge ([784dde1](https://github.com/nsphung/mcp-snowflake-server/commit/784dde135f74ba4ff0fc107c7650dde426a66e78))
+* Add Socket.dev sec badge ([a632704](https://github.com/nsphung/mcp-snowflake-server/commit/a6327046b6a3819010445fd9bf593b85ec2475e8))
+* Update changelog sections ([ba2ab79](https://github.com/nsphung/mcp-snowflake-server/commit/ba2ab798c710a812a9ae93b618543806aeef8798))
+
 ## [0.11.3](https://github.com/nsphung/mcp-snowflake-server/compare/v0.11.2...v0.11.3) (2026-05-11)
 
 

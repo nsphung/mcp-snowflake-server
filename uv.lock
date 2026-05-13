@@ -505,7 +505,7 @@ wheels = [
 
 [[package]]
 name = "mcp-snowflake-server-nsp"
-version = "0.11.3"
+version = "0.12.0"
 source = { editable = "." }
 dependencies = [
     { name = "mcp" },
