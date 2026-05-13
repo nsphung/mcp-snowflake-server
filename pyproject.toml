@@ -37,7 +37,7 @@ Issues = "https://github.com/nsphung/mcp-snowflake-server/issues"
 Changelog = "https://github.com/nsphung/mcp-snowflake-server/blob/main/CHANGELOG.md"
 
 [build-system]
-requires = ["hatchling"]
+requires = ["hatchling", "wheel>=0.46.2"]
 build-backend = "hatchling.build"
 
 # Security overrides: force minimum safe versions of transitive dependencies
