@@ -16,6 +16,7 @@
 [![oxfmt](https://img.shields.io/badge/oxfmt-formatted-orange)](https://oxc.rs/docs/guide/usage/formatter)
 [![CodeQL](https://github.com/nsphung/mcp-snowflake-server/actions/workflows/github-code-scanning/codeql/badge.svg)](https://github.com/nsphung/mcp-snowflake-server/actions/workflows/github-code-scanning/codeql)
 [![OpenSSF Scorecard](https://api.scorecard.dev/projects/github.com/nsphung/mcp-snowflake-server/badge)](https://scorecard.dev/viewer/?uri=github.com/nsphung/mcp-snowflake-server)
+[![OpenSSF Best Practices](https://www.bestpractices.dev/projects/12747/badge)](https://www.bestpractices.dev/projects/12747)
 ![CodeRabbit Pull Request Reviews](https://img.shields.io/coderabbit/prs/github/nsphung/mcp-snowflake-server?utm_source=oss&utm_medium=github&utm_campaign=nsphung%2Fmcp-snowflake-server&labelColor=171717&color=FF570A&link=https%3A%2F%2Fcoderabbit.ai&label=CodeRabbit+Reviews)
 [![Socket Badge](https://badge.socket.dev/pypi/package/mcp-snowflake-server-nsp/latest?artifact_id=tar-gz)](https://socket.dev/pypi/package/mcp-snowflake-server-nsp)
 [![Ask DeepWiki](https://deepwiki.com/badge.svg)](https://deepwiki.com/nsphung/mcp-snowflake-server)
