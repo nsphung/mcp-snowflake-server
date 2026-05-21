@@ -1,5 +1,30 @@
 # Changelog
 
+## [0.12.1](https://github.com/nsphung/mcp-snowflake-server/compare/v0.12.0...v0.12.1) (2026-05-21)
+
+
+### 🐛 Bug Fixes
+
+* permissions release please job level ([daf6bf1](https://github.com/nsphung/mcp-snowflake-server/commit/daf6bf14f4cf12ed11bdd698496009405d60e9aa))
+* Update Python version requirement in pyproject.toml ([#48](https://github.com/nsphung/mcp-snowflake-server/issues/48)) ([0939182](https://github.com/nsphung/mcp-snowflake-server/commit/093918274349fb0572759fbf8dda59102f07444b))
+
+
+### 🧹 Miscellaneous
+
+* add OpenSSF Scorecard badge and bump codeql-action to v4.35.4 ([#46](https://github.com/nsphung/mcp-snowflake-server/issues/46)) ([de7e825](https://github.com/nsphung/mcp-snowflake-server/commit/de7e82573f2190e043505fa4f2b537f4724ded4c))
+* **deps-dev:** bump ruff from 0.15.12 to 0.15.13 in the patch-updates group ([#51](https://github.com/nsphung/mcp-snowflake-server/issues/51)) ([8bf7891](https://github.com/nsphung/mcp-snowflake-server/commit/8bf78911b9ce2359d8e6fa0aec28e414edd05d89))
+* **deps-dev:** bump types-pyyaml from 6.0.12.20260508 to 6.0.12.20260510 ([#49](https://github.com/nsphung/mcp-snowflake-server/issues/49)) ([c0afb38](https://github.com/nsphung/mcp-snowflake-server/commit/c0afb387487534b8248c44fcd9f488d28792d3c7))
+* **deps:** bump codecov/codecov-action from 6.0.0 to 6.0.1 ([#53](https://github.com/nsphung/mcp-snowflake-server/issues/53)) ([1e13ab8](https://github.com/nsphung/mcp-snowflake-server/commit/1e13ab8148f34a2f0a8741ed11840df142420e12))
+* **deps:** bump github/codeql-action from 4.35.4 to 4.35.5 ([#54](https://github.com/nsphung/mcp-snowflake-server/issues/54)) ([a5fcf38](https://github.com/nsphung/mcp-snowflake-server/commit/a5fcf3897fde95bde9c9d72f211e03aed25cc325))
+* **deps:** bump idna from 3.10 to 3.15 ([#52](https://github.com/nsphung/mcp-snowflake-server/issues/52)) ([5cadb43](https://github.com/nsphung/mcp-snowflake-server/commit/5cadb436335e553ff2f187831a30e1d9ed7aa656))
+* **deps:** bump j178/prek-action from 2.0.3 to 2.0.4 ([#55](https://github.com/nsphung/mcp-snowflake-server/issues/55)) ([390911b](https://github.com/nsphung/mcp-snowflake-server/commit/390911bb6d82e2eb26f143b6b1c27f5ad77fc4e3))
+
+
+### 📚 Documentation
+
+* Add OpenSSF Best Practices badge to README ([9df554a](https://github.com/nsphung/mcp-snowflake-server/commit/9df554ae00ab4097939bad85e4e88cdcf9ca69d5))
+* Refactor badge layout in README.md ([#50](https://github.com/nsphung/mcp-snowflake-server/issues/50)) ([6fe77ca](https://github.com/nsphung/mcp-snowflake-server/commit/6fe77caac498afc2d0ce39bdb2a24c661c3a0598))
+
 ## [0.12.0](https://github.com/nsphung/mcp-snowflake-server/compare/v0.11.3...v0.12.0) (2026-05-13)
 
 
