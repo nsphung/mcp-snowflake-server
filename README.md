@@ -209,6 +209,8 @@ SNOWFLAKE_ROLE="MYROLE"
 
 ### Key-Pair
 
+Both RSA (RS256) and ECDSA (ES256, ES384, ES512) private keys are supported (requires `snowflake-connector-python` ≥ 4.5.0 for ECDSA).
+
 ```bash
 SNOWFLAKE_USER="user@example.com"
 SNOWFLAKE_ACCOUNT="myaccount"
@@ -500,7 +502,7 @@ All connection parameters can also be set as environment variables (`SNOWFLAKE_<
 | `--database`                   | `SNOWFLAKE_DATABASE`             | _(required)_ | Default database                                                                                   |
 | `--schema`                     | `SNOWFLAKE_SCHEMA`               | _(required)_ | Default schema                                                                                     |
 | `--role`                       | `SNOWFLAKE_ROLE`                 | —            | Role to assume                                                                                     |
-| `--private_key_file`           | `SNOWFLAKE_PRIVATE_KEY_FILE`     | —            | Absolute path to `.p8` private key file                                                            |
+| `--private_key_file`           | `SNOWFLAKE_PRIVATE_KEY_FILE`     | —            | Absolute path to RSA or ECDSA (ES256/384/512) private key file (`.p8` / `.pem`)                    |
 | `--private_key_file_pwd`       | `SNOWFLAKE_PRIVATE_KEY_FILE_PWD` | —            | Passphrase for encrypted private key                                                               |
 | `--connections-file`           | —                                | —            | Path to TOML connections file                                                                      |
 | `--connection-name`            | —                                | —            | Connection profile name in TOML file (required with `--connections-file`)                          |

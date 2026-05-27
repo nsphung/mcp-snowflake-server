@@ -1,4 +1,4 @@
-minimum_prek_version = "0.3.11"
+minimum_prek_version = "0.4.0"
 
 exclude = "^CHANGELOG\\.md$"
 
