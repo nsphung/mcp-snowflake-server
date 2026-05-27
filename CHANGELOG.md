@@ -1,5 +1,17 @@
 # Changelog
 
+## [0.13.0](https://github.com/nsphung/mcp-snowflake-server/compare/v0.12.1...v0.13.0) (2026-05-27)
+
+
+### ✨ Features
+
+* **skills:** add Snowflake integration testing workflow and sample queries ([#58](https://github.com/nsphung/mcp-snowflake-server/issues/58)) ([e38bed6](https://github.com/nsphung/mcp-snowflake-server/commit/e38bed66254e41476f92387d95890bd22b6c02be))
+
+
+### 📚 Documentation
+
+* Update README key support / force new prek version ([759e5e7](https://github.com/nsphung/mcp-snowflake-server/commit/759e5e71e1779abf6ab6878aa5e5f4f603aea44c))
+
 ## [0.12.1](https://github.com/nsphung/mcp-snowflake-server/compare/v0.12.0...v0.12.1) (2026-05-21)
 
 
