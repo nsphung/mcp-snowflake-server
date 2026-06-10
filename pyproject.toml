@@ -9,7 +9,7 @@ authors = [{ name = "nsphung", email = "nsphung@users.noreply.github.com" }]
 
 dependencies = [
   "mcp==1.27.2",
-  "snowflake-connector-python[pandas]==4.5.0",
+  "snowflake-connector-python[pandas]==4.6.0",
   "pandas>=2.3.3,<3.0.0", # python_version >= '3.13' / restriction from snowflake-connector-python[pandas]
   "python-dotenv==1.2.2",
   "sqlparse==0.5.5",
