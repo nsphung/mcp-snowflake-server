@@ -22,6 +22,11 @@ class SQLWriteDetector:
         # Combine all write keywords
         self.write_keywords = self.dml_write_keywords | self.ddl_keywords | self.dcl_keywords
 
+        # Keywords that trigger dynamic SQL execution; the actual payload lives in a
+        # string literal or runtime variable that the parser cannot inspect, so we
+        # treat their presence as a write operation (conservative / deny-by-default).
+        self.dynamic_execution_keywords = {"EXECUTE", "CALL"}
+
     def analyze_query(self, sql_query: str) -> dict:
         """
         Analyze a SQL query to determine if it contains write operations.
@@ -58,6 +63,12 @@ class SQLWriteDetector:
             operations = self._find_write_operations(statement)
             found_operations.update(operations)
 
+            # Detect dynamic execution commands (EXECUTE IMMEDIATE / EXECUTE TASK / CALL).
+            # These can hide arbitrary write SQL in string literals or runtime variables
+            # that the keyword scanner cannot inspect, so we block them unconditionally.
+            dynamic_ops = self._find_dynamic_execution(statement)
+            found_operations.update(dynamic_ops)
+
         return {
             "contains_write": bool(found_operations) or has_cte_write,
             "write_operations": found_operations,
@@ -81,6 +92,38 @@ class SQLWriteDetector:
                 if any(write_kw in token.normalized for write_kw in self.write_keywords):
                     return True
         return False
+
+    def _find_dynamic_execution(self, statement: TokenList) -> set[str]:
+        """
+        Detect dynamic-SQL execution commands (EXECUTE IMMEDIATE, EXECUTE TASK, CALL).
+
+        sqlparse hides the executed payload inside a string literal or a Name token
+        that is resolved only at runtime, so keyword-based scanning is insufficient.
+        This method flags the dynamic-execution command itself as a write operation.
+
+        Returns a set of labels such as {"EXECUTE IMMEDIATE"} or {"CALL"}.
+        """
+        operations: set[str] = set()
+        flat = list(statement.flatten())
+        i = 0
+        while i < len(flat):
+            token = flat[i]
+            if token.ttype is Keyword:
+                normalized = token.normalized.upper()
+                if normalized == "EXECUTE":
+                    # Look ahead past whitespace for a qualifier (IMMEDIATE / TASK).
+                    j = i + 1
+                    while j < len(flat) and flat[j].is_whitespace:
+                        j += 1
+                    if j < len(flat) and flat[j].normalized.upper() in ("IMMEDIATE", "TASK"):
+                        operations.add(f"EXECUTE {flat[j].normalized.upper()}")
+                        i = j + 1
+                        continue
+                    operations.add("EXECUTE")
+                elif normalized == "CALL":
+                    operations.add("CALL")
+            i += 1
+        return operations
 
     def _find_write_operations(self, statement: TokenList) -> set[str]:
         """

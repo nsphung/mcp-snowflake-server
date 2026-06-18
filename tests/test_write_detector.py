@@ -16,6 +16,61 @@ def test_select_not_write(detector: SQLWriteDetector) -> None:
     assert result["has_cte_write"] is False
 
 
+def test_execute_immediate_write(detector: SQLWriteDetector) -> None:
+    result = detector.analyze_query('EXECUTE IMMEDIATE "DROP TABLE my_important_table";')
+    assert result["contains_write"] is True
+    assert "EXECUTE IMMEDIATE" in result["write_operations"]
+
+
+def test_execute_with_variable_payload(detector: SQLWriteDetector) -> None:
+    """EXECUTE IMMEDIATE using a variable is still flagged"""
+    result = detector.analyze_query("SET @sql = 'DELETE'; EXECUTE IMMEDIATE @sql")
+    assert result["contains_write"] is True
+    assert "EXECUTE IMMEDIATE" in result["write_operations"]
+
+
+def test_execute_immediate_dollar_dollar(detector: SQLWriteDetector) -> None:
+    result = detector.analyze_query("EXECUTE IMMEDIATE $$INSERT INTO foo VALUES (1)$$")
+    assert result["contains_write"] is True
+    assert "EXECUTE IMMEDIATE" in result["write_operations"]
+
+
+def test_execute_immediate_case_insensitive(detector: SQLWriteDetector) -> None:
+    result = detector.analyze_query('execute immediate "DROP TABLE my_important_table";')
+    assert result["contains_write"] is True
+    assert "EXECUTE IMMEDIATE" in result["write_operations"]
+
+
+def test_execute_task_write(detector: SQLWriteDetector) -> None:
+    result = detector.analyze_query("EXECUTE TASK my_task")
+    assert result["contains_write"] is True
+    assert "EXECUTE TASK" in result["write_operations"]
+
+
+def test_execute_without_qualifier_immediate(detector: SQLWriteDetector) -> None:
+    """Test line 122: operations.add("EXECUTE") when EXECUTE has no IMMEDIATE/TASK qualifier"""
+    result = detector.analyze_query("EXECUTE @sql_variable")
+    assert result["contains_write"] is True
+    assert "EXECUTE" in result["write_operations"]
+
+
+def test_call_write(detector: SQLWriteDetector) -> None:
+    result = detector.analyze_query("CALL my_stored_procedure()")
+    assert result["contains_write"] is True
+    assert "CALL" in result["write_operations"]
+
+
+def test_call_case_insensitive(detector: SQLWriteDetector) -> None:
+    result = detector.analyze_query("call my_proc(1, 2)")
+    assert result["contains_write"] is True
+    assert "CALL" in result["write_operations"]
+
+
+def test_find_dynamic_execution_returns_empty_for_select(detector: SQLWriteDetector) -> None:
+    statement = sqlparse.parse("SELECT 1")[0]
+    assert detector._find_dynamic_execution(statement) == set()
+
+
 def test_empty_query(detector: SQLWriteDetector) -> None:
     result = detector.analyze_query("")
     assert result["contains_write"] is False
@@ -83,3 +138,9 @@ def test_analyze_query_adds_cte_write_when_helpers_report_it(
 def test_analyze_cte_returns_false_without_write(detector: SQLWriteDetector) -> None:
     statement = sqlparse.parse("WITH c AS (SELECT 1) SELECT * FROM c")[0]
     assert detector._analyze_cte(statement) is False
+
+
+def test_analyze_cte_returns_true_with_write(detector: SQLWriteDetector) -> None:
+    """Test line 93: _analyze_cte returns True when a write keyword is found in CTE"""
+    statement = sqlparse.parse("WITH DELETE AS (SELECT 1) SELECT * FROM c")[0]
+    assert detector._analyze_cte(statement) is True
