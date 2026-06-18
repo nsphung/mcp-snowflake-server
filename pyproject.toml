@@ -44,14 +44,16 @@ build-backend = "hatchling.build"
 # flagged by Dependabot without polluting the package's direct dependency list.
 [tool.uv]
 constraint-dependencies = [
-  "python-multipart>=0.0.27",
+  "python-multipart>=0.0.31",
   "urllib3>=2.7.0",
   "protobuf>=5.29.6",
-  "starlette>=0.49.1",
-  "PyJWT>=2.12.0",
+  "starlette>=1.3.1",
+  "PyJWT>=2.13.0",
   "requests>=2.33.0",
   "wheel>=0.46.2",
   "idna>=3.15",
+  "cryptography>=48.0.1",
+  "pyarrow>=23.0.1",
 ]
 
 [dependency-groups]
