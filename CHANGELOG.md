@@ -1,5 +1,37 @@
 # Changelog
 
+## [0.14.0](https://github.com/nsphung/mcp-snowflake-server/compare/v0.13.0...v0.14.0) (2026-06-18)
+
+
+### ✨ Features
+
+* **deps:** Sec Libs Update ([#85](https://github.com/nsphung/mcp-snowflake-server/issues/85)) ([dd04548](https://github.com/nsphung/mcp-snowflake-server/commit/dd04548bf2faa6acedc5b3672229540f8996b53d))
+* **security:** detect dynamic SQL execution (EXECUTE IMMEDIATE, ...) [#80](https://github.com/nsphung/mcp-snowflake-server/issues/80) ([#84](https://github.com/nsphung/mcp-snowflake-server/issues/84)) ([4121c83](https://github.com/nsphung/mcp-snowflake-server/commit/4121c83d34384fe45ea9fdd2694f3846844d0138))
+
+
+### 🧹 Miscellaneous
+
+* **deps-dev:** bump mypy from 1.20.2 to 2.0.0 ([#74](https://github.com/nsphung/mcp-snowflake-server/issues/74)) ([152fb26](https://github.com/nsphung/mcp-snowflake-server/commit/152fb2675b6a0ac5e10845348566049dcf82dfa8))
+* **deps-dev:** bump pytest-asyncio from 1.3.0 to 1.4.0 in the minor-updates group ([#71](https://github.com/nsphung/mcp-snowflake-server/issues/71)) ([166d8ca](https://github.com/nsphung/mcp-snowflake-server/commit/166d8ca9c8a52ad0c804e3c49c1cd522b7a5ea8d))
+* **deps-dev:** bump ruff from 0.15.16 to 0.15.17 in the patch-updates group ([#81](https://github.com/nsphung/mcp-snowflake-server/issues/81)) ([887cced](https://github.com/nsphung/mcp-snowflake-server/commit/887ccedf9e0055c344bdaa9ebed82c509bb82831))
+* **deps-dev:** bump the patch-updates group across 1 directory with 2 updates ([#75](https://github.com/nsphung/mcp-snowflake-server/issues/75)) ([2dcb0ad](https://github.com/nsphung/mcp-snowflake-server/commit/2dcb0ade11553c6f06b26d6361ac4228046212e0))
+* **deps-dev:** bump the patch-updates group with 2 updates ([#63](https://github.com/nsphung/mcp-snowflake-server/issues/63)) ([269aecc](https://github.com/nsphung/mcp-snowflake-server/commit/269aecc244ee4bd2be6366320847139375d9b32d))
+* **deps-dev:** bump the patch-updates group with 2 updates ([#66](https://github.com/nsphung/mcp-snowflake-server/issues/66)) ([cd25841](https://github.com/nsphung/mcp-snowflake-server/commit/cd2584178fc6dc3c3b7faca494e1db74b5160a70))
+* **deps-dev:** bump types-pyyaml from 6.0.12.20260510 to 6.0.12.20260518 ([#64](https://github.com/nsphung/mcp-snowflake-server/issues/64)) ([3006109](https://github.com/nsphung/mcp-snowflake-server/commit/30061096a5c7769cf55213948de83afcb071b0a7))
+* **deps:** bump actions/checkout from 6.0.2 to 6.0.3 ([#69](https://github.com/nsphung/mcp-snowflake-server/issues/69)) ([bfd05b7](https://github.com/nsphung/mcp-snowflake-server/commit/bfd05b70942a19ffdd59d62586a0360c793d5f35))
+* **deps:** bump astral-sh/setup-uv from 8.1.0 to 8.2.0 ([#68](https://github.com/nsphung/mcp-snowflake-server/issues/68)) ([2508462](https://github.com/nsphung/mcp-snowflake-server/commit/2508462e00cdeb5a013787260e8b0dafd7a675ef))
+* **deps:** bump codecov/codecov-action from 6.0.1 to 7.0.0 ([#77](https://github.com/nsphung/mcp-snowflake-server/issues/77)) ([68c1ea2](https://github.com/nsphung/mcp-snowflake-server/commit/68c1ea2f26dae8d9ab70481cafd4d7ec50e63b6d))
+* **deps:** bump docker/build-push-action from 7.1.0 to 7.2.0 ([#83](https://github.com/nsphung/mcp-snowflake-server/issues/83)) ([9bdcd7a](https://github.com/nsphung/mcp-snowflake-server/commit/9bdcd7a2f9194f2a0d18616bd4bce13084fd9e3a))
+* **deps:** bump docker/github-builder/.github/workflows/build.yml from 1.11.0 to 1.12.0 ([#82](https://github.com/nsphung/mcp-snowflake-server/issues/82)) ([de081e0](https://github.com/nsphung/mcp-snowflake-server/commit/de081e0d80747cc300193400da560f13976606e6))
+* **deps:** bump docker/github-builder/.github/workflows/build.yml from 1.8.0 to 1.9.0 ([#62](https://github.com/nsphung/mcp-snowflake-server/issues/62)) ([7a693c2](https://github.com/nsphung/mcp-snowflake-server/commit/7a693c28b04f8e7b1101da333ad02e6bc3b29dc3))
+* **deps:** bump docker/github-builder/.github/workflows/build.yml from 1.9.0 to 1.11.0 ([#78](https://github.com/nsphung/mcp-snowflake-server/issues/78)) ([87944b4](https://github.com/nsphung/mcp-snowflake-server/commit/87944b45e6e149c0188d43d0cad61f6a64621280))
+* **deps:** bump docker/login-action from 4.1.0 to 4.2.0 ([#67](https://github.com/nsphung/mcp-snowflake-server/issues/67)) ([571baae](https://github.com/nsphung/mcp-snowflake-server/commit/571baaeadbb65617aa931cb934f6038fb9736bb7))
+* **deps:** bump docker/setup-buildx-action from 4.0.0 to 4.1.0 ([#60](https://github.com/nsphung/mcp-snowflake-server/issues/60)) ([c82044a](https://github.com/nsphung/mcp-snowflake-server/commit/c82044aff914964fa9869c390c64c70feda50a00))
+* **deps:** bump github/codeql-action from 4.35.5 to 4.36.0 ([#61](https://github.com/nsphung/mcp-snowflake-server/issues/61)) ([2d2aa66](https://github.com/nsphung/mcp-snowflake-server/commit/2d2aa66e3536b3e460d592f7cf5bbb339a20dfd6))
+* **deps:** bump github/codeql-action from 4.36.0 to 4.36.2 ([#76](https://github.com/nsphung/mcp-snowflake-server/issues/76)) ([c808afd](https://github.com/nsphung/mcp-snowflake-server/commit/c808afd661dc6451c243de92a20bb14e8091856e))
+* **deps:** bump mcp from 1.27.1 to 1.27.2 in the patch-updates group across 1 directory ([#70](https://github.com/nsphung/mcp-snowflake-server/issues/70)) ([a167697](https://github.com/nsphung/mcp-snowflake-server/commit/a167697977aa8ba3508b21258ce34a18dab07bc9))
+* **deps:** bump the minor-updates group across 1 directory with 2 updates ([#79](https://github.com/nsphung/mcp-snowflake-server/issues/79)) ([45124fa](https://github.com/nsphung/mcp-snowflake-server/commit/45124fa23641928e3cc406997deb147da08238f0))
+
 ## [0.13.0](https://github.com/nsphung/mcp-snowflake-server/compare/v0.12.1...v0.13.0) (2026-05-27)
 
 
