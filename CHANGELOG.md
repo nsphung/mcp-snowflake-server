@@ -1,5 +1,28 @@
 # Changelog
 
+## [0.14.1](https://github.com/nsphung/mcp-snowflake-server/compare/v0.14.0...v0.14.1) (2026-07-24)
+
+
+### 🧹 Miscellaneous
+
+* **deps-dev:** bump prek from 0.4.4 to 0.4.5 in the patch-updates group ([#86](https://github.com/nsphung/mcp-snowflake-server/issues/86)) ([be96aba](https://github.com/nsphung/mcp-snowflake-server/commit/be96aba5cdfe2be70036e8515721b861707823a8))
+* **deps-dev:** bump pytest from 9.0.3 to 9.1.0 in the minor-updates group ([#88](https://github.com/nsphung/mcp-snowflake-server/issues/88)) ([c7c5565](https://github.com/nsphung/mcp-snowflake-server/commit/c7c5565051468ece15d2059874f4394e572a9dca))
+* **deps-dev:** bump the patch-updates group with 2 updates ([#89](https://github.com/nsphung/mcp-snowflake-server/issues/89)) ([b560d46](https://github.com/nsphung/mcp-snowflake-server/commit/b560d4600d0e43f3dc24db025184d1e5c1f3d890))
+* **deps:** bump actions/cache from 5.0.5 to 6.0.0 ([#91](https://github.com/nsphung/mcp-snowflake-server/issues/91)) ([532fd9e](https://github.com/nsphung/mcp-snowflake-server/commit/532fd9ef8f53181dcd458b24134c756c7d097ab5))
+* **deps:** bump actions/cache from 6.0.0 to 6.1.0 ([#94](https://github.com/nsphung/mcp-snowflake-server/issues/94)) ([966308d](https://github.com/nsphung/mcp-snowflake-server/commit/966308d2c06b7cae2e3ebf8539d8047144e1a670))
+* **deps:** bump actions/checkout from 6.0.3 to 7.0.0 ([#90](https://github.com/nsphung/mcp-snowflake-server/issues/90)) ([a671905](https://github.com/nsphung/mcp-snowflake-server/commit/a671905d703fe1ef817d17daf93fc484cb27029c))
+* **deps:** bump actions/checkout from 7.0.0 to 7.0.1 ([#104](https://github.com/nsphung/mcp-snowflake-server/issues/104)) ([aa078ae](https://github.com/nsphung/mcp-snowflake-server/commit/aa078ae5c2f9e5f075f03b758f5bc8e514aff734))
+* **deps:** bump docker/build-push-action from 7.2.0 to 7.3.0 ([#95](https://github.com/nsphung/mcp-snowflake-server/issues/95)) ([49c09f3](https://github.com/nsphung/mcp-snowflake-server/commit/49c09f3fb9e40f8e728a41cac1920d6cce332b04))
+* **deps:** bump docker/github-builder/.github/workflows/build.yml from 1.12.0 to 1.14.0 ([#98](https://github.com/nsphung/mcp-snowflake-server/issues/98)) ([cd03dc9](https://github.com/nsphung/mcp-snowflake-server/commit/cd03dc959be2d6647a0f7210835e39b42db309f9))
+* **deps:** bump docker/login-action from 4.2.0 to 4.4.0 ([#96](https://github.com/nsphung/mcp-snowflake-server/issues/96)) ([bbb5d76](https://github.com/nsphung/mcp-snowflake-server/commit/bbb5d765ef2483064d70ef4fc2205fde6f4f51fe))
+* **deps:** bump docker/setup-buildx-action from 4.1.0 to 4.2.0 ([#100](https://github.com/nsphung/mcp-snowflake-server/issues/100)) ([e8ee570](https://github.com/nsphung/mcp-snowflake-server/commit/e8ee570e76ca5eaa9e7415260284b79a16e5679e))
+* **deps:** bump github/codeql-action/upload-sarif from 4.36.2 to 4.37.0 ([#97](https://github.com/nsphung/mcp-snowflake-server/issues/97)) ([e19cd6c](https://github.com/nsphung/mcp-snowflake-server/commit/e19cd6caa447317984f166352d93a00c92d3dad4))
+* **deps:** bump github/codeql-action/upload-sarif from 4.37.0 to 4.37.3 ([#102](https://github.com/nsphung/mcp-snowflake-server/issues/102)) ([e31a2a7](https://github.com/nsphung/mcp-snowflake-server/commit/e31a2a7f745eed0dbe45ff6693fdaf2a91aa27cd))
+* **deps:** bump j178/prek-action from 2.0.4 to 2.0.5 ([#93](https://github.com/nsphung/mcp-snowflake-server/issues/93)) ([cd18f8e](https://github.com/nsphung/mcp-snowflake-server/commit/cd18f8e923aec165a9353fa68643270d7ea985b6))
+* **deps:** bump marocchino/sticky-pull-request-comment from 3.0.4 to 3.0.5 ([#99](https://github.com/nsphung/mcp-snowflake-server/issues/99)) ([ed903a9](https://github.com/nsphung/mcp-snowflake-server/commit/ed903a9c08f68c87215c600f7f961fd38d4b317c))
+* **deps:** bump pypa/gh-action-pypi-publish from 1.14.0 to 1.14.1 ([#103](https://github.com/nsphung/mcp-snowflake-server/issues/103)) ([ebb2429](https://github.com/nsphung/mcp-snowflake-server/commit/ebb24291fc447093d02b61c4afa1934e3913c01a))
+* **deps:** bump the minor-updates group across 1 directory with 3 updates ([#105](https://github.com/nsphung/mcp-snowflake-server/issues/105)) ([9c3b775](https://github.com/nsphung/mcp-snowflake-server/commit/9c3b77590f02b1ae5b1b98e878698dfb334e3436))
+
 ## [0.14.0](https://github.com/nsphung/mcp-snowflake-server/compare/v0.13.0...v0.14.0) (2026-06-18)
 
 
