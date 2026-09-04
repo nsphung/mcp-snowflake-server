@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.14.4](https://github.com/nsphung/mcp-snowflake-server/compare/v0.14.3...v0.14.4) (2026-09-04)
+
+
+### 🧹 Miscellaneous
+
+* **deps-dev:** bump types-pyyaml from 6.0.12.20260724 to 6.0.12.20260815 ([#120](https://github.com/nsphung/mcp-snowflake-server/issues/120)) ([e5596c5](https://github.com/nsphung/mcp-snowflake-server/commit/e5596c575072a4c0c41b6b445589e221677f8032))
+
 ## [0.14.3](https://github.com/nsphung/mcp-snowflake-server/compare/v0.14.2...v0.14.3) (2026-09-04)
 
 
