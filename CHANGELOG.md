@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.14.3](https://github.com/nsphung/mcp-snowflake-server/compare/v0.14.2...v0.14.3) (2026-09-04)
+
+
+### 🐛 Bug Fixes
+
+* **ci:** bump pypa/gh-action-pypi-publish to v1.14.2 for metadata v2.5 support ([#117](https://github.com/nsphung/mcp-snowflake-server/issues/117)) ([3eb84d3](https://github.com/nsphung/mcp-snowflake-server/commit/3eb84d36ced90c38f69caa15634733f29b3947d4))
+
 ## [0.14.2](https://github.com/nsphung/mcp-snowflake-server/compare/v0.14.1...v0.14.2) (2026-09-04)
 
 
