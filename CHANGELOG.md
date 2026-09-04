@@ -1,5 +1,22 @@
 # Changelog
 
+## [0.14.2](https://github.com/nsphung/mcp-snowflake-server/compare/v0.14.1...v0.14.2) (2026-09-04)
+
+
+### 🐛 Bug Fixes
+
+* **deps:** update security dependency constraints ([#116](https://github.com/nsphung/mcp-snowflake-server/issues/116)) ([dc965e3](https://github.com/nsphung/mcp-snowflake-server/commit/dc965e3950cb24c6be15fc3971db0b40911ca6b3))
+
+
+### 🧹 Miscellaneous
+
+* **deps-dev:** bump the patch-updates group with 2 updates ([#106](https://github.com/nsphung/mcp-snowflake-server/issues/106)) ([6835980](https://github.com/nsphung/mcp-snowflake-server/commit/6835980dc56e03f5004a7293649e6ef9dd7e8f57))
+* **deps-dev:** bump types-pyyaml from 6.0.12.20260518 to 6.0.12.20260724 ([#112](https://github.com/nsphung/mcp-snowflake-server/issues/112)) ([873a959](https://github.com/nsphung/mcp-snowflake-server/commit/873a95944b238e143eb4ec765f8610e4e1f71751))
+* **deps:** bump docker/login-action from 4.4.0 to 4.6.0 ([#110](https://github.com/nsphung/mcp-snowflake-server/issues/110)) ([3c74d4f](https://github.com/nsphung/mcp-snowflake-server/commit/3c74d4f61331de339489dcc4bf9ab1bc75e09396))
+* **deps:** bump j178/prek-action from 2.0.5 to 3.0.0 ([#109](https://github.com/nsphung/mcp-snowflake-server/issues/109)) ([f48a798](https://github.com/nsphung/mcp-snowflake-server/commit/f48a7989baf22f1f51eb34ad7b8d6dc37e761776))
+* **deps:** bump ossf/scorecard-action from 2.4.3 to 2.4.4 ([#108](https://github.com/nsphung/mcp-snowflake-server/issues/108)) ([cdf5ee8](https://github.com/nsphung/mcp-snowflake-server/commit/cdf5ee8b3eb38d2e46a39a39f71e5d47ceb1065c))
+* **deps:** bump the patch-updates group across 1 directory with 4 updates ([#115](https://github.com/nsphung/mcp-snowflake-server/issues/115)) ([85982ed](https://github.com/nsphung/mcp-snowflake-server/commit/85982ed52546949a7ab6df63ad2100ac7630d1f4))
+
 ## [0.14.1](https://github.com/nsphung/mcp-snowflake-server/compare/v0.14.0...v0.14.1) (2026-07-24)
 
 
