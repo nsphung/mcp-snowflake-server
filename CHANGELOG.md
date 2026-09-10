@@ -1,5 +1,15 @@
 # Changelog
 
+## [0.14.4](https://github.com/nsphung/mcp-snowflake-server/compare/v0.14.3...v0.14.4) (2026-09-10)
+
+
+### 🧹 Miscellaneous
+
+* **deps-dev:** bump types-pyyaml from 6.0.12.20260724 to 6.0.12.20260815 ([#120](https://github.com/nsphung/mcp-snowflake-server/issues/120)) ([e5596c5](https://github.com/nsphung/mcp-snowflake-server/commit/e5596c575072a4c0c41b6b445589e221677f8032))
+* **deps:** bump docker/github-builder/.github/workflows/build.yml from 1.14.0 to 1.17.0 ([#124](https://github.com/nsphung/mcp-snowflake-server/issues/124)) ([ab68ced](https://github.com/nsphung/mcp-snowflake-server/commit/ab68cedfeec0201e3bf2ff8ca811ef89f9983322))
+* **deps:** bump docker/setup-buildx-action from 4.2.0 to 4.3.0 ([#125](https://github.com/nsphung/mcp-snowflake-server/issues/125)) ([a977ff5](https://github.com/nsphung/mcp-snowflake-server/commit/a977ff55a4686d8512a1b96a832fa72b438dc07f))
+* **deps:** bump github/codeql-action/upload-sarif from 4.37.3 to 4.37.9 ([#123](https://github.com/nsphung/mcp-snowflake-server/issues/123)) ([ffddce3](https://github.com/nsphung/mcp-snowflake-server/commit/ffddce351b7aa8e3c48e7db309d5f0c81405ee0e))
+
 ## [0.14.3](https://github.com/nsphung/mcp-snowflake-server/compare/v0.14.2...v0.14.3) (2026-09-04)
 
 
