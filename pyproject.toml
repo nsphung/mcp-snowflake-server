@@ -55,6 +55,7 @@ constraint-dependencies = [
   "cryptography>=50.0.0",
   "pyarrow>=23.0.1",
   "setuptools>=83.0.0",
+  "anyio>=4.14.2",
 ]
 
 [dependency-groups]
