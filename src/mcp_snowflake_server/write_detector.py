@@ -85,11 +85,14 @@ class SQLWriteDetector:
         Returns True if any CTE contains a write operation.
         """
         in_cte = False
-        for token in statement.tokens:
+        for token in statement.flatten():
             if token.is_keyword and token.normalized == "WITH":
                 in_cte = True
             elif in_cte:
-                if any(write_kw in token.normalized for write_kw in self.write_keywords):
+                if (
+                    token.ttype in (Keyword, DML, DDL)
+                    and token.normalized.upper() in self.write_keywords
+                ):
                     return True
         return False
 

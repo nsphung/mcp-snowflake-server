@@ -103,13 +103,11 @@ def test_dcl_detected(detector: SQLWriteDetector, keyword: str) -> None:
     assert result["contains_write"] is True
 
 
-@pytest.mark.xfail(
-    reason="_analyze_cte does not recurse into sub-tokens; nested INSERT not detected"
-)
 def test_cte_write_detected(detector: SQLWriteDetector) -> None:
     result = detector.analyze_query("WITH x AS (INSERT INTO foo VALUES (1)) SELECT * FROM x")
     assert result["has_cte_write"] is True
     assert result["contains_write"] is True
+    assert result["write_operations"] == {"CTE_WRITE", "INSERT"}
 
 
 def test_case_insensitive(detector: SQLWriteDetector) -> None:
@@ -144,3 +142,27 @@ def test_analyze_cte_returns_true_with_write(detector: SQLWriteDetector) -> None
     """Test line 93: _analyze_cte returns True when a write keyword is found in CTE"""
     statement = sqlparse.parse("WITH DELETE AS (SELECT 1) SELECT * FROM c")[0]
     assert detector._analyze_cte(statement) is True
+
+
+@pytest.mark.parametrize(
+    "query",
+    [
+        "WITH dup AS (SELECT k FROM t), n AS (SELECT a FROM u WHERE DELETE_FLAG = 0) "
+        "SELECT COUNT(*) FROM n",
+        "WITH dup AS (SELECT k FROM t), n AS (SELECT REPLACE(a, 'b', 'c') AS v FROM u) "
+        "SELECT COUNT(*) FROM n",
+        "WITH x AS (SELECT a FROM t) SELECT 'CREATED' AS s FROM x",
+        "WITH x AS (SELECT a FROM t) SELECT CASE WHEN a IS NULL "
+        "THEN 'no row (or DELETE_FLAG)' ELSE 'ok' END AS f FROM x",
+        "WITH dup AS (SELECT k FROM t), n AS (SELECT UPPER(a) AS v FROM u) SELECT COUNT(*) FROM n",
+        "WITH n AS (SELECT REPLACE(a, 'b', 'c') AS v FROM t) SELECT * FROM n",
+    ],
+)
+def test_read_only_cte_does_not_match_write_substrings(
+    detector: SQLWriteDetector, query: str
+) -> None:
+    result = detector.analyze_query(query)
+
+    assert result["contains_write"] is False
+    assert result["has_cte_write"] is False
+    assert result["write_operations"] == set()
