@@ -1,5 +1,14 @@
 # Changelog
 
+## [0.14.5](https://github.com/nsphung/mcp-snowflake-server/compare/v0.14.4...v0.14.5) (2026-09-24)
+
+
+### 🧹 Miscellaneous
+
+* **deps:** bump codecov/codecov-action from 7.0.0 to 7.1.1 ([#131](https://github.com/nsphung/mcp-snowflake-server/issues/131)) ([580e201](https://github.com/nsphung/mcp-snowflake-server/commit/580e20136f2a0981fed119eed9206dd59cdaf5bf))
+* **deps:** bump docker/setup-buildx-action from 4.3.0 to 4.4.1 ([#130](https://github.com/nsphung/mcp-snowflake-server/issues/130)) ([eba1fa9](https://github.com/nsphung/mcp-snowflake-server/commit/eba1fa93d157adff63f7d2f7b91bc21e46a9dfa2))
+* **deps:** bump github/codeql-action/upload-sarif from 4.38.0 to 4.38.1 ([#129](https://github.com/nsphung/mcp-snowflake-server/issues/129)) ([d2971d3](https://github.com/nsphung/mcp-snowflake-server/commit/d2971d3fa6dc6b7e8ba0231369b345fdb3c11a02))
+
 ## [0.14.4](https://github.com/nsphung/mcp-snowflake-server/compare/v0.14.3...v0.14.4) (2026-09-24)
 
 
