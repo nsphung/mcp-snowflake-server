@@ -134,7 +134,7 @@ def test_main_uses_toml_precedence_and_runs_server(
     toml_file = tmp_path / "connections.toml"
     write_toml(
         toml_file,
-        '[dev]\ndatabase = "TOML_DB"\nschema = "TOML_SCHEMA"\nuser = "toml_user"\naccount = "toml_account"\nauthenticator = "externalbrowser"\n',
+        '[dev]\ndatabase = "TOML_DB"\nschema = "TOML_SCHEMA"\nuser = "toml_user"\naccount = "toml_account"\nauthenticator = "externalbrowser"\nocsp_fail_open = true\n',
     )
 
     monkeypatch.setenv("SNOWFLAKE_DATABASE", "ENV_DB")
@@ -170,6 +170,7 @@ def test_main_uses_toml_precedence_and_runs_server(
     assert connection_args["database"] == "TOML_DB"
     assert connection_args["schema"] == "TOML_SCHEMA"
     assert connection_args["user"] == "toml_user"
+    assert connection_args["ocsp_fail_open"] is True
 
 
 def test_main_missing_authenticator_defaults_to_snowflake(
@@ -202,6 +203,7 @@ def test_main_missing_authenticator_defaults_to_snowflake(
     connection_args = captured.get("connection_args")
     assert isinstance(connection_args, dict)
     assert connection_args.get("authenticator") == "snowflake"
+    assert connection_args["ocsp_fail_open"] is False
     assert any("authenticator" in record.message.lower() for record in caplog.records)
 
 
