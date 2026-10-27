@@ -8,8 +8,8 @@ requires-python = ">=3.13,<3.14"
 authors = [{ name = "nsphung", email = "nsphung@users.noreply.github.com" }]
 
 dependencies = [
-  "mcp==1.28.1",
-  "snowflake-connector-python[pandas]==4.7.2",
+  "mcp==1.30.0",
+  "snowflake-connector-python[pandas]==4.8.1",
   "pandas>=2.3.3,<3.0.0", # python_version >= '3.13' / restriction from snowflake-connector-python[pandas]
   "python-dotenv==1.2.3",
   "sqlparse==0.6.0",
@@ -45,17 +45,19 @@ build-backend = "hatchling.build"
 [tool.uv]
 constraint-dependencies = [
   "python-multipart>=0.0.31",
-  "urllib3>=2.7.0",
+  "urllib3>=2.8.0",
   "protobuf>=5.29.6",
   "starlette>=1.3.1",
-  "PyJWT>=2.13.0",
+  "PyJWT>=2.15.0",
   "requests>=2.33.0",
   "wheel>=0.46.2",
   "idna>=3.15",
   "cryptography>=50.0.0",
   "pyarrow>=23.0.1",
-  "setuptools>=83.0.0",
+  "setuptools>=84.1.0",
   "anyio>=4.14.2",
+  "certifi>=2026.10.23",
+  "filelock>=4.2.1",
 ]
 
 [dependency-groups]
