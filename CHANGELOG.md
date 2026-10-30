@@ -1,5 +1,22 @@
 # Changelog
 
+## [0.14.5](https://github.com/nsphung/mcp-snowflake-server/compare/v0.14.4...v0.14.5) (2026-10-30)
+
+
+### 🧹 Miscellaneous
+
+* **deps:** bump actions/download-artifact from 8.0.1 to 8.0.2 ([#144](https://github.com/nsphung/mcp-snowflake-server/issues/144)) ([d70010f](https://github.com/nsphung/mcp-snowflake-server/commit/d70010fb2f71be95bbccb52e066eb2fb0f2be776))
+* **deps:** bump actions/upload-artifact from 7.0.1 to 7.0.2 ([#147](https://github.com/nsphung/mcp-snowflake-server/issues/147)) ([31d2db2](https://github.com/nsphung/mcp-snowflake-server/commit/31d2db223248159ccdf44ef2da07314f8e506147))
+* **deps:** bump astral-sh/setup-uv from 10.1.0 to 10.2.0 ([#136](https://github.com/nsphung/mcp-snowflake-server/issues/136)) ([e036b22](https://github.com/nsphung/mcp-snowflake-server/commit/e036b22666f2c600de08fdb7f73cd8954d053da3))
+* **deps:** bump astral-sh/setup-uv from 10.2.0 to 10.3.0 ([#145](https://github.com/nsphung/mcp-snowflake-server/issues/145)) ([72f4b25](https://github.com/nsphung/mcp-snowflake-server/commit/72f4b252e447a0b2a9455275d1a2bfb7a7dd2612))
+* **deps:** bump codecov/codecov-action from 7.0.0 to 7.1.1 ([#131](https://github.com/nsphung/mcp-snowflake-server/issues/131)) ([580e201](https://github.com/nsphung/mcp-snowflake-server/commit/580e20136f2a0981fed119eed9206dd59cdaf5bf))
+* **deps:** bump docker/build-push-action from 7.3.0 to 7.4.0 ([#135](https://github.com/nsphung/mcp-snowflake-server/issues/135)) ([1d94393](https://github.com/nsphung/mcp-snowflake-server/commit/1d943931143345ef014ce23f54b4d66b92035f77))
+* **deps:** bump docker/setup-buildx-action from 4.3.0 to 4.4.1 ([#130](https://github.com/nsphung/mcp-snowflake-server/issues/130)) ([eba1fa9](https://github.com/nsphung/mcp-snowflake-server/commit/eba1fa93d157adff63f7d2f7b91bc21e46a9dfa2))
+* **deps:** bump github/codeql-action/upload-sarif from 4.38.0 to 4.38.1 ([#129](https://github.com/nsphung/mcp-snowflake-server/issues/129)) ([d2971d3](https://github.com/nsphung/mcp-snowflake-server/commit/d2971d3fa6dc6b7e8ba0231369b345fdb3c11a02))
+* **deps:** bump github/codeql-action/upload-sarif from 4.38.1 to 4.38.2 ([#134](https://github.com/nsphung/mcp-snowflake-server/issues/134)) ([10fccad](https://github.com/nsphung/mcp-snowflake-server/commit/10fccad5fa915f3e1263492a19f24bb8c8c79f5e))
+* **deps:** bump ossf/scorecard-action from 2.4.4 to 2.5.0 ([#143](https://github.com/nsphung/mcp-snowflake-server/issues/143)) ([d8ba5f6](https://github.com/nsphung/mcp-snowflake-server/commit/d8ba5f6c8733b915a8e6eceae5e5283b418fe84d))
+* **deps:** Upgrade MCP and Snowflake connector ([#146](https://github.com/nsphung/mcp-snowflake-server/issues/146)) ([7472c70](https://github.com/nsphung/mcp-snowflake-server/commit/7472c70a90bc0244cb6172147566b6633a4a70d2))
+
 ## [0.14.4](https://github.com/nsphung/mcp-snowflake-server/compare/v0.14.3...v0.14.4) (2026-09-24)
 
 
