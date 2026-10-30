@@ -296,6 +296,8 @@ def main() -> None:
         # Use traditional configuration method
         connection_args = {**connection_args_from_env, **connection_args}
 
+    connection_args.setdefault("ocsp_fail_open", False)
+
     _validate_connection_args(connection_args)
 
     logger.info(
