@@ -173,7 +173,7 @@ jobs:
         run: echo "Docker publish approved by maintainer"
 
   publish-docker-image:
-    uses: docker/github-builder/.github/workflows/build.yml@58cb9f5b71b1836d6f690c1e95effdeb9b98cb8a # v1.17.0
+    uses: docker/github-builder/.github/workflows/build.yml@a31d2311da4d55e21b978c1c52bab82ba97d51ee # v1.19.0
     needs:
       - approve-docker
       - release-build
