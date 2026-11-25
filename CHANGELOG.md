@@ -1,5 +1,16 @@
 # Changelog
 
+## [0.14.6](https://github.com/nsphung/mcp-snowflake-server/compare/v0.14.5...v0.14.6) (2026-11-25)
+
+
+### 🧹 Miscellaneous
+
+* **deps:** bump amannn/action-semantic-pull-request from 6.1.1 to 6.1.2 ([#158](https://github.com/nsphung/mcp-snowflake-server/issues/158)) ([8094aff](https://github.com/nsphung/mcp-snowflake-server/commit/8094aff25f144d438a3b00709ebfd0530f7e8f4c))
+* **deps:** bump astral-sh/setup-uv from 10.3.0 to 10.3.3 ([#157](https://github.com/nsphung/mcp-snowflake-server/issues/157)) ([56e1ef8](https://github.com/nsphung/mcp-snowflake-server/commit/56e1ef8b7c6332e19f75c7bd326df62154d02c8e))
+* **deps:** bump docker/github-builder/.github/workflows/build.yml from 1.17.0 to 1.19.0 ([#156](https://github.com/nsphung/mcp-snowflake-server/issues/156)) ([d4f294e](https://github.com/nsphung/mcp-snowflake-server/commit/d4f294ea039f12c487d58c05816781b825d87a6f))
+* **deps:** bump j178/prek-action from 3.1.0 to 3.1.1 ([#163](https://github.com/nsphung/mcp-snowflake-server/issues/163)) ([9cf70ec](https://github.com/nsphung/mcp-snowflake-server/commit/9cf70ecef8c016413ef4e765259bbdd9d4d94164))
+* **deps:** bump ossf/scorecard-action from 2.5.0 to 2.6.0 ([#162](https://github.com/nsphung/mcp-snowflake-server/issues/162)) ([5c69b5d](https://github.com/nsphung/mcp-snowflake-server/commit/5c69b5da6ef07b9e80751c19a9852bc15d6860b8))
+
 ## [0.14.5](https://github.com/nsphung/mcp-snowflake-server/compare/v0.14.4...v0.14.5) (2026-11-11)
 
 
